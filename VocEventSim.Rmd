@@ -17,24 +17,24 @@ rthresh = 1
 #rthresh = 5
 ```
 
-## Simulate 5 minutes of infant vocal events
+<!-- ## Simulate 5 minutes of infant vocal events -->
 
-The approach is inspired by this paper: https://doi.org/10.1080/15427951.2004.10129088
+<!-- The approach is inspired by this paper: https://doi.org/10.1080/15427951.2004.10129088 -->
 
-Sampling from a binomial distribution where probability of vocalizing is multiplied at each 1 s time step by a random lognormal value (mu = 0.02 and sigma = 0.2), with an enforcement that the probability of vocalizing should stay between .002 and .2:
+<!-- Sampling from a binomial distribution where probability of vocalizing is multiplied at each 1 s time step by a random lognormal value (mu = 0.02 and sigma = 0.2), with an enforcement that the probability of vocalizing should stay between .002 and .2: -->
 
-```{r}
-sim_length = 5*60 # in 1-second time steps
-p_voc = .02
-voc_record = c()
-for (t in 1:sim_length){
-  voc_event = rbinom(1,1,p_voc)
-  voc_record = c(voc_record,voc_event)
-  p_voc_multiplier = rlnorm(1,meanlog = .02,sdlog = .2)
-  p_voc = max(.002,min(.2,p_voc_multiplier * p_voc))
-}
-print(voc_record)
-```
+<!-- ```{r} -->
+<!-- sim_length = 5*60 # in 1-second time steps -->
+<!-- p_voc = .02 -->
+<!-- voc_record = c() -->
+<!-- for (t in 1:sim_length){ -->
+<!--   voc_event = rbinom(1,1,p_voc) -->
+<!--   voc_record = c(voc_record,voc_event) -->
+<!--   p_voc_multiplier = rlnorm(1,meanlog = .02,sdlog = .2) -->
+<!--   p_voc = max(.002,min(.2,p_voc_multiplier * p_voc)) -->
+<!-- } -->
+<!-- print(voc_record) -->
+<!-- ``` -->
 
 ## Simulate 10 hr of infant vocalizations, with contingent adult vocal events also in the simulation
 
