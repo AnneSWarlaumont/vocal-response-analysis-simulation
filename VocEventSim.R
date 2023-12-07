@@ -120,7 +120,7 @@ for (a1_respsensitivity in c(1,100)){
   simIDs=c()
   previvi_resids = c()
   
-  for (i in 1:10){
+  for (i in 1:30){
     
     simID = simID+1
     voc_records = two_agent_vocal_sim(sim_length,.02,.02,.02,.02,.2,.2,.002,.002,.2,.2,1,a2_othersensitivity,a1_respsensitivity,1,rthresh)
@@ -154,5 +154,15 @@ for (a1_respsensitivity in c(1,100)){
   print(summary(a1_residual_response_model))
   
 }
+
+# To-do:
+# * Write the simulation data and records, or a subset of it, to a data frame to help to check that this code is computing everything as expected. I haven't done any substantive checking yet for accuracy.
+# * Decouple computing response for increase in a1's voc probability from computing response for analysis purposes
+# * Then test the effects of analyzing the data with different time windows, assuming different infant response sensitivities
+# * Test how the analysis works when the infant is sensitive to any vocalization from the adult, not just to contingent responses
+# * Test how the analysis works when the adult is also sensitive to contingent responses
+# * Develop an analysis method that can differentiate sensitivity to contingent response from sensitivity to other vocalization regardless of contingency
+# * Try using a more flexible prediction of next vocalization onset, e.g. using reservoir computing for time/event series prediction
+# * Run the simulation with random selection of vocalizer parameter values
 
 
