@@ -1,3 +1,5 @@
+# Anne S. Warlaumont
+
 library(lme4)
 library(lmerTest)
 
