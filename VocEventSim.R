@@ -111,7 +111,7 @@ sim_length = 10*60*60
 rthresh = 1
 a2_othersensitivity = 100
 
-for (a1_respsensitivity in c(1,100)){
+for (a1_respsensitivity in 1){ #c(1,100)){
   
   print(paste("infant response sensitivity (1 is completely insensitive); higher values indicate higher degrees of sensitivity:",
               a1_respsensitivity))
@@ -122,7 +122,7 @@ for (a1_respsensitivity in c(1,100)){
   simIDs=c()
   previvi_resids = c()
   
-  for (i in 1:30){
+  for (i in 1){ #1:30){
     
     simID = simID+1
     voc_records = two_agent_vocal_sim(sim_length,.02,.02,.02,.02,.2,.2,.002,.002,.2,.2,1,a2_othersensitivity,a1_respsensitivity,1,rthresh)
@@ -156,6 +156,9 @@ for (a1_respsensitivity in c(1,100)){
   print(summary(a1_residual_response_model))
   
 }
+
+View(data.frame(a1_voc_record,a2_voc_record,c(a2toa1_r_record,NA)))
+View(data.frame(a1_ivi_record,a1_ivi_response_record,c(NA,previvi_resid)))
 
 # To-do:
 # * Write the simulation data and records, or a subset of it, to a data frame to help to check that this code is computing everything as expected. I haven't done any substantive checking yet for accuracy.
