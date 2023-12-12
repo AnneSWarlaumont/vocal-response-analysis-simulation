@@ -109,9 +109,11 @@ analyze_ivis <- function(ivi_records,ivi_response_records,previvi_resids,simIDs)
 
 sim_length = 10*60*60
 rthresh = 1
+a1_othersensitivity = 1
 a2_othersensitivity = 100
+a2_respsensitivity = 1
 
-for (a1_respsensitivity in 1){ #c(1,100)){
+for (a1_respsensitivity in c(1,100)){
   
   print(paste("infant response sensitivity (1 is completely insensitive); higher values indicate higher degrees of sensitivity:",
               a1_respsensitivity))
@@ -122,10 +124,20 @@ for (a1_respsensitivity in 1){ #c(1,100)){
   simIDs=c()
   previvi_resids = c()
   
-  for (i in 1){ #1:30){
+  for (i in 1:30){
     
     simID = simID+1
-    voc_records = two_agent_vocal_sim(sim_length,.02,.02,.02,.02,.2,.2,.002,.002,.2,.2,1,a2_othersensitivity,a1_respsensitivity,1,rthresh)
+    a1_p_voc = runif(1,min=.001,max=.1) #.02
+    a2_p_voc = runif(1,min=.001,max=.1) #.02
+    a1_meanlog = runif(1,min=.001,max=.1) #.02
+    a2_meanlog = runif(1,min=.001,max=.1) #.02
+    a1_sdlog = runif(1,.01,1) #.2
+    a2_sdlog = runif(1,.01,1) #.2
+    a1_minp = runif(1,.0001,.01) #.002
+    a2_minp = runif(1,.0001,.01) #.002
+    a1_maxp = runif(1,.01,1) #.2
+    a2_maxp = runif(1,.01,1) #.2
+    voc_records = two_agent_vocal_sim(sim_length,a1_p_voc,a2_p_voc,a1_meanlog,a2_meanlog,a1_sdlog,a2_sdlog,a1_minp,a2_minp,a1_maxp,a2_maxp,a1_othersensitivity,a2_othersensitivity,a1_respsensitivity,a2_respsensitivity,rthresh)
     a1_voc_record = voc_records[[1]]
     a2_voc_record = voc_records[[2]]
     a2toa1_r_record = voc_records[[3]]
