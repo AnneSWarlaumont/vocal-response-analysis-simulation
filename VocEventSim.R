@@ -94,12 +94,12 @@ get_ivis_and_responses <- function(a1_voc_record,a2_voc_record,rthresh,a2toa1_r_
 analyze_ivis <- function(ivi_records,ivi_response_records,previvi_resids,simIDs){
   
   # Compare IVI with vs. without response, without controlling for previous IVI
-  #uncontrolled_response_model = lmer(scale(log(ivi_records))~ivi_response_records+(ivi_response_records|simIDs))
-  uncontrolled_response_model = lm(scale(log(ivi_records))~ivi_response_records)
+  uncontrolled_response_model = lmer(scale(log(ivi_records))~ivi_response_records+(ivi_response_records|simIDs))
+  #uncontrolled_response_model = lm(scale(log(ivi_records))~ivi_response_records)
   
   # Compare with vs. without response residuals of the correlation between current IVI and previous IVI
-  #residual_response_model = lmer(scale(previvi_resids)~ivi_response_records+(ivi_response_records|simIDs))
-  residual_response_model = lm(scale(previvi_resids)~ivi_response_records)
+  residual_response_model = lmer(scale(previvi_resids)~ivi_response_records+(ivi_response_records|simIDs))
+  #residual_response_model = lm(scale(previvi_resids)~ivi_response_records)
   
   return(list(uncontrolled_response_model,residual_response_model,previvi_model))
   
@@ -171,6 +171,7 @@ for (a1_respsensitivity in c(1,100)){
 
 View(data.frame(a1_voc_record,a2_voc_record,c(a2toa1_r_record,NA)))
 View(data.frame(a1_ivi_record,a1_ivi_response_record,c(NA,previvi_resid)))
+hist(a1_ivi_record)
 
 # To-do:
 # * Write the simulation data and records, or a subset of it, to a data frame to help to check that this code is computing everything as expected. I haven't done any substantive checking yet for accuracy.
