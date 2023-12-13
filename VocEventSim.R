@@ -113,60 +113,74 @@ a1_othersensitivity = 1
 a2_othersensitivity = 100
 a2_respsensitivity = 1
 
-for (a1_respsensitivity in c(1,100)){
-  
-  print(paste("infant response sensitivity (1 is completely insensitive); higher values indicate higher degrees of sensitivity:",
-              a1_respsensitivity))
-  
-  simID = 0
-  a1_ivi_records = c()
-  a1_ivi_response_records = c()
-  simIDs=c()
-  previvi_resids = c()
-  
-  for (i in 1:30){
-    
-    simID = simID+1
-    a1_p_voc = runif(1,min=.001,max=.1) #.02
-    a2_p_voc = runif(1,min=.001,max=.1) #.02
-    a1_meanlog = runif(1,min=.001,max=.1) #.02
-    a2_meanlog = runif(1,min=.001,max=.1) #.02
-    a1_sdlog = runif(1,.01,1) #.2
-    a2_sdlog = runif(1,.01,1) #.2
-    a1_minp = runif(1,.0001,.01) #.002
-    a2_minp = runif(1,.0001,.01) #.002
-    a1_maxp = runif(1,.01,1) #.2
-    a2_maxp = runif(1,.01,1) #.2
-    voc_records = two_agent_vocal_sim(sim_length,a1_p_voc,a2_p_voc,a1_meanlog,a2_meanlog,a1_sdlog,a2_sdlog,a1_minp,a2_minp,a1_maxp,a2_maxp,a1_othersensitivity,a2_othersensitivity,a1_respsensitivity,a2_respsensitivity,rthresh)
-    a1_voc_record = voc_records[[1]]
-    a2_voc_record = voc_records[[2]]
-    a2toa1_r_record = voc_records[[3]]
-    
-    ivi_records = get_ivis_and_responses(a1_voc_record,a2_voc_record,rthresh,a2toa1_r_record)
-    
-    a1_ivi_record = ivi_records[[1]]
-    n_ivi = length(a1_ivi_record)
-    a1_ivi_records = c(a1_ivi_records,a1_ivi_record[1:(n_ivi-1)])
-    
-    # Correlate current IVI with previous IVI and get the residuals of that correlation
-    previvi_model = lm(scale(log(a1_ivi_record[2:n_ivi]))~scale(log(a1_ivi_record[1:(n_ivi-1)])))
-    previvi_resid = resid(previvi_model)
-    previvi_resids = c(previvi_resids,previvi_resid[1:(n_ivi-1)])
-    
-    a1_ivi_response_record = ivi_records[[2]]
-    a1_ivi_response_records = c(a1_ivi_response_records,a1_ivi_response_record[2:length(a1_ivi_response_record)])
-    
-    simIDs = c(simIDs,rep(simID,n_ivi-1))
-    
+for (a2_othersensitivity in c(1,100)){
+  for (a2_respsensitivity in c(1,100)){
+    for (a1_othersensitivity in c(1,100)){
+      for (a1_respsensitivity in c(1,100)){
+        
+        print("Agent parameters:")
+        print(paste("agent 1 (i.e. infant) other sensitivity:",
+                    a1_othersensitivity))
+        print(paste("agent 1 response sensitivity:",
+                    a1_respsensitivity))
+        print(paste("agent 2 (i.e. adult) other sensitivity:",
+                    a2_othersensitivity))
+        print(paste("agent 2 response sensitivity:",
+                    a2_respsensitivity))
+        print("* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity.")
+          
+        simID = 0
+        a1_ivi_records = c()
+        a1_ivi_response_records = c()
+        simIDs=c()
+        previvi_resids = c()
+        
+        for (i in 1:30){
+          
+          simID = simID+1
+          a1_p_voc = runif(1,min=.001,max=.1) #.02
+          a2_p_voc = runif(1,min=.001,max=.1) #.02
+          a1_meanlog = runif(1,min=.001,max=.1) #.02
+          a2_meanlog = runif(1,min=.001,max=.1) #.02
+          a1_sdlog = runif(1,.01,1) #.2
+          a2_sdlog = runif(1,.01,1) #.2
+          a1_minp = runif(1,.0001,.01) #.002
+          a2_minp = runif(1,.0001,.01) #.002
+          a1_maxp = runif(1,.01,1) #.2
+          a2_maxp = runif(1,.01,1) #.2
+          voc_records = two_agent_vocal_sim(sim_length,a1_p_voc,a2_p_voc,a1_meanlog,a2_meanlog,a1_sdlog,a2_sdlog,a1_minp,a2_minp,a1_maxp,a2_maxp,a1_othersensitivity,a2_othersensitivity,a1_respsensitivity,a2_respsensitivity,rthresh)
+          a1_voc_record = voc_records[[1]]
+          a2_voc_record = voc_records[[2]]
+          a2toa1_r_record = voc_records[[3]]
+          
+          ivi_records = get_ivis_and_responses(a1_voc_record,a2_voc_record,rthresh,a2toa1_r_record)
+          
+          a1_ivi_record = ivi_records[[1]]
+          n_ivi = length(a1_ivi_record)
+          a1_ivi_records = c(a1_ivi_records,a1_ivi_record[1:(n_ivi-1)])
+          
+          # Correlate current IVI with previous IVI and get the residuals of that correlation
+          previvi_model = lm(scale(log(a1_ivi_record[2:n_ivi]))~scale(log(a1_ivi_record[1:(n_ivi-1)])))
+          previvi_resid = resid(previvi_model)
+          previvi_resids = c(previvi_resids,previvi_resid[1:(n_ivi-1)])
+          
+          a1_ivi_response_record = ivi_records[[2]]
+          a1_ivi_response_records = c(a1_ivi_response_records,a1_ivi_response_record[2:length(a1_ivi_response_record)])
+          
+          simIDs = c(simIDs,rep(simID,n_ivi-1))
+          
+        }
+        
+        ivi_models = analyze_ivis(a1_ivi_records,a1_ivi_response_records,previvi_resids,simIDs)
+        a1_uncontrolled_response_model = ivi_models[[1]]
+        a1_residual_response_model = ivi_models[[2]]
+        a1_previvi_model = ivi_models[[3]]
+        print(summary(a1_uncontrolled_response_model))
+        print(summary(a1_residual_response_model))
+        
+      }
+    }
   }
-  
-  ivi_models = analyze_ivis(a1_ivi_records,a1_ivi_response_records,previvi_resids,simIDs)
-  a1_uncontrolled_response_model = ivi_models[[1]]
-  a1_residual_response_model = ivi_models[[2]]
-  a1_previvi_model = ivi_models[[3]]
-  print(summary(a1_uncontrolled_response_model))
-  print(summary(a1_residual_response_model))
-  
 }
 
 View(data.frame(a1_voc_record,a2_voc_record,c(a2toa1_r_record,NA)))
@@ -174,13 +188,10 @@ View(data.frame(a1_ivi_record,a1_ivi_response_record,c(NA,previvi_resid)))
 hist(a1_ivi_record)
 
 # To-do:
+# * Figure out why there are sometimes significant negative slopes for ivi_response_records when previous IVI is controlled for but when a1 (the infant) is not actually sensitive to a2 (adult) responses.
 # * Write the simulation data and records, or a subset of it, to a data frame to help to check that this code is computing everything as expected. I haven't done any substantive checking yet for accuracy.
 # * Decouple computing response for increase in a1's voc probability from computing response for analysis purposes
 # * Then test the effects of analyzing the data with different time windows, assuming different infant response sensitivities
-# * Test how the analysis works when the infant is sensitive to any vocalization from the adult, not just to contingent responses
-# * Test how the analysis works when the adult is also sensitive to contingent responses
-# * Develop an analysis method that can differentiate sensitivity to contingent response from sensitivity to other vocalization regardless of contingency
+# * Develop an analysis method that can identify sensitivity to other vocalization regardless of contingency
 # * Try using a more flexible prediction of next vocalization onset, e.g. using reservoir computing for time/event series prediction
-# * Run the simulation with random selection of vocalizer parameter values
-
 
