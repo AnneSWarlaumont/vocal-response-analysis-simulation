@@ -188,7 +188,7 @@ View(data.frame(a1_ivi_record,a1_ivi_response_record,c(NA,previvi_resid)))
 hist(a1_ivi_record)
 
 # To-do:
-# * Figure out why there are sometimes significant negative slopes for ivi_response_records when previous IVI is controlled for but when a1 (the infant) is not actually sensitive to a2 (adult) responses.
+# * Figure out why there are not spurious significant effects where with-response IVIs are smaller than without-response IVIs when not controlling for previous IVI. Perhaps the response window needs to be longer or other parameters need to be different for this to show up?
 # * Write the simulation data and records, or a subset of it, to a data frame to help to check that this code is computing everything as expected. I haven't done any substantive checking yet for accuracy.
 # * Decouple computing response for increase in a1's voc probability from computing response for analysis purposes
 # * Then test the effects of analyzing the data with different time windows, assuming different infant response sensitivities
