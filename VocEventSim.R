@@ -109,9 +109,6 @@ analyze_ivis <- function(ivi_records,ivi_response_records,previvi_resids,simIDs)
 
 sim_length = 10*60*60
 rthresh = 1
-a1_othersensitivity = 1
-a2_othersensitivity = 100
-a2_respsensitivity = 1
 
 for (a2_othersensitivity in c(1,100)){
   for (a2_respsensitivity in c(1,100)){
@@ -186,6 +183,10 @@ for (a2_othersensitivity in c(1,100)){
 View(data.frame(a1_voc_record,a2_voc_record,c(a2toa1_r_record,NA)))
 View(data.frame(a1_ivi_record,a1_ivi_response_record,c(NA,previvi_resid)))
 hist(a1_ivi_record)
+
+# Run a simulation designed to make infant very bursty and not at all affected by adult and to make adult much more likely to respond when an infant makes multiple vocalizations within a burst
+# I think it is possible the reason we're not getting a spurious result of significantly negative response effect when adult is sensitive to infant but infant is not sensitive to adult could be because our adult sensitivity drops off too quickly over time, i.e. is not adding up over multiple successive infant vocalizations to a sufficient extent that adult vocalizations are actually more likely within vs. outside of bursts.
+
 
 # To-do:
 # * Figure out why there are not spurious significant effects where with-response IVIs are smaller than without-response IVIs when not controlling for previous IVI. Perhaps the response window needs to be longer or other parameters need to be different for this to show up?
