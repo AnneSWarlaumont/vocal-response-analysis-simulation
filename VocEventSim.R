@@ -21,7 +21,7 @@ two_agent_vocal_sim <- function(sim_length,a1_p_voc,a2_p_voc,a1_meanlog,a2_meanl
     a1_voc_event = rbinom(1,1,a1_p_voc)
     a1_voc_record = c(a1_voc_record,a1_voc_event)
     
-    # Determine whether a2 vocalizes at time t, or if a2 cannot vocalize because a1 is vocalizing, increase a2's probability of vcalizing next time
+    # Determine whether a2 vocalizes at time t, or if a2 cannot vocalize because a1 is vocalizing, increase a2's probability of vocalizing next time
     if(a1_voc_event==1){
       a2_p_voc = max(a2_minp,min(a2_maxp,a2_p_voc*a2_othersensitivity))
       a2_voc_event = 0
@@ -94,12 +94,12 @@ get_ivis_and_responses <- function(a1_voc_record,a2_voc_record,rthresh,a2toa1_r_
 analyze_ivis <- function(ivi_records,ivi_response_records,previvi_resids,simIDs){
   
   # Compare IVI with vs. without response, without controlling for previous IVI
-  uncontrolled_response_model = lmer(scale(log(ivi_records))~ivi_response_records+(ivi_response_records|simIDs))
-  #uncontrolled_response_model = lm(scale(log(ivi_records))~ivi_response_records)
+  #uncontrolled_response_model = lmer(scale(log(ivi_records))~ivi_response_records+(ivi_response_records|simIDs))
+  uncontrolled_response_model = lm(scale(log(ivi_records))~ivi_response_records)
   
   # Compare with vs. without response residuals of the correlation between current IVI and previous IVI
-  residual_response_model = lmer(scale(previvi_resids)~ivi_response_records+(ivi_response_records|simIDs))
-  #residual_response_model = lm(scale(previvi_resids)~ivi_response_records)
+  #residual_response_model = lmer(scale(previvi_resids)~ivi_response_records+(ivi_response_records|simIDs))
+  residual_response_model = lm(scale(previvi_resids)~ivi_response_records)
   
   return(list(uncontrolled_response_model,residual_response_model,previvi_model))
   
@@ -108,12 +108,12 @@ analyze_ivis <- function(ivi_records,ivi_response_records,previvi_resids,simIDs)
 # Run simulations and analyze data:
 
 sim_length = 10*60*60
-rthresh = 1
+rthresh = 5 #1
 
-for (a2_othersensitivity in c(1,100)){
-  for (a2_respsensitivity in c(1,100)){
-    for (a1_othersensitivity in c(1,100)){
-      for (a1_respsensitivity in c(1,100)){
+for (a2_othersensitivity in 100){ #c(1,100)){
+  for (a2_respsensitivity in 1){ #c(1,100)){
+    for (a1_othersensitivity in 1){ #c(1,100)){
+      for (a1_respsensitivity in c(1,100)){ #1){
         
         print("Agent parameters:")
         print(paste("agent 1 (i.e. infant) other sensitivity:",
@@ -132,19 +132,21 @@ for (a2_othersensitivity in c(1,100)){
         simIDs=c()
         previvi_resids = c()
         
-        for (i in 1:30){
+        for (i in 1:30){ #1){
           
           simID = simID+1
-          a1_p_voc = runif(1,min=.001,max=.1) #.02
-          a2_p_voc = runif(1,min=.001,max=.1) #.02
-          a1_meanlog = runif(1,min=.001,max=.1) #.02
-          a2_meanlog = runif(1,min=.001,max=.1) #.02
-          a1_sdlog = runif(1,.01,1) #.2
-          a2_sdlog = runif(1,.01,1) #.2
-          a1_minp = runif(1,.0001,.01) #.002
-          a2_minp = runif(1,.0001,.01) #.002
-          a1_maxp = runif(1,.01,1) #.2
-          a2_maxp = runif(1,.01,1) #.2
+          
+          a1_meanlog = 0
+          a2_meanlog = 0
+          a1_sdlog = .1 #runif(1,.01,.5)
+          a2_sdlog = .1 #runif(1,.01,.5)
+          a1_minp = .1 #runif(1,.01,.1)
+          a2_minp = .1 #runif(1,.01,.1)
+          a1_maxp = .5 #runif(1,.25,1)
+          a2_maxp = .5 #runif(1,.25,1)
+          a1_p_voc = runif(1,min=a1_minp,max=a1_maxp)
+          a2_p_voc = runif(1,min=a2_minp,max=a2_maxp)
+          
           voc_records = two_agent_vocal_sim(sim_length,a1_p_voc,a2_p_voc,a1_meanlog,a2_meanlog,a1_sdlog,a2_sdlog,a1_minp,a2_minp,a1_maxp,a2_maxp,a1_othersensitivity,a2_othersensitivity,a1_respsensitivity,a2_respsensitivity,rthresh)
           a1_voc_record = voc_records[[1]]
           a2_voc_record = voc_records[[2]]
@@ -189,6 +191,7 @@ hist(a1_ivi_record)
 
 
 # To-do:
+# * Consider implementing the random lognormal drift in p_voc separately from the decaying influence of the other agent's vocalization or response
 # * Figure out why there are not spurious significant effects where with-response IVIs are smaller than without-response IVIs when not controlling for previous IVI. Perhaps the response window needs to be longer or other parameters need to be different for this to show up?
 # * Write the simulation data and records, or a subset of it, to a data frame to help to check that this code is computing everything as expected. I haven't done any substantive checking yet for accuracy.
 # * Decouple computing response for increase in a1's voc probability from computing response for analysis purposes
