@@ -59,9 +59,9 @@ extreme_sim <- function(sim_length,rthresh){
   for (t in 1:sim_length){
     
     # Determine whether a1 vocalizes at time t
-    if ((t %% 20 <= 10) & (t %% 2 < 1)){
+    if ((t %% 120 <= 60) & (t %% 2 == 0)){
       a1_voc_event = 1
-    } else if ((t %% 20 >= 10) & t%%4 == 1){
+    } else if ((t %% 120 > 60) & t%%5 == 0){
       a1_voc_event = 1
     } else {
       a1_voc_event = 0
@@ -69,7 +69,7 @@ extreme_sim <- function(sim_length,rthresh){
     a1_voc_record = c(a1_voc_record,a1_voc_event)
     
     # Determine whether a2 vocalizes at time t
-    if ((t %% 20 < 10) & (t %% 4 == 1)){
+    if ((t %% 120 <= 60) & (t %% 4 == 1)){
       a2_voc_event = 1
     } else {
       a2_voc_event = 0
@@ -233,7 +233,7 @@ analyze_ivis <- function(ivi_records,ivi_response_records,previvi_resids,simIDs)
 # hist(a1_ivi_record)
 
 # Run an extreme simulation:
-sim_length = 10*60*60
+sim_length = 1*60*60
 rthresh = 1
 simID = 0
 a1_ivi_records = c()
