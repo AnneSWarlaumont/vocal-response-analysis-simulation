@@ -2,6 +2,7 @@
 
 library(lme4)
 library(lmerTest)
+library(reservoirnet)
 
 two_agent_vocal_sim <- function(sim_length,a1_p_voc,a2_p_voc,a1_meanlog,a2_meanlog,a1_sdlog,a2_sdlog,a1_minp,a2_minp,a1_maxp,a2_maxp,a1_othersensitivity,a2_othersensitivity,a1_respsensitivity,a2_respsensitivity,rthresh) {
 
@@ -152,88 +153,98 @@ analyze_ivis <- function(ivi_records,ivi_response_records,previvi_resids,simIDs)
 }
 
 # Run simulations and analyze data:
-#simtype = 'regular'
-simtype = 'extreme'
+simtype = 'regular'
+#simtype = 'extreme'
+
+simcounter = 0
+voc_and_resp_records = list()
+ivi_records = list()
 
 if (simtype == 'regular'){
-  sim_length = 10*60*60
-  rthresh = 5 #1
   
-  for (a2_othersensitivity in 100){ #c(1,100)){
-    for (a2_respsensitivity in 1){ #c(1,100)){
-      for (a1_othersensitivity in 1){ #c(1,100)){
-        for (a1_respsensitivity in c(1,100)){ #1){
-          
-          print("Agent parameters:")
-          print(paste("agent 1 (i.e. infant) other sensitivity:",
-                      a1_othersensitivity))
-          print(paste("agent 1 response sensitivity:",
-                      a1_respsensitivity))
-          print(paste("agent 2 (i.e. adult) other sensitivity:",
-                      a2_othersensitivity))
-          print(paste("agent 2 response sensitivity:",
-                      a2_respsensitivity))
-          print("* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity.")
-          
-          simID = 0
-          a1_ivi_records = c()
-          a1_ivi_response_records = c()
-          simIDs=c()
-          previvi_resids = c()
-          
-          for (i in 1:30){ #1){
+  sink(file="VocEventSimOutput.txt")
+  sim_length = 10*60*60
+  
+  for (rthresh in c(1,5)){
+    for (a2_othersensitivity in c(1,100)){
+      for (a2_respsensitivity in 1){ #c(1,100)){
+        for (a1_othersensitivity in 1){ #c(1,100)){
+          for (a1_respsensitivity in c(1,100)){
             
-            simID = simID+1
+            simcounter = simcounter+1
             
-            a1_meanlog = 0
-            a2_meanlog = 0
-            a1_sdlog = .1 #runif(1,.01,.5)
-            a2_sdlog = .1 #runif(1,.01,.5)
-            a1_minp = .1 #runif(1,.01,.1)
-            a2_minp = .1 #runif(1,.01,.1)
-            a1_maxp = .5 #runif(1,.25,1)
-            a2_maxp = .5 #runif(1,.25,1)
-            a1_p_voc = runif(1,min=a1_minp,max=a1_maxp)
-            a2_p_voc = runif(1,min=a2_minp,max=a2_maxp)
+            print(paste("Simulation number:",simcounter))
+            print("Simulation parameters:")
+            print(paste("response threshold:",rthresh))
+            print(paste("agent 1 (i.e. infant) other sensitivity:",
+                        a1_othersensitivity))
+            print(paste("agent 1 response sensitivity:",
+                        a1_respsensitivity))
+            print(paste("agent 2 (i.e. adult) other sensitivity:",
+                        a2_othersensitivity))
+            print(paste("agent 2 response sensitivity:",
+                        a2_respsensitivity))
+            print("* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity.")
             
-            voc_records = two_agent_vocal_sim(sim_length,a1_p_voc,a2_p_voc,a1_meanlog,a2_meanlog,a1_sdlog,a2_sdlog,a1_minp,a2_minp,a1_maxp,a2_maxp,a1_othersensitivity,a2_othersensitivity,a1_respsensitivity,a2_respsensitivity,rthresh)
-            a1_voc_record = voc_records[[1]]
-            a2_voc_record = voc_records[[2]]
-            a2toa1_r_record = voc_records[[3]]
+            simID = 0
+            a1_ivi_records = c()
+            a1_ivi_response_records = c()
+            simIDs=c()
+            previvi_resids = c()
             
-            ivi_records = get_ivis_and_responses(a1_voc_record,a2_voc_record,rthresh,a2toa1_r_record)
+            for (i in 1:30){ #1){
+              
+              simID = simID+1
+              
+              a1_meanlog = 0
+              a2_meanlog = 0
+              a1_sdlog = .1 #runif(1,.01,.5)
+              a2_sdlog = .1 #runif(1,.01,.5)
+              a1_minp = .1 #runif(1,.01,.1)
+              a2_minp = .1 #runif(1,.01,.1)
+              a1_maxp = .5 #runif(1,.25,1)
+              a2_maxp = .5 #runif(1,.25,1)
+              a1_p_voc = runif(1,min=a1_minp,max=a1_maxp)
+              a2_p_voc = runif(1,min=a2_minp,max=a2_maxp)
+              
+              voc_records = two_agent_vocal_sim(sim_length,a1_p_voc,a2_p_voc,a1_meanlog,a2_meanlog,a1_sdlog,a2_sdlog,a1_minp,a2_minp,a1_maxp,a2_maxp,a1_othersensitivity,a2_othersensitivity,a1_respsensitivity,a2_respsensitivity,rthresh)
+              a1_voc_record = voc_records[[1]]
+              a2_voc_record = voc_records[[2]]
+              a2toa1_r_record = voc_records[[3]]
+              
+              ivi_records = get_ivis_and_responses(a1_voc_record,a2_voc_record,rthresh,a2toa1_r_record)
+              
+              a1_ivi_record = ivi_records[[1]]
+              n_ivi = length(a1_ivi_record)
+              a1_ivi_records = c(a1_ivi_records,a1_ivi_record[1:(n_ivi-1)])
+              
+              # Correlate current IVI with previous IVI and get the residuals of that correlation
+              previvi_model = lm(scale(log(a1_ivi_record[2:n_ivi]))~scale(log(a1_ivi_record[1:(n_ivi-1)])))
+              previvi_resid = resid(previvi_model)
+              previvi_resids = c(previvi_resids,previvi_resid[1:(n_ivi-1)])
+              
+              a1_ivi_response_record = ivi_records[[2]]
+              a1_ivi_response_records = c(a1_ivi_response_records,a1_ivi_response_record[2:length(a1_ivi_response_record)])
+              
+              simIDs = c(simIDs,rep(simID,n_ivi-1))
+              
+            }
             
-            a1_ivi_record = ivi_records[[1]]
-            n_ivi = length(a1_ivi_record)
-            a1_ivi_records = c(a1_ivi_records,a1_ivi_record[1:(n_ivi-1)])
+            ivi_models = analyze_ivis(a1_ivi_records,a1_ivi_response_records,previvi_resids,simIDs)
+            a1_uncontrolled_response_model = ivi_models[[1]]
+            a1_residual_response_model = ivi_models[[2]]
+            a1_previvi_model = ivi_models[[3]]
+            print(summary(a1_uncontrolled_response_model))
+            print(summary(a1_residual_response_model))
+            hist(a1_ivi_record)
             
-            # Correlate current IVI with previous IVI and get the residuals of that correlation
-            previvi_model = lm(scale(log(a1_ivi_record[2:n_ivi]))~scale(log(a1_ivi_record[1:(n_ivi-1)])))
-            previvi_resid = resid(previvi_model)
-            previvi_resids = c(previvi_resids,previvi_resid[1:(n_ivi-1)])
-            
-            a1_ivi_response_record = ivi_records[[2]]
-            a1_ivi_response_records = c(a1_ivi_response_records,a1_ivi_response_record[2:length(a1_ivi_response_record)])
-            
-            simIDs = c(simIDs,rep(simID,n_ivi-1))
-            
+            voc_and_resp_records = c(voc_and_resp_records,list(data.frame(a1_voc_record,a2_voc_record,c(a2toa1_r_record,rep(NA,times=rthresh)))))
+            ivi_records = c(ivi_records,list(data.frame(a1_ivi_record,a1_ivi_response_record,c(NA,previvi_resid))))
           }
-          
-          ivi_models = analyze_ivis(a1_ivi_records,a1_ivi_response_records,previvi_resids,simIDs)
-          a1_uncontrolled_response_model = ivi_models[[1]]
-          a1_residual_response_model = ivi_models[[2]]
-          a1_previvi_model = ivi_models[[3]]
-          print(summary(a1_uncontrolled_response_model))
-          print(summary(a1_residual_response_model))
-          
         }
       }
     }
   }
-  
-  View(data.frame(a1_voc_record,a2_voc_record,c(a2toa1_r_record,rep(NA,times=rthresh))))
-  View(data.frame(a1_ivi_record,a1_ivi_response_record,c(rep(NA,times=rthresh),previvi_resid)))
-  hist(a1_ivi_record)
 } else if (simtype == 'extreme'){
   
   # Run an extreme simulation:
@@ -287,6 +298,7 @@ if (simtype == 'regular'){
 
 
 # To-do:
+# * Implement the case where infant other sensitivity and adult response sensitivity have values other than 1.
 # * Consider implementing the random lognormal drift in p_voc separately from the decaying influence of the other agent's vocalization or response
 # * Figure out why there are not spurious significant effects where with-response IVIs are smaller than without-response IVIs when not controlling for previous IVI. Perhaps the response window needs to be longer or other parameters need to be different for this to show up?
 # * My extreme model gives the spurious result for non-residual IVI analysis, but residual IVI analysis also gives a spurious result. It could be a problem with the prediction method; maybe we want to move to something more sensitive/nuanced than a simple linear regression, but I want to look into the details a bit more.
