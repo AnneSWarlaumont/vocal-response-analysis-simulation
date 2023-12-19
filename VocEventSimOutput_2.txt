@@ -198,3 +198,67 @@ F-statistic:  1887 on 1 and 262923 DF,  p-value: < 2.2e-16
 [1] "agent 2 (i.e. adult) other sensitivity: 100"
 [1] "agent 2 response sensitivity: 1"
 [1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: predictability ~ (1 | ID) + label + adu_gender + chi_gender +      AgeMonths
+   Data: full_data
+
+REML criterion at convergence: 2008.2
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-1.89424 -0.75701  0.01222  0.76975  2.11325 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ ID       (Intercept) 0.001958 0.04425 
+ Residual             0.086704 0.29446 
+Number of obs: 4881, groups:  ID, 60
+
+Fixed effects:
+                 Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)     5.182e-01  2.107e-02  5.024e+01  24.590  < 2e-16 ***
+labelCDS       -5.204e-04  9.320e-03  4.206e+03  -0.056   0.9555    
+adu_genderMALE -6.085e-02  1.109e-02  2.280e+03  -5.487 4.55e-08 ***
+chi_gendermale -8.222e-03  1.530e-02  5.295e+01  -0.537   0.5933    
+AgeMonths      -3.298e-03  1.592e-03  5.063e+01  -2.072   0.0434 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) lblCDS a_MALE ch_gnd
+labelCDS    -0.172                     
+ad_gndrMALE -0.155  0.054              
+chi_gendrml -0.509 -0.001  0.001       
+AgeMonths   -0.784 -0.145  0.017  0.140
+Linear mixed model fit by REML. t-tests use Satterthwaite's method ['lmerModLmerTest']
+Formula: predictability ~ (1 | ID) + label + adu_gender + chi_gender +      AgeMonths
+   Data: full_data
+
+REML criterion at convergence: 2008.2
+
+Scaled residuals: 
+     Min       1Q   Median       3Q      Max 
+-1.89424 -0.75701  0.01222  0.76975  2.11325 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ ID       (Intercept) 0.001958 0.04425 
+ Residual             0.086704 0.29446 
+Number of obs: 4881, groups:  ID, 60
+
+Fixed effects:
+                 Estimate Std. Error         df t value Pr(>|t|)    
+(Intercept)     5.182e-01  2.107e-02  5.024e+01  24.590  < 2e-16 ***
+labelCDS       -5.204e-04  9.320e-03  4.206e+03  -0.056   0.9555    
+adu_genderMALE -6.085e-02  1.109e-02  2.280e+03  -5.487 4.55e-08 ***
+chi_gendermale -8.222e-03  1.530e-02  5.295e+01  -0.537   0.5933    
+AgeMonths      -3.298e-03  1.592e-03  5.063e+01  -2.072   0.0434 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Correlation of Fixed Effects:
+            (Intr) lblCDS a_MALE ch_gnd
+labelCDS    -0.172                     
+ad_gndrMALE -0.155  0.054              
+chi_gendrml -0.509 -0.001  0.001       
+AgeMonths   -0.784 -0.145  0.017  0.140
