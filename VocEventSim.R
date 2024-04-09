@@ -166,10 +166,10 @@ if (simtype == 'regular'){
   sim_length = 10*60*60
   
   for (rthresh in c(1,5)){
-    for (a2_othersensitivity in c(1,1.5,2,3,100)){
-      for (a2_respsensitivity in 1){ #c(1,100)){
-        for (a1_othersensitivity in 1){ #c(1,100)){
-          for (a1_respsensitivity in c(1,1.5,2,3,100)){
+    for (a2_othersensitivity in c(.25,.5,1,1.5,2,3,100)){
+      for (a2_respsensitivity in c(.25,.5,1,1.5,2,3,100)){
+        for (a1_othersensitivity in c(.25,.5,1,1.5,2,3,100)){
+          for (a1_respsensitivity in c(.25,.5,1,1.5,2,3,100)){
             
             simcounter = simcounter+1
             
