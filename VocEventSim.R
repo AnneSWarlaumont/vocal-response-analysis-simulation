@@ -192,7 +192,7 @@ if (simtype == 'regular'){
             simIDs=c()
             previvi_resids = c()
             
-            for (i in 1:200){ #1){
+            for (i in 1:200){
               
               simID = simID+1
               
