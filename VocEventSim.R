@@ -162,7 +162,7 @@ ivi_records = list()
 
 if (simtype == 'regular'){
   
-  sink(file="VocEventSimOutput.txt")
+  sink(file="~/Downloads/VocEventSimOutput.txt")
   sim_length = 10*60*60
   
   for (rthresh in c(1,5)){
