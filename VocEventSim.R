@@ -167,8 +167,8 @@ if (simtype == 'regular'){
   
   for (rthresh in c(1,5)){
     for (a2_othersensitivity in c(.25,.5,1,1.5,2,3,100)){
-      for (a2_respsensitivity in c(.25,.5,1,1.5,2,3,100)){
-        for (a1_othersensitivity in c(.25,.5,1,1.5,2,3,100)){
+      for (a2_respsensitivity in c(1)){ #for (a2_respsensitivity in c(.25,.5,1,1.5,2,3,100)){
+        for (a1_othersensitivity in c(1)) {#for (a1_othersensitivity in c(.25,.5,1,1.5,2,3,100)){
           for (a1_respsensitivity in c(.25,.5,1,1.5,2,3,100)){
             
             simcounter = simcounter+1
@@ -192,7 +192,7 @@ if (simtype == 'regular'){
             simIDs=c()
             previvi_resids = c()
             
-            for (i in 1:200){
+            for (i in 1:5){ #200){
               
               simID = simID+1
               
@@ -234,6 +234,7 @@ if (simtype == 'regular'){
             a1_uncontrolled_response_model = ivi_models[[1]]
             a1_residual_response_model = ivi_models[[2]]
             a1_previvi_model = ivi_models[[3]]
+            #a1_uncontrolled_response_model_summary = summary(a1_uncontrolled_response_model)
             print(summary(a1_uncontrolled_response_model))
             print(summary(a1_residual_response_model))
             hist(a1_ivi_record)

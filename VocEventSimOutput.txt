@@ -1,8 +1,0 @@
-[1] "Simulation number: 1"
-[1] "Simulation parameters:"
-[1] "response threshold: 1"
-[1] "agent 1 (i.e. infant) other sensitivity: 0.25"
-[1] "agent 1 response sensitivity: 0.25"
-[1] "agent 2 (i.e. adult) other sensitivity: 0.25"
-[1] "agent 2 response sensitivity: 0.25"
-[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
