@@ -132,7 +132,7 @@ simcounter = 0
 voc_and_resp_records = list()
 ivi_records = list()
 
-sink(file="~/Downloads/VocEventSimOutput.txt")
+sink(file="VocEventSimOutput.txt")
 sim_length = 10*60*60
 
 for (rthresh in c(1,5)){
