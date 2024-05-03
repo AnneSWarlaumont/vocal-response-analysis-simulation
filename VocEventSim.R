@@ -228,12 +228,12 @@ a1_othersensitivity = 1
 a1_respsensitivity = 1
 a1_meanlog = 0
 a2_meanlog = 0
-a1_sdlog = .1 #runif(1,.01,.5)
-a2_sdlog = .1 #runif(1,.01,.5)
-a1_minp = .01 #runif(1,.01,.1)
-a2_minp = .1 #runif(1,.01,.1)
-a1_maxp = .5 #runif(1,.25,1)
-a2_maxp = .5 #runif(1,.25,1)
+a1_sdlog = .2 #runif(1,.01,.5)
+a2_sdlog = .2 #runif(1,.01,.5)
+a1_minp = .000001 #runif(1,.01,.1)
+a2_minp = .000001 #runif(1,.01,.1)
+a1_maxp = .4
+a2_maxp = .4
 a1_p_voc = runif(1,min=a1_minp,max=a1_maxp)
 a2_p_voc = runif(1,min=a2_minp,max=a2_maxp)
 
@@ -266,6 +266,28 @@ ggplot(barcode_data, aes(x = index, xend = index, y = 0, yend = 1, color = facto
        y = "") +
   theme_minimal() +
   theme(legend.position = "none")
+
+pdf(file="SingleSim_MultiscaleClusters.pdf")
+
+par(mfrow=c(3,1),cex=1,mar=c(1,1,2,1),oma=c(0,0,4,0))
+stripchart(which(a1_voc_record==1),xaxt="n",main="Full day simulation (10 hours)",pch=19,ylim=c(.5,1.5),xlim=c(0,sim_length))
+
+hr_offset = 2
+rect(xleft=3600+hr_offset*60*60,xright=7200+hr_offset*60*60,ybottom=0,ytop=2,col=rgb(0.5,0.5,0.5,.3),border=NA)
+a1_voc_record_1hr = a1_voc_record[(3601+hr_offset*60*60):(7200+hr_offset*60*60)]
+stripchart(which(a1_voc_record_1hr==1),xaxt="n",main="1 hour within the day",pch=19,ylim=c(.5,1.5),xlim=c(0,3600))
+
+fivemin_offset = 5
+rect(xleft=0+fivemin_offset*60*5,xright=300+fivemin_offset*60*5,ybottom=0,ytop=2,col=rgb(0.5,0.5,0.5,.3),border=NA)
+a1_voc_record_5min = a1_voc_record_1hr[(1+fivemin_offset*60*5):(300+fivemin_offset*60*5)]
+stripchart(which(a1_voc_record_5min==1),xaxt="n",main="5 minutes within the hour",pch=19,ylim=c(.5,1.5),xlim=c(0,300))
+
+mtext("Onsets of child vocalizations",side=3, line = 1, outer=TRUE, cex=2)
+
+dev.off()
+
+sum(a1_voc_record)
+
 
 # To-do:
 # * Add code to create visualizations of vocalization probability and vocalization events over time.
