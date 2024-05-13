@@ -1,2 +1,3 @@
 load("/Users/awarlau/Documents/GitHub/vocal-response-analysis-simulation/VocEventSim.RData")
 quit()
+load("/Users/awarlau/Documents/GitHub/vocal-response-analysis-simulation/SingleSim.RData")
