@@ -137,7 +137,7 @@ sink(file="VocEventSimOutput.txt")
 sim_length = 10*60*60
 
 for (rthresh in c(1,5)){
-  for (a2_othersensitivity in c(1,1.5,2,3,100)){
+  for (a2_othersensitivity in c(1,1.5)){#,2,3,100)){
     for (a2_respsensitivity in c(1,1.5,2,3,100)){
       for (a1_othersensitivity in c(1,1.5,2,3,100)){
         for (a1_respsensitivity in c(1,1.5,2,3,100)){
@@ -163,7 +163,7 @@ for (rthresh in c(1,5)){
           simIDs=c()
           previvi_resids = c()
 
-          for (i in 1:5){ #200){
+          for (i in 1:50){
 
             simID = simID+1
 
