@@ -1,0 +1,770 @@
+[1] "Simulation number: 1"
+[1] "Simulation parameters:"
+[1] "response threshold: 1"
+[1] "agent 1 (i.e. infant) other sensitivity: 1"
+[1] "agent 1 response sensitivity: 1"
+[1] "agent 2 (i.e. adult) other sensitivity: 1"
+[1] "agent 2 response sensitivity: 1"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2507 -0.6945 -0.1682  0.5274  5.9650 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          0.085682   0.003377  25.373   <2e-16 ***
+ivi_response_records 0.029963   0.016125   1.858   0.0631 .  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.048 on 100686 degrees of freedom
+  (27948 observations deleted due to missingness)
+Multiple R-squared:  3.429e-05,	Adjusted R-squared:  2.436e-05 
+F-statistic: 3.453 on 1 and 100686 DF,  p-value: 0.06315
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.5817 -0.6055 -0.1133  0.4585  6.5141 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          0.308691   0.002889 106.838   <2e-16 ***
+ivi_response_records 0.007924   0.013797   0.574    0.566    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8965 on 100686 degrees of freedom
+  (27948 observations deleted due to missingness)
+Multiple R-squared:  3.276e-06,	Adjusted R-squared:  -6.655e-06 
+F-statistic: 0.3299 on 1 and 100686 DF,  p-value: 0.5657
+
+[1] "Simulation number: 2"
+[1] "Simulation parameters:"
+[1] "response threshold: 1"
+[1] "agent 1 (i.e. infant) other sensitivity: 1"
+[1] "agent 1 response sensitivity: 1.5"
+[1] "agent 2 (i.e. adult) other sensitivity: 1"
+[1] "agent 2 response sensitivity: 1"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2096 -0.6663 -0.1230  0.5127  6.1764 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.092089   0.003208  28.707  < 2e-16 ***
+ivi_response_records -0.103806   0.014411  -7.203 5.92e-13 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.05 on 112711 degrees of freedom
+  (33634 observations deleted due to missingness)
+Multiple R-squared:  0.0004601,	Adjusted R-squared:  0.0004513 
+F-statistic: 51.89 on 1 and 112711 DF,  p-value: 5.915e-13
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.5747 -0.5930 -0.1126  0.4495  7.1519 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.338434   0.002719  124.46   <2e-16 ***
+ivi_response_records -0.203846   0.012216  -16.69   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.89 on 112711 degrees of freedom
+  (33634 observations deleted due to missingness)
+Multiple R-squared:  0.002464,	Adjusted R-squared:  0.002456 
+F-statistic: 278.5 on 1 and 112711 DF,  p-value: < 2.2e-16
+
+[1] "Simulation number: 3"
+[1] "Simulation parameters:"
+[1] "response threshold: 1"
+[1] "agent 1 (i.e. infant) other sensitivity: 1.5"
+[1] "agent 1 response sensitivity: 1"
+[1] "agent 2 (i.e. adult) other sensitivity: 1"
+[1] "agent 2 response sensitivity: 1"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2051 -0.9356 -0.1382  0.5350  7.1708 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.090563   0.001999   45.31   <2e-16 ***
+ivi_response_records -0.269465   0.006745  -39.95   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.047 on 300657 degrees of freedom
+  (111794 observations deleted due to missingness)
+Multiple R-squared:  0.005281,	Adjusted R-squared:  0.005278 
+F-statistic:  1596 on 1 and 300657 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.1172 -0.5742 -0.1318  0.4418  7.3168 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.436738   0.001609  271.48   <2e-16 ***
+ivi_response_records -0.262167   0.005429  -48.29   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8425 on 300657 degrees of freedom
+  (111794 observations deleted due to missingness)
+Multiple R-squared:  0.007696,	Adjusted R-squared:  0.007693 
+F-statistic:  2332 on 1 and 300657 DF,  p-value: < 2.2e-16
+
+[1] "Simulation number: 4"
+[1] "Simulation parameters:"
+[1] "response threshold: 1"
+[1] "agent 1 (i.e. infant) other sensitivity: 1.5"
+[1] "agent 1 response sensitivity: 1.5"
+[1] "agent 2 (i.e. adult) other sensitivity: 1"
+[1] "agent 2 response sensitivity: 1"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2021 -0.9400 -0.1253  0.5541  7.3373 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.090158   0.001973   45.69   <2e-16 ***
+ivi_response_records -0.262124   0.006523  -40.18   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.048 on 310318 degrees of freedom
+  (116500 observations deleted due to missingness)
+Multiple R-squared:  0.005176,	Adjusted R-squared:  0.005173 
+F-statistic:  1615 on 1 and 310318 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.0865 -0.5767 -0.1295  0.4419  7.2307 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.444062   0.001583  280.59   <2e-16 ***
+ivi_response_records -0.294502   0.005232  -56.29   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8403 on 310318 degrees of freedom
+  (116500 observations deleted due to missingness)
+Multiple R-squared:  0.01011,	Adjusted R-squared:  0.01011 
+F-statistic:  3169 on 1 and 310318 DF,  p-value: < 2.2e-16
+
+[1] "Simulation number: 5"
+[1] "Simulation parameters:"
+[1] "response threshold: 1"
+[1] "agent 1 (i.e. infant) other sensitivity: 1"
+[1] "agent 1 response sensitivity: 1"
+[1] "agent 2 (i.e. adult) other sensitivity: 1"
+[1] "agent 2 response sensitivity: 1.5"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2178 -0.6907 -0.1636  0.5333  5.9918 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.092567   0.003461  26.744  < 2e-16 ***
+ivi_response_records -0.056400   0.014523  -3.883 0.000103 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.05 on 97536 degrees of freedom
+  (27775 observations deleted due to missingness)
+Multiple R-squared:  0.0001546,	Adjusted R-squared:  0.0001443 
+F-statistic: 15.08 on 1 and 97536 DF,  p-value: 0.0001031
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.5835 -0.5983 -0.1070  0.4478  6.3375 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.314529   0.002959 106.299   <2e-16 ***
+ivi_response_records -0.010245   0.012416  -0.825    0.409    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8975 on 97536 degrees of freedom
+  (27775 observations deleted due to missingness)
+Multiple R-squared:  6.982e-06,	Adjusted R-squared:  -3.271e-06 
+F-statistic: 0.681 on 1 and 97536 DF,  p-value: 0.4093
+
+[1] "Simulation number: 6"
+[1] "Simulation parameters:"
+[1] "response threshold: 1"
+[1] "agent 1 (i.e. infant) other sensitivity: 1"
+[1] "agent 1 response sensitivity: 1.5"
+[1] "agent 2 (i.e. adult) other sensitivity: 1"
+[1] "agent 2 response sensitivity: 1.5"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2122 -0.6610 -0.1098  0.5351  6.3888 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.104218   0.003189   32.68   <2e-16 ***
+ivi_response_records -0.203155   0.011411  -17.80   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.052 on 118102 degrees of freedom
+  (36128 observations deleted due to missingness)
+Multiple R-squared:  0.002676,	Adjusted R-squared:  0.002668 
+F-statistic: 316.9 on 1 and 118102 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.6429 -0.5903 -0.1117  0.4513  6.4156 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.350809   0.002696  130.14   <2e-16 ***
+ivi_response_records -0.216553   0.009646  -22.45   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8895 on 118102 degrees of freedom
+  (36128 observations deleted due to missingness)
+Multiple R-squared:  0.004249,	Adjusted R-squared:  0.004241 
+F-statistic:   504 on 1 and 118102 DF,  p-value: < 2.2e-16
+
+[1] "Simulation number: 7"
+[1] "Simulation parameters:"
+[1] "response threshold: 1"
+[1] "agent 1 (i.e. infant) other sensitivity: 1.5"
+[1] "agent 1 response sensitivity: 1"
+[1] "agent 2 (i.e. adult) other sensitivity: 1"
+[1] "agent 2 response sensitivity: 1.5"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2001 -0.9468 -0.0618  0.6564  7.8796 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.096998   0.001877   51.68   <2e-16 ***
+ivi_response_records -0.253293   0.004928  -51.40   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.046 on 363369 degrees of freedom
+  (146070 observations deleted due to missingness)
+Multiple R-squared:  0.007219,	Adjusted R-squared:  0.007216 
+F-statistic:  2642 on 1 and 363369 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.0654 -0.5844 -0.1292  0.4401  7.7948 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.478812   0.001485  322.45   <2e-16 ***
+ivi_response_records -0.238829   0.003899  -61.26   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8277 on 363369 degrees of freedom
+  (146070 observations deleted due to missingness)
+Multiple R-squared:  0.01022,	Adjusted R-squared:  0.01022 
+F-statistic:  3752 on 1 and 363369 DF,  p-value: < 2.2e-16
+
+[1] "Simulation number: 8"
+[1] "Simulation parameters:"
+[1] "response threshold: 1"
+[1] "agent 1 (i.e. infant) other sensitivity: 1.5"
+[1] "agent 1 response sensitivity: 1.5"
+[1] "agent 2 (i.e. adult) other sensitivity: 1"
+[1] "agent 2 response sensitivity: 1.5"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1976 -0.9427 -0.0406  0.5173  8.1821 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.096092   0.001832   52.46   <2e-16 ***
+ivi_response_records -0.254911   0.004710  -54.13   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.045 on 383673 degrees of freedom
+  (157015 observations deleted due to missingness)
+Multiple R-squared:  0.007578,	Adjusted R-squared:  0.007576 
+F-statistic:  2930 on 1 and 383673 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.0170 -0.5933 -0.1375  0.4404  7.5113 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.491219   0.001442  340.64   <2e-16 ***
+ivi_response_records -0.260608   0.003708  -70.28   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8229 on 383673 degrees of freedom
+  (157015 observations deleted due to missingness)
+Multiple R-squared:  0.01271,	Adjusted R-squared:  0.01271 
+F-statistic:  4940 on 1 and 383673 DF,  p-value: < 2.2e-16
+
+[1] "Simulation number: 9"
+[1] "Simulation parameters:"
+[1] "response threshold: 1"
+[1] "agent 1 (i.e. infant) other sensitivity: 1"
+[1] "agent 1 response sensitivity: 1"
+[1] "agent 2 (i.e. adult) other sensitivity: 1.5"
+[1] "agent 2 response sensitivity: 1"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.3022 -0.7737 -0.1861  0.5264  6.3618 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.168811   0.003911   43.16   <2e-16 ***
+ivi_response_records -0.278311   0.007150  -38.93   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.04 on 100935 degrees of freedom
+  (28353 observations deleted due to missingness)
+Multiple R-squared:  0.01479,	Adjusted R-squared:  0.01478 
+F-statistic:  1515 on 1 and 100935 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.6905 -0.5968 -0.1145  0.4532  6.2775 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.323923   0.003361  96.368  < 2e-16 ***
+ivi_response_records -0.035684   0.006145  -5.807 6.37e-09 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.894 on 100935 degrees of freedom
+  (28353 observations deleted due to missingness)
+Multiple R-squared:  0.000334,	Adjusted R-squared:  0.0003241 
+F-statistic: 33.73 on 1 and 100935 DF,  p-value: 6.366e-09
+
+[1] "Simulation number: 10"
+[1] "Simulation parameters:"
+[1] "response threshold: 1"
+[1] "agent 1 (i.e. infant) other sensitivity: 1"
+[1] "agent 1 response sensitivity: 1.5"
+[1] "agent 2 (i.e. adult) other sensitivity: 1.5"
+[1] "agent 2 response sensitivity: 1"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2122 -1.0108 -0.1854  0.4934  7.4737 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.142778   0.002884   49.51   <2e-16 ***
+ivi_response_records -0.201397   0.004996  -40.31   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.058 on 202044 degrees of freedom
+  (75591 observations deleted due to missingness)
+Multiple R-squared:  0.00798,	Adjusted R-squared:  0.007975 
+F-statistic:  1625 on 1 and 202044 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.8369 -0.5616 -0.1244  0.4378  7.7372 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.466547   0.002349  198.63   <2e-16 ***
+ivi_response_records -0.197404   0.004069  -48.52   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8621 on 202044 degrees of freedom
+  (75591 observations deleted due to missingness)
+Multiple R-squared:  0.01152,	Adjusted R-squared:  0.01151 
+F-statistic:  2354 on 1 and 202044 DF,  p-value: < 2.2e-16
+
+[1] "Simulation number: 11"
+[1] "Simulation parameters:"
+[1] "response threshold: 1"
+[1] "agent 1 (i.e. infant) other sensitivity: 1.5"
+[1] "agent 1 response sensitivity: 1"
+[1] "agent 2 (i.e. adult) other sensitivity: 1.5"
+[1] "agent 2 response sensitivity: 1"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-1.168 -1.127 -0.182  0.721  7.175 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.020501   0.001422   14.42   <2e-16 ***
+ivi_response_records -0.041764   0.002369  -17.63   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.004 on 779624 degrees of freedom
+  (385531 observations deleted due to missingness)
+Multiple R-squared:  0.0003985,	Adjusted R-squared:  0.0003972 
+F-statistic: 310.8 on 1 and 779624 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9636 -0.7162 -0.1633  0.4693  6.4331 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.600064   0.001020  588.35   <2e-16 ***
+ivi_response_records -0.090176   0.001699  -53.07   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7203 on 779624 degrees of freedom
+  (385531 observations deleted due to missingness)
+Multiple R-squared:  0.003599,	Adjusted R-squared:  0.003598 
+F-statistic:  2816 on 1 and 779624 DF,  p-value: < 2.2e-16
+
+[1] "Simulation number: 12"
+[1] "Simulation parameters:"
+[1] "response threshold: 1"
+[1] "agent 1 (i.e. infant) other sensitivity: 1.5"
+[1] "agent 1 response sensitivity: 1.5"
+[1] "agent 2 (i.e. adult) other sensitivity: 1.5"
+[1] "agent 2 response sensitivity: 1"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1661 -1.1211 -0.1708  0.7346  6.8098 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.021645   0.001417   15.27   <2e-16 ***
+ivi_response_records -0.045000   0.002357  -19.09   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.004 on 786266 degrees of freedom
+  (391401 observations deleted due to missingness)
+Multiple R-squared:  0.0004633,	Adjusted R-squared:  0.000462 
+F-statistic: 364.5 on 1 and 786266 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9977 -0.7014 -0.1480  0.4697  6.0531 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.608077   0.001016  598.31   <2e-16 ***
+ivi_response_records -0.106260   0.001690  -62.86   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7201 on 786266 degrees of freedom
+  (391401 observations deleted due to missingness)
+Multiple R-squared:  0.005001,	Adjusted R-squared:  0.004999 
+F-statistic:  3952 on 1 and 786266 DF,  p-value: < 2.2e-16
+
+[1] "Simulation number: 13"
+[1] "Simulation parameters:"
+[1] "response threshold: 1"
+[1] "agent 1 (i.e. infant) other sensitivity: 1"
+[1] "agent 1 response sensitivity: 1"
+[1] "agent 2 (i.e. adult) other sensitivity: 1.5"
+[1] "agent 2 response sensitivity: 1.5"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.3034 -0.7719 -0.2010  0.5354  6.0447 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.166489   0.003812   43.67   <2e-16 ***
+ivi_response_records -0.259962   0.006911  -37.62   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.04 on 106886 degrees of freedom
+  (30048 observations deleted due to missingness)
+Multiple R-squared:  0.01307,	Adjusted R-squared:  0.01306 
+F-statistic:  1415 on 1 and 106886 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.6434 -0.6023 -0.1110  0.4577  6.4920 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.323945   0.003279  98.785  < 2e-16 ***
+ivi_response_records -0.034935   0.005945  -5.876 4.21e-09 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8943 on 106886 degrees of freedom
+  (30048 observations deleted due to missingness)
+Multiple R-squared:  0.0003229,	Adjusted R-squared:  0.0003136 
+F-statistic: 34.53 on 1 and 106886 DF,  p-value: 4.212e-09
+
+[1] "Simulation number: 14"
+[1] "Simulation parameters:"
+[1] "response threshold: 1"
+[1] "agent 1 (i.e. infant) other sensitivity: 1"
+[1] "agent 1 response sensitivity: 1.5"
+[1] "agent 2 (i.e. adult) other sensitivity: 1.5"
+[1] "agent 2 response sensitivity: 1.5"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2120 -1.0244 -0.1781  0.4903  7.3824 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.139040   0.002873   48.39   <2e-16 ***
+ivi_response_records -0.187590   0.004947  -37.92   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.058 on 204589 degrees of freedom
+  (76711 observations deleted due to missingness)
+Multiple R-squared:  0.00698,	Adjusted R-squared:  0.006975 
+F-statistic:  1438 on 1 and 204589 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.3656 -0.5682 -0.1256  0.4302  7.3632 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.469664   0.002338  200.87   <2e-16 ***
+ivi_response_records -0.199759   0.004026  -49.62   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8609 on 204589 degrees of freedom
+  (76711 observations deleted due to missingness)
+Multiple R-squared:  0.01189,	Adjusted R-squared:  0.01189 
+F-statistic:  2462 on 1 and 204589 DF,  p-value: < 2.2e-16
+
+[1] "Simulation number: 15"
+[1] "Simulation parameters:"
+[1] "response threshold: 1"
+[1] "agent 1 (i.e. infant) other sensitivity: 1.5"
+[1] "agent 1 response sensitivity: 1"
+[1] "agent 2 (i.e. adult) other sensitivity: 1.5"
+[1] "agent 2 response sensitivity: 1.5"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1671 -1.1329 -0.1872  0.7243  7.5259 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.019183   0.001424   13.47   <2e-16 ***
+ivi_response_records -0.034232   0.002361  -14.50   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.004 on 780793 degrees of freedom
+  (386189 observations deleted due to missingness)
+Multiple R-squared:  0.0002691,	Adjusted R-squared:  0.0002678 
+F-statistic: 210.2 on 1 and 780793 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9640 -0.7174 -0.1635  0.4726  6.8022 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.600560   0.001022   587.7   <2e-16 ***
+ivi_response_records -0.090295   0.001694   -53.3   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7201 on 780793 degrees of freedom
+  (386189 observations deleted due to missingness)
+Multiple R-squared:  0.003626,	Adjusted R-squared:  0.003625 
+F-statistic:  2841 on 1 and 780793 DF,  p-value: < 2.2e-16
+
+[1] "Simulation number: 16"
+[1] "Simulation parameters:"
+[1] "response threshold: 1"
+[1] "agent 1 (i.e. infant) other sensitivity: 1.5"
+[1] "agent 1 response sensitivity: 1.5"
+[1] "agent 2 (i.e. adult) other sensitivity: 1.5"
+[1] "agent 2 response sensitivity: 1.5"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1642 -1.1268 -0.1762  0.7370  6.0099 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.020343   0.001418   14.34   <2e-16 ***
+ivi_response_records -0.037365   0.002353  -15.88   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.004 on 786373 degrees of freedom
+  (392531 observations deleted due to missingness)
+Multiple R-squared:  0.0003205,	Adjusted R-squared:  0.0003193 
+F-statistic: 252.1 on 1 and 786373 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0033 -0.7039 -0.1501  0.4722  5.3763 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.608300   0.001017  598.27   <2e-16 ***
+ivi_response_records -0.102936   0.001687  -61.02   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7194 on 786373 degrees of freedom
+  (392531 observations deleted due to missingness)
+Multiple R-squared:  0.004713,	Adjusted R-squared:  0.004712 
+F-statistic:  3724 on 1 and 786373 DF,  p-value: < 2.2e-16
+
+[1] 1152
+[1] 1374

@@ -172,9 +172,9 @@ for (rthresh in c(1)){#,5)){
             a1_sdlog = .2
             a2_sdlog = .2
             a1_minp = .000001
-            a2_minp = .1
+            a2_minp = .00001
             a1_maxp = .4
-            a2_maxp = .95
+            a2_maxp = .4
             a1_p_voc = runif(1,min=a1_minp,max=a1_maxp)
             a2_p_voc = runif(1,min=a2_minp,max=a2_maxp)
 
