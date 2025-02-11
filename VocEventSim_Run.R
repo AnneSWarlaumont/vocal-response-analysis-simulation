@@ -32,11 +32,12 @@ for (rthresh in c(1)){#,5)){
           a1_ivi_response_records = c()
           simIDs=c()
           previvi_resids = c()
+          prev3ivi_resids = c()
           
           for (i in 1:200){
             
-            simcounter = simcounter+1
-            print(paste("Simulation number:",simcounter))
+            #simcounter = simcounter+1
+            #print(paste("Simulation number:",simcounter))
             
             simID = simID+1
             
@@ -68,6 +69,11 @@ for (rthresh in c(1)){#,5)){
             previvi_resid = resid(previvi_model)
             previvi_resids = c(previvi_resids,previvi_resid[1:(n_ivi-1)])
             
+            # Correlate current IVI with time since the past 3 a1 IVIs and get the residuals of that correlation
+            prev3ivi_model = lm(scale(log(a1_ivi_record[4:n_ivi]))~scale(log(a1_ivi_record[3:(n_ivi-1)]))+(scale(log(a1_ivi_record[3:(n_ivi-1)])+log(a1_ivi_record[2:(n_ivi-2)])))+(scale(log(a1_ivi_record[3:(n_ivi-1)])+log(a1_ivi_record[2:(n_ivi-2)])+log(a1_ivi_record[1:(n_ivi-3)]))))
+            prev3ivi_resid = resid(prev3ivi_model)
+            prev3ivi_resids = c(prev3ivi_resids,prev3ivi_resid[1:(n_ivi-1)])
+            
             a1_ivi_response_record = ivi_records[[2]]
             a1_ivi_response_records = c(a1_ivi_response_records,a1_ivi_response_record[2:length(a1_ivi_response_record)])
             
@@ -78,12 +84,14 @@ for (rthresh in c(1)){#,5)){
             
           }
           
-          ivi_models = analyze_ivis(a1_ivi_records,a1_ivi_response_records,previvi_resids,simIDs)
+          ivi_models = analyze_ivis(a1_ivi_records,a1_ivi_response_records,previvi_resids,prev3ivi_resids,simIDs)
           a1_uncontrolled_response_model = ivi_models[[1]]
           a1_residual_response_model = ivi_models[[2]]
-          a1_previvi_model = ivi_models[[3]]
+          a1_prev3residual_response_model = ivi_models[[3]]
+    
           print(summary(a1_uncontrolled_response_model))
           print(summary(a1_residual_response_model))
+          print(summary(a1_prev3residual_response_model))
           hist(a1_ivi_record)
           
         }
