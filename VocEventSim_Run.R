@@ -9,6 +9,11 @@ ivi_records = list()
 sink(file="VocEventSimOutput.txt")
 sim_length = 10*60*60
 
+history_length = 60
+lambda = 1/30
+
+#rthresh = 1; a2_othersensitivity = 1; a2_respsensitivity = 1; a1_othersensitivity = 1; a1_respsensitivity = 1
+
 for (rthresh in c(1)){#,5)){
   for (a2_othersensitivity in c(1,1.5)){#,2,3,100)){
     for (a2_respsensitivity in c(1,1.5)){#,2,3,100)){
@@ -33,6 +38,20 @@ for (rthresh in c(1)){#,5)){
           simIDs=c()
           previvi_resids = c()
           prev3ivi_resids = c()
+          a1_decayed_history = c()
+          a2_decayed_history = c()
+          a2toa1_r_decayed_history = c()
+          timessince_df = data.frame(a1_voc_record = integer(),
+                                    timessince_last_a1 = integer(),
+                                    timessince_2ndToLast_a1 = integer(),
+                                    timessince_3rdToLast_a1 = integer(),
+                                    timessince_last_a2 = integer(),
+                                    timessince_2ndToLast_a2 = integer(),
+                                    timessince_3rdToLast_a2 = integer(),
+                                    timessince_last_a2toa1_r = integer(),
+                                    timessince_2ndToLast_a2toa1_r = integer(),
+                                    timessince_3rdToLast_a2toa1_r = integer()
+                                    )
           
           for (i in 1:200){
             
@@ -82,8 +101,62 @@ for (rthresh in c(1)){#,5)){
             voc_and_resp_records = c(voc_and_resp_records,list(data.frame(a1_voc_record,a2_voc_record,c(a2toa1_r_record,rep(NA,times=rthresh)))))
             ivi_records = c(ivi_records,list(data.frame(a1_ivi_record,a1_ivi_response_record,c(NA,previvi_resid))))
             
+            # Populate a dataframe that contains the data needed to analyze probability of current event being a1 given time since the previous 3 a1's, a2's, and a2toa1_r's
+            
+            timessince_last_a1 = numeric()
+            timessince_2ndToLast_a1 = numeric()
+            timessince_3rdToLast_a1 = numeric()
+            timessince_last_a2 = numeric()
+            timessince_2ndToLast_a2 = numeric()
+            timessince_3rdToLast_a2 = numeric()
+            timessince_last_a2toa1_r = numeric()
+            timessince_2ndToLast_a2toa1_r = numeric()
+            timessince_3rdToLast_a2toa1_r = numeric()
+            timessince_last_a1[1] = NA
+            timessince_2ndToLast_a1[1] = NA
+            timessince_3rdToLast_a1[1] = NA
+            timessince_last_a2[1] = NA
+            timessince_2ndToLast_a2[1] = NA
+            timessince_3rdToLast_a2[1] = NA
+            
+            timesince_last_a1 = NA
+            timesince_2ndToLast_a1 = NA
+            timesince_3rdToLast_a1 = NA
+            timesince_last_a2 = NA
+            timesince_2ndToLast_a2 = NA
+            timesince_3rdToLast_a2 = NA
+            for (t in 1:(sim_length-1)){
+              if(a1_voc_record[t]==1){
+                timesince_3rdToLast_a1 = timesince_2ndToLast_a1+1
+                timesince_2ndToLast_a1 = timesince_last_a1+1
+                timesince_last_a1 = 1
+              }else{
+                timesince_last_a1 = timesince_last_a1 + 1
+                timesince_2ndToLast_a1 = timesince_2ndToLast_a1 + 1
+                timesince_3rdToLast_a1 = timesince_3rdToLast_a1 + 1
+              }
+              if(a2_voc_record[t]==1){
+                timesince_3rdToLast_a2 = timesince_2ndToLast_a2 + 1
+                timesince_2ndToLast_a2 = timesince_last_a2 + 1
+                timesince_last_a2 = 1
+              }else{
+                timesince_last_a2 = timesince_last_a2 + 1
+                timesince_2ndToLast_a2 = timesince_2ndToLast_a2 + 1
+                timesince_3rdToLast_a2 = timesince_3rdToLast_a2 + 1
+              }
+              timessince_last_a1[t+1] = timesince_last_a1
+              timessince_2ndToLast_a1[t+1] = timesince_2ndToLast_a1
+              timessince_3rdToLast_a1[t+1] = timesince_3rdToLast_a1
+              timessince_last_a2[t+1] = timesince_last_a2
+              timessince_2ndToLast_a2[t+1] = timesince_2ndToLast_a2
+              timessince_3rdToLast_a2[t+1] = timesince_3rdToLast_a2
+            }
+            thissim_timessince_df = cbind(a1_voc_record,timessince_last_a1,timessince_2ndToLast_a1,timessince_3rdToLast_a1,timessince_last_a2,timessince_2ndToLast_a2,timessince_3rdToLast_a2)
+            timessince_df = rbind(timessince_df,thissim_timessince_df)
+            
           }
           
+          # Analyze using IVI-based approaches (our original and its variants controlling for previous IVIs)
           ivi_models = analyze_ivis(a1_ivi_records,a1_ivi_response_records,previvi_resids,prev3ivi_resids,simIDs)
           a1_uncontrolled_response_model = ivi_models[[1]]
           a1_residual_response_model = ivi_models[[2]]
@@ -92,6 +165,12 @@ for (rthresh in c(1)){#,5)){
           print(summary(a1_uncontrolled_response_model))
           print(summary(a1_residual_response_model))
           print(summary(a1_prev3residual_response_model))
+          
+          # Analyze with logistic regression predicting current event being I based on time since previous a1, a2, and a1a2
+          timessince_logistic_models = analyze_timessince_logistic(timessince_df)
+          print(summary(timessince_logistic_models[[1]]))
+          print(summary(timessince_logistic_models[[2]]))
+          
           hist(a1_ivi_record)
           
         }

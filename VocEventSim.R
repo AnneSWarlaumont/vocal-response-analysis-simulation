@@ -130,3 +130,12 @@ analyze_ivis <- function(ivi_records,ivi_response_records,previvi_resids,prev3iv
   
 }
 
+analyze_timessince_logistic <- function(timessince_df){
+  
+  timessince_a1_model = glm(a1_voc_record ~ timessince_last_a1 + timessince_2ndToLast_a1 + timessince_3rdToLast_a1, family = "binomial", data = timessince_df, na.action = na.exclude)
+  timessince_df$a1_resids = resid(timessince_a1_model)
+  timessince_a2_model = lm(a1_resids ~ timessince_last_a2 + timessince_2ndToLast_a2 + timessince_3rdToLast_a2, data = timessince_df)
+  return(list(timessince_a1_model,timessince_a2_model))
+  
+}
+
