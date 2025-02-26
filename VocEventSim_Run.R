@@ -8,9 +8,11 @@ ivi_records = list()
 
 sink(file="VocEventSimOutput.txt")
 sim_length = 10*60*60
+#sim_length = 10*60*60*10
 
 history_length = 60
 lambda = 1/30
+history_weights = exp(-lambda*seq(from=60, to=1, by = -1))
 
 #rthresh = 1; a2_othersensitivity = 1; a2_respsensitivity = 1; a1_othersensitivity = 1; a1_respsensitivity = 1
 
@@ -50,7 +52,10 @@ for (rthresh in c(1)){#,5)){
                                     timessince_3rdToLast_a2 = integer(),
                                     timessince_last_a2toa1_r = integer(),
                                     timessince_2ndToLast_a2toa1_r = integer(),
-                                    timessince_3rdToLast_a2toa1_r = integer()
+                                    timessince_3rdToLast_a2toa1_r = integer(),
+                                    a1_weighted_histories = integer(),
+                                    a2_weighted_histories = integer(),
+                                    a2toa1_r_weighted_histories = integer()
                                     )
           
           for (i in 1:200){
@@ -112,12 +117,22 @@ for (rthresh in c(1)){#,5)){
             timessince_last_a2toa1_r = numeric()
             timessince_2ndToLast_a2toa1_r = numeric()
             timessince_3rdToLast_a2toa1_r = numeric()
+            a1_weighted_histories = numeric()
+            a2_weighted_histories = numeric()
+            a2toa1_r_weighted_histories = numeric()
+            
             timessince_last_a1[1] = NA
             timessince_2ndToLast_a1[1] = NA
             timessince_3rdToLast_a1[1] = NA
             timessince_last_a2[1] = NA
             timessince_2ndToLast_a2[1] = NA
             timessince_3rdToLast_a2[1] = NA
+            timessince_last_a2toa1_r[1:2] = c(NA,NA)
+            timessince_2ndToLast_a2toa1_r[1:2] = c(NA,NA)
+            timessince_3rdToLast_a2toa1_r[1:2] = c(NA,NA)
+            a1_weighted_histories[1:50] = rep(NA,50)
+            a2_weighted_histories[1:50] = rep(NA,50)
+            a2toa1_r_weighted_histories[1:50] = rep(NA,50)
             
             timesince_last_a1 = NA
             timesince_2ndToLast_a1 = NA
@@ -125,6 +140,9 @@ for (rthresh in c(1)){#,5)){
             timesince_last_a2 = NA
             timesince_2ndToLast_a2 = NA
             timesince_3rdToLast_a2 = NA
+            timesince_last_a2toa1_r = NA
+            timesince_2ndToLast_a2toa1_r = NA
+            timesince_3rdToLast_a2toa1_r = NA
             for (t in 1:(sim_length-1)){
               if(a1_voc_record[t]==1){
                 timesince_3rdToLast_a1 = timesince_2ndToLast_a1+1
@@ -151,7 +169,28 @@ for (rthresh in c(1)){#,5)){
               timessince_2ndToLast_a2[t+1] = timesince_2ndToLast_a2
               timessince_3rdToLast_a2[t+1] = timesince_3rdToLast_a2
             }
-            thissim_timessince_df = cbind(a1_voc_record,timessince_last_a1,timessince_2ndToLast_a1,timessince_3rdToLast_a1,timessince_last_a2,timessince_2ndToLast_a2,timessince_3rdToLast_a2)
+            for (t in 1:(sim_length-2)){
+              if((a1_voc_record[t]==1) && (a2_voc_record[t+1]==1)){
+                timesince_3rdToLast_a2toa1_r = timesince_2ndToLast_a2toa1_r
+                tiemsince_2ndToLast_a2toa1_r = timesince_last_a2toa1_r
+                timesince_last_a2toa1_r = 1
+              }else{
+                timesince_last_a2toa1_r = timesince_last_a2toa1_r + 1
+                timesince_2ndToLast_a2toa1_r = timesince_2ndToLast_a2toa1_r + 1
+                timesince_3rdToLast_a2toa1_r = timesince_3rdToLast_a2toa1_r + 1
+              }
+              timessince_last_a2toa1_r[t+2] = timesince_last_a2toa1_r
+              timessince_2ndToLast_a2toa1_r[t+2] = timesince_2ndToLast_a2toa1_r
+              timessince_3rdToLast_a2toa1_r[t+2] = timesince_3rdToLast_a2toa1_r
+            }
+            
+            for (t in 61:sim_length){
+              a1_weighted_histories[t] = sum(history_weights*a1_voc_record[(t-60):(t-1)],na.rm = TRUE)
+              a2_weighted_histories[t] = sum(history_weights*a2_voc_record[(t-60):(t-1)],na.rm = TRUE)
+              a2toa1_r_weighted_histories[t] = sum(history_weights*a2toa1_r_record[(t-60):(t-1)],na.rm = TRUE)
+            }
+            
+            thissim_timessince_df = cbind(a1_voc_record,timessince_last_a1,timessince_2ndToLast_a1,timessince_3rdToLast_a1,timessince_last_a2,timessince_2ndToLast_a2,timessince_3rdToLast_a2,timessince_last_a2toa1_r,timessince_2ndToLast_a2toa1_r,timessince_3rdToLast_a2toa1_r,a1_weighted_histories,a2_weighted_histories,a2toa1_r_weighted_histories)
             timessince_df = rbind(timessince_df,thissim_timessince_df)
             
           }
@@ -168,8 +207,9 @@ for (rthresh in c(1)){#,5)){
           
           # Analyze with logistic regression predicting current event being I based on time since previous a1, a2, and a1a2
           timessince_logistic_models = analyze_timessince_logistic(timessince_df)
-          print(summary(timessince_logistic_models[[1]]))
-          print(summary(timessince_logistic_models[[2]]))
+          for (m in 1:length(timessince_logistic_models)){
+            print(summary(timessince_logistic_models[[m]]))
+          }
           
           hist(a1_ivi_record)
           
@@ -249,9 +289,14 @@ for (rthresh in c(1)){#,5)){
 # rect(xleft=0+fivemin_offset*60*5,xright=300+fivemin_offset*60*5,ybottom=0,ytop=2,col=rgb(0.5,0.5,0.5,.3),border=NA)
 # a1_voc_record_5min = a1_voc_record_1hr[(1+fivemin_offset*60*5):(300+fivemin_offset*60*5)]
 # stripchart(which(a1_voc_record_5min==1),xaxt="n",main="5 minutes within the hour",pch=19,ylim=c(.5,1.5),xlim=c(0,300))
-# 
+#
 # mtext("Onsets of child vocalizations",side=3, line = 1, outer=TRUE, cex=2)
-# 
+
+par(mfrow=c(3,1),cex=1,mar=c(1,1,1,1),oma=c(0,0,0,0))
+stripchart(which(a1_voc_record==1),xaxt="n",main="a1",pch=19,ylim=c(.5,1.5),xlim=c(0,sim_length))
+stripchart(which(a2_voc_record==1),xaxt="n",main="a2",pch=19,ylim=c(.5,1.5),xlim=c(0,sim_length))
+stripchart(which(a2toa1_r_record==1),xaxt="n",main="a2 responses to a1",pch=19,ylim=c(.5,1.5),xlim=c(0,sim_length))
+
 # #dev.off()
 # 
 # sum(a1_voc_record)
