@@ -3,7 +3,7 @@
 library(lme4)
 library(lmerTest)
 library(ggplot2)
-library(brms)
+#library(brms)
 #library(reservoirnet)
 
 two_agent_vocal_sim <- function(sim_length,a1_p_voc,a2_p_voc,a1_meanlog,a2_meanlog,a1_sdlog,a2_sdlog,a1_minp,a2_minp,a1_maxp,a2_maxp,a1_othersensitivity,a2_othersensitivity,a1_respsensitivity,a2_respsensitivity,rthresh) {
@@ -133,25 +133,17 @@ analyze_ivis <- function(ivi_records,ivi_response_records,previvi_resids,prev3iv
 
 analyze_timessince_logistic <- function(timessince_df){
   
-  weighted_histories_simultaneous_model = glm(a1_voc_record ~ scale(log(a1_weighted_histories+1)) + scale(log(a2_weighted_histories+1)) + scale(log(a2toa1_r_weighted_histories+1)), family = "binomial", data = timessince_df[61:nrow(timessince_df),], na.action = na.exclude)
-  weighted_histories_simultaneous_bayesian_model = brm(a1_voc_record ~ scale(log(a1_weighted_histories+1)) + scale(log(a2_weighted_histories+1)) + scale(log(a2toa1_r_weighted_histories+1)), family = "poisson", data = timessince_df[61:nrow(timessince_df),])
-  weighted_histories_a1_model = glm(a1_voc_record ~ scale(log(a1_weighted_histories+1)),family="binomial",data=timessince_df,na.action = na.exclude)
-  timessince_df$a1_wh_resids = resid(weighted_histories_a1_model)
-  weighted_histories_a2_resid_model = lm(scale(a1_wh_resids) ~ scale(log(a2_weighted_histories+1)),data=timessince_df,na.action=na.exclude)
-  timessince_df$a2_wh_resids = resid(weighted_histories_a2_resid_model)
-  weighted_histories_a2toa1_r_resid_model = lm(scale(a2_wh_resids) ~ scale(log(a2toa1_r_weighted_histories+1)),data=timessince_df,na.action=na.exclude)
   timessince_a1_model = glm(a1_voc_record ~ scale(log(timessince_last_a1)) + scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), family = "binomial", data = timessince_df, na.action = na.exclude)
   timessince_df$a1_resids = resid(timessince_a1_model)
   timessince_a2_model = lm(a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + scale(log(timessince_3rdToLast_a2)), data = timessince_df, na.action = na.exclude)
   timessince_df$a2_resids = resid(timessince_a2_model)
   if ((any(!is.na(timessince_df$timessince_last_a2toa1_r))) && (any(!is.na(timessince_df$timessince_2ndToLast_a2toa1_r))) && (any(!is.na(timessince_df$timessince_3rdToLast_a2toa1_r)))){
-    timessince_r_model = lm(a2_resids ~ scale(log(timessince_last_a2toa1_r)) + scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), data = timessince_df) 
+    timessince_r_model = lm(a2_resids ~ scale(log(timessince_last_a2toa1_r)) + scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), data = timessince_df)
     timessince_simultaneous_model = glm(a1_voc_record ~ scale(log(timessince_last_a1)) + scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), family = "binomial", data = timessince_df, na.action = na.exclude)
-    return(list(timessince_a1_model,timessince_a2_model,timessince_r_model,timessince_simultaneous_model,weighted_histories_simultaneous_model,weighted_histories_simultaneous_bayesian_model,weighted_histories_a1_model,weighted_histories_a2_resid_model,weighted_histories_a2toa1_r_resid_model))
+    return(list(timessince_a1_model,timessince_a2_model,timessince_r_model,timessince_simultaneous_model))
   } else{
-    return(list(timessince_a1_model,timessince_a2_model,weighted_histories_simultaneous_model,weighted_histories_simultaneous_bayesian_model,weighted_histories_a1_model,weighted_histories_a2_resid_model,weighted_histories_a2toa1_r_resid_model))
+    return(list(timessince_a1_model,timessince_a2_model))
   }
-  
   
 }
 

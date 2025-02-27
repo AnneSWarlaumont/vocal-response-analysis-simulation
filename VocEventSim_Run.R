@@ -8,20 +8,14 @@ ivi_records = list()
 
 sink(file="VocEventSimOutput.txt")
 sim_length = 10*60*60
-#sim_length = 10*60*60*10
+rthresh = 1
 
-history_length = 60
-lambda = 1/30
-history_weights = exp(-lambda*seq(from=60, to=1, by = -1))
-
-#rthresh = 1; a2_othersensitivity = 1; a2_respsensitivity = 1; a1_othersensitivity = 1; a1_respsensitivity = 1
-
-for (rthresh in c(1)){#,5)){
-  for (a2_othersensitivity in c(1,1.5)){#,2,3,100)){
-    for (a2_respsensitivity in c(1,1.5)){#,2,3,100)){
-      for (a1_othersensitivity in c(1,1.5)){#,2,3,100)){
-        for (a1_respsensitivity in c(1,1.5)){#,2,3,100)){
-  
+for (a2_minp in c(.00001,.001)){
+  for (a2_othersensitivity in c(1,1.5)){#,2,3,10)){
+    for (a2_respsensitivity in c(1,1.5)){#,2,3,10)){
+      for (a1_othersensitivity in c(1,1.5)){#,2,3,10)){
+        for (a1_respsensitivity in c(1,1.5)){#,2,3,10)){
+          
           print("Simulation parameters:")
           print(paste("response threshold:",rthresh))
           print(paste("agent 1 (i.e. infant) other sensitivity:",
@@ -40,25 +34,19 @@ for (rthresh in c(1)){#,5)){
           simIDs=c()
           previvi_resids = c()
           prev3ivi_resids = c()
-          a1_decayed_history = c()
-          a2_decayed_history = c()
-          a2toa1_r_decayed_history = c()
           timessince_df = data.frame(a1_voc_record = integer(),
-                                    timessince_last_a1 = integer(),
-                                    timessince_2ndToLast_a1 = integer(),
-                                    timessince_3rdToLast_a1 = integer(),
-                                    timessince_last_a2 = integer(),
-                                    timessince_2ndToLast_a2 = integer(),
-                                    timessince_3rdToLast_a2 = integer(),
-                                    timessince_last_a2toa1_r = integer(),
-                                    timessince_2ndToLast_a2toa1_r = integer(),
-                                    timessince_3rdToLast_a2toa1_r = integer(),
-                                    a1_weighted_histories = integer(),
-                                    a2_weighted_histories = integer(),
-                                    a2toa1_r_weighted_histories = integer()
-                                    )
+                                     timessince_last_a1 = integer(),
+                                     timessince_2ndToLast_a1 = integer(),
+                                     timessince_3rdToLast_a1 = integer(),
+                                     timessince_last_a2 = integer(),
+                                     timessince_2ndToLast_a2 = integer(),
+                                     timessince_3rdToLast_a2 = integer(),
+                                     timessince_last_a2toa1_r = integer(),
+                                     timessince_2ndToLast_a2toa1_r = integer(),
+                                     timessince_3rdToLast_a2toa1_r = integer()
+          )
           
-          for (i in 1:200){
+          for (i in 1:100){
             
             #simcounter = simcounter+1
             #print(paste("Simulation number:",simcounter))
@@ -70,7 +58,7 @@ for (rthresh in c(1)){#,5)){
             a1_sdlog = .2
             a2_sdlog = .2
             a1_minp = .000001
-            a2_minp = .00001
+            #a2_minp = .00001
             a1_maxp = .4
             a2_maxp = .4
             a1_p_voc = runif(1,min=a1_minp,max=a1_maxp)
@@ -117,9 +105,6 @@ for (rthresh in c(1)){#,5)){
             timessince_last_a2toa1_r = numeric()
             timessince_2ndToLast_a2toa1_r = numeric()
             timessince_3rdToLast_a2toa1_r = numeric()
-            a1_weighted_histories = numeric()
-            a2_weighted_histories = numeric()
-            a2toa1_r_weighted_histories = numeric()
             
             timessince_last_a1[1] = NA
             timessince_2ndToLast_a1[1] = NA
@@ -130,9 +115,6 @@ for (rthresh in c(1)){#,5)){
             timessince_last_a2toa1_r[1:2] = c(NA,NA)
             timessince_2ndToLast_a2toa1_r[1:2] = c(NA,NA)
             timessince_3rdToLast_a2toa1_r[1:2] = c(NA,NA)
-            a1_weighted_histories[1:50] = rep(NA,50)
-            a2_weighted_histories[1:50] = rep(NA,50)
-            a2toa1_r_weighted_histories[1:50] = rep(NA,50)
             
             timesince_last_a1 = NA
             timesince_2ndToLast_a1 = NA
@@ -184,13 +166,7 @@ for (rthresh in c(1)){#,5)){
               timessince_3rdToLast_a2toa1_r[t+2] = timesince_3rdToLast_a2toa1_r
             }
             
-            for (t in 61:sim_length){
-              a1_weighted_histories[t] = sum(history_weights*a1_voc_record[(t-60):(t-1)],na.rm = TRUE)
-              a2_weighted_histories[t] = sum(history_weights*a2_voc_record[(t-60):(t-1)],na.rm = TRUE)
-              a2toa1_r_weighted_histories[t] = sum(history_weights*a2toa1_r_record[(t-60):(t-1)],na.rm = TRUE)
-            }
-            
-            thissim_timessince_df = cbind(a1_voc_record,timessince_last_a1,timessince_2ndToLast_a1,timessince_3rdToLast_a1,timessince_last_a2,timessince_2ndToLast_a2,timessince_3rdToLast_a2,timessince_last_a2toa1_r,timessince_2ndToLast_a2toa1_r,timessince_3rdToLast_a2toa1_r,a1_weighted_histories,a2_weighted_histories,a2toa1_r_weighted_histories)
+            thissim_timessince_df = cbind(a1_voc_record,timessince_last_a1,timessince_2ndToLast_a1,timessince_3rdToLast_a1,timessince_last_a2,timessince_2ndToLast_a2,timessince_3rdToLast_a2,timessince_last_a2toa1_r,timessince_2ndToLast_a2toa1_r,timessince_3rdToLast_a2toa1_r)
             timessince_df = rbind(timessince_df,thissim_timessince_df)
             
           }
@@ -200,12 +176,12 @@ for (rthresh in c(1)){#,5)){
           a1_uncontrolled_response_model = ivi_models[[1]]
           a1_residual_response_model = ivi_models[[2]]
           a1_prev3residual_response_model = ivi_models[[3]]
-    
+          
           print(summary(a1_uncontrolled_response_model))
           print(summary(a1_residual_response_model))
           print(summary(a1_prev3residual_response_model))
           
-          # Analyze with logistic regression predicting current event being I based on time since previous a1, a2, and a1a2
+          # Analyze with logistic regression predicting current event being a1 based on time since previous a1, a2, and a1a2
           timessince_logistic_models = analyze_timessince_logistic(timessince_df)
           for (m in 1:length(timessince_logistic_models)){
             print(summary(timessince_logistic_models[[m]]))
