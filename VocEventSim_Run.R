@@ -47,7 +47,7 @@ for (a2_minp in c(.00001,.001)){
                                      timessince_3rdToLast_a2toa1_r = integer()
           )
           
-          for (i in 1:100){
+          for (i in 1:50){
             
             #simcounter = simcounter+1
             #print(paste("Simulation number:",simcounter))
@@ -69,7 +69,7 @@ for (a2_minp in c(.00001,.001)){
             a1_voc_record = voc_records[[1]]
             a2_voc_record = voc_records[[2]]
             a2toa1_r_record = voc_records[[3]]
-            a2toa2_r_record = voc_records[[4]]
+            a1toa2_r_record = voc_records[[4]]
             
             ivi_records = get_ivis_and_responses(a1_voc_record,a2_voc_record,rthresh,a2toa1_r_record) # This is not yet updated to handle a1toa2_r_record
             
@@ -155,7 +155,7 @@ for (a2_minp in c(.00001,.001)){
             for (t in 1:(sim_length-2)){
               if((a1_voc_record[t]==1) && (a2_voc_record[t+1]==1)){
                 timesince_3rdToLast_a2toa1_r = timesince_2ndToLast_a2toa1_r
-                tiemsince_2ndToLast_a2toa1_r = timesince_last_a2toa1_r
+                timesince_2ndToLast_a2toa1_r = timesince_last_a2toa1_r
                 timesince_last_a2toa1_r = 1
               }else{
                 timesince_last_a2toa1_r = timesince_last_a2toa1_r + 1
@@ -188,7 +188,7 @@ for (a2_minp in c(.00001,.001)){
             print(summary(timessince_logistic_models[[m]]))
           }
           
-          hist(a1_ivi_record)
+          #hist(a1_ivi_record)
           
         }
       }
@@ -228,7 +228,7 @@ save.image("VocEventSim_Run.RData")
 # a1_voc_record = voc_records[[1]]
 # a2_voc_record = voc_records[[2]]
 # a2toa1_r_record = voc_records[[3]]
-# a2toa2_r_record = voc_records[[4]]
+# a1toa2_r_record = voc_records[[4]]
 # 
 # ivi_records = get_ivis_and_responses(a1_voc_record,a2_voc_record,rthresh,a2toa1_r_record) # This is not yet updated to handle a1toa2_r_record
 # 
