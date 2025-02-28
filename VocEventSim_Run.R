@@ -196,6 +196,8 @@ for (a2_minp in c(.00001,.001)){
   }
 }
 
+save.image("VocEventSim_Run.RData")
+
 # # Run a single simulation and visualize the data.
 # sim_length = 10*60*60
 # rthresh = 1
@@ -269,10 +271,10 @@ for (a2_minp in c(.00001,.001)){
 #
 # mtext("Onsets of child vocalizations",side=3, line = 1, outer=TRUE, cex=2)
 
-par(mfrow=c(3,1),cex=1,mar=c(1,1,1,1),oma=c(0,0,0,0))
-stripchart(which(a1_voc_record==1),xaxt="n",main="a1",pch=19,ylim=c(.5,1.5),xlim=c(0,sim_length))
-stripchart(which(a2_voc_record==1),xaxt="n",main="a2",pch=19,ylim=c(.5,1.5),xlim=c(0,sim_length))
-stripchart(which(a2toa1_r_record==1),xaxt="n",main="a2 responses to a1",pch=19,ylim=c(.5,1.5),xlim=c(0,sim_length))
+# par(mfrow=c(3,1),cex=1,mar=c(1,1,1,1),oma=c(0,0,0,0))
+# stripchart(which(a1_voc_record==1),xaxt="n",main="a1",pch=19,ylim=c(.5,1.5),xlim=c(0,sim_length))
+# stripchart(which(a2_voc_record==1),xaxt="n",main="a2",pch=19,ylim=c(.5,1.5),xlim=c(0,sim_length))
+# stripchart(which(a2toa1_r_record==1),xaxt="n",main="a2 responses to a1",pch=19,ylim=c(.5,1.5),xlim=c(0,sim_length))
 
 # #dev.off()
 # 
