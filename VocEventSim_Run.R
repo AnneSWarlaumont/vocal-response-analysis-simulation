@@ -17,6 +17,7 @@ for (a2_minp in c(.00001,.001)){
         for (a1_respsensitivity in c(1,1.5)){#,2,3,10)){
           
           print("Simulation parameters:")
+          print(paste("a2_minp:",a2_minp))
           print(paste("response threshold:",rthresh))
           print(paste("agent 1 (i.e. infant) other sensitivity:",
                       a1_othersensitivity))
