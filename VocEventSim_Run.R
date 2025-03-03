@@ -2,18 +2,14 @@ source('VocEventSim.R')
 
 # Run a batch of simulations and analyze data:
 
-simcounter = 0
-voc_and_resp_records = list()
-ivi_records = list()
-
 sink(file="VocEventSimOutput.txt")
 sim_length = 10*60*60
 rthresh = 1
-a1_respsensitivity = 1
+a2_respsensitivity = 1
 
 for (a2_minp in c(.00001,.001)){
   for (a2_othersensitivity in c(1,2)){
-    for (a2_respsensitivity in c(1,2)){
+    for (a1_respsensitivity in c(1,2)){
       for (a1_othersensitivity in c(1,2)){
         
         print("Simulation parameters:")
@@ -44,10 +40,7 @@ for (a2_minp in c(.00001,.001)){
                                    timessince_3rdToLast_a2toa1_r = integer()
         )
         
-        for (i in 1:300){
-          
-          #simcounter = simcounter+1
-          #print(paste("Simulation number:",simcounter))
+        for (i in 1:200){
           
           simID = simID+1
           
@@ -56,7 +49,6 @@ for (a2_minp in c(.00001,.001)){
           a1_sdlog = .2
           a2_sdlog = .2
           a1_minp = .000001
-          #a2_minp = .00001
           a1_maxp = .4
           a2_maxp = .4
           a1_p_voc = runif(1,min=a1_minp,max=a1_maxp)
@@ -88,9 +80,6 @@ for (a2_minp in c(.00001,.001)){
           a1_ivi_response_records = c(a1_ivi_response_records,a1_ivi_response_record[2:length(a1_ivi_response_record)])
           
           simIDs = c(simIDs,rep(simID,n_ivi-1))
-          
-          voc_and_resp_records = c(voc_and_resp_records,list(data.frame(a1_voc_record,a2_voc_record,c(a2toa1_r_record,rep(NA,times=rthresh)))))
-          ivi_records = c(ivi_records,list(data.frame(a1_ivi_record,a1_ivi_response_record,c(NA,previvi_resid))))
           
           # Populate a dataframe that contains the data needed to analyze probability of current event being a1 given time since the previous 3 a1's, a2's, and a2toa1_r's
           
@@ -192,7 +181,7 @@ for (a2_minp in c(.00001,.001)){
   }
 }
 
-save.image("VocEventSim_Run.RData")
+#save.image("VocEventSim_Run.RData")
 
 # # Run a single simulation and visualize the data.
 # sim_length = 10*60*60
