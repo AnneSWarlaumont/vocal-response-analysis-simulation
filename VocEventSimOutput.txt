@@ -1,0 +1,2992 @@
+[1] "Simulation parameters:"
+[1] "a2_minp: 1e-05"
+[1] "agent 1 (i.e. infant) other sensitivity: 1"
+[1] "agent 1 response sensitivity: 1"
+[1] "agent 2 (i.e. adult) other sensitivity: 1"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2148 -0.6917 -0.1686  0.5228  5.9400 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.08925    0.00246  36.287   <2e-16 ***
+ivi_response_records -0.02276    0.01140  -1.997   0.0458 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.049 on 190832 degrees of freedom
+  (53735 observations deleted due to missingness)
+Multiple R-squared:  2.09e-05,	Adjusted R-squared:  1.566e-05 
+F-statistic: 3.988 on 1 and 190832 DF,  p-value: 0.04582
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.4981 -0.6014 -0.1140  0.4520  7.0141 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.311134   0.002106 147.717   <2e-16 ***
+ivi_response_records -0.004319   0.009758  -0.443    0.658    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8984 on 190832 degrees of freedom
+  (53735 observations deleted due to missingness)
+Multiple R-squared:  1.027e-06,	Adjusted R-squared:  -4.213e-06 
+F-statistic: 0.1959 on 1 and 190832 DF,  p-value: 0.658
+
+
+Call:
+lm(formula = scale(prev3ivi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.7241 -0.7541 -0.0794  0.6007  7.1528 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -0.016603   0.002434  -6.820 9.12e-12 ***
+ivi_response_records -0.016665   0.011275  -1.478    0.139    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.037 on 190453 degrees of freedom
+  (54114 observations deleted due to missingness)
+Multiple R-squared:  1.147e-05,	Adjusted R-squared:  6.22e-06 
+F-statistic: 2.185 on 1 and 190453 DF,  p-value: 0.1394
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                     Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                         -5.195064   0.005865 -885.71   <2e-16 ***
+scale(log(timessince_last_a1))      -0.642942   0.007156  -89.84   <2e-16 ***
+scale(log(timessince_2ndToLast_a1)) -0.499227   0.011523  -43.32   <2e-16 ***
+scale(log(timessince_3rdToLast_a1)) -0.924026   0.009494  -97.33   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2132048  on 7174305  degrees of freedom
+Residual deviance: 1458156  on 7174302  degrees of freedom
+  (25694 observations deleted due to missingness)
+AIC: 1458164
+
+Number of Fisher Scoring iterations: 8
+
+
+Call:
+lm(formula = a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)), data = timessince_df, 
+    na.action = na.exclude)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9954 -0.0945  0.0165  0.0473  4.2817 
+
+Coefficients:
+                                      Estimate Std. Error  t value Pr(>|t|)    
+(Intercept)                         -0.0907257  0.0001647 -550.725  < 2e-16 ***
+scale(log(timessince_last_a2))      -0.0013038  0.0004284   -3.043  0.00234 ** 
+scale(log(timessince_2ndToLast_a2))  0.0006625  0.0007874    0.841  0.40015    
+scale(log(timessince_3rdToLast_a2))  0.0014537  0.0006534    2.225  0.02611 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.441 on 7166744 degrees of freedom
+  (33252 observations deleted due to missingness)
+Multiple R-squared:  5.985e-06,	Adjusted R-squared:  5.566e-06 
+F-statistic:  14.3 on 3 and 7166744 DF,  p-value: 2.596e-09
+
+
+Call:
+lm(formula = a2_resids ~ scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    data = timessince_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0352 -0.0867  0.0118  0.0373  4.2463 
+
+Coefficients:
+                                            Estimate Std. Error t value
+(Intercept)                                5.734e-05  1.707e-04   0.336
+scale(log(timessince_last_a2toa1_r))       2.423e-02  3.318e-04  73.032
+scale(log(timessince_2ndToLast_a2toa1_r))  2.435e-03  5.519e-04   4.411
+scale(log(timessince_3rdToLast_a2toa1_r)) -1.325e-03  4.540e-04  -2.918
+                                          Pr(>|t|)    
+(Intercept)                                0.73686    
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r)) 1.03e-05 ***
+scale(log(timessince_3rdToLast_a2toa1_r))  0.00353 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.4402 on 6655582 degrees of freedom
+  (544414 observations deleted due to missingness)
+Multiple R-squared:  0.003303,	Adjusted R-squared:  0.003302 
+F-statistic:  7351 on 3 and 6655582 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + 
+    scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                           Estimate Std. Error  z value
+(Intercept)                               -5.200622   0.006112 -850.822
+scale(log(timessince_last_a1))            -0.641919   0.007446  -86.204
+scale(log(timessince_2ndToLast_a1))       -0.499136   0.011993  -41.621
+scale(log(timessince_3rdToLast_a1))       -0.912546   0.009945  -91.757
+scale(log(timessince_last_a2))            -0.015508   0.006169   -2.514
+scale(log(timessince_2ndToLast_a2))        0.008413   0.011389    0.739
+scale(log(timessince_3rdToLast_a2))        0.041031   0.009850    4.166
+scale(log(timessince_last_a2toa1_r))      -0.020820   0.003613   -5.762
+scale(log(timessince_2ndToLast_a2toa1_r)) -0.011943   0.005125   -2.330
+scale(log(timessince_3rdToLast_a2toa1_r)) -0.003147   0.004230   -0.744
+                                          Pr(>|z|)    
+(Intercept)                                < 2e-16 ***
+scale(log(timessince_last_a1))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a1))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a1))        < 2e-16 ***
+scale(log(timessince_last_a2))              0.0119 *  
+scale(log(timessince_2ndToLast_a2))         0.4601    
+scale(log(timessince_3rdToLast_a2))       3.10e-05 ***
+scale(log(timessince_last_a2toa1_r))      8.31e-09 ***
+scale(log(timessince_2ndToLast_a2toa1_r))   0.0198 *  
+scale(log(timessince_3rdToLast_a2toa1_r))   0.4569    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 1973053  on 6655585  degrees of freedom
+Residual deviance: 1348704  on 6655576  degrees of freedom
+  (544414 observations deleted due to missingness)
+AIC: 1348724
+
+Number of Fisher Scoring iterations: 8
+
+[1] "Simulation parameters:"
+[1] "a2_minp: 1e-05"
+[1] "agent 1 (i.e. infant) other sensitivity: 2"
+[1] "agent 1 response sensitivity: 1"
+[1] "agent 2 (i.e. adult) other sensitivity: 1"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1981 -0.9228 -0.0934  0.6035  7.4265 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.086883   0.001330   65.31   <2e-16 ***
+ivi_response_records -0.275321   0.004481  -61.44   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.045 on 676874 degrees of freedom
+  (261130 observations deleted due to missingness)
+Multiple R-squared:  0.005546,	Adjusted R-squared:  0.005545 
+F-statistic:  3775 on 1 and 676874 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.2941 -0.5793 -0.1296  0.4384  7.2534 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.452614   0.001062  426.05   <2e-16 ***
+ivi_response_records -0.271044   0.003578  -75.75   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8346 on 676874 degrees of freedom
+  (261130 observations deleted due to missingness)
+Multiple R-squared:  0.008406,	Adjusted R-squared:  0.008404 
+F-statistic:  5738 on 1 and 676874 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(prev3ivi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.7682 -0.8551 -0.0776  0.6491  7.8128 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -0.011085   0.001313  -8.444   <2e-16 ***
+ivi_response_records -0.190692   0.004421 -43.131   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.031 on 676538 degrees of freedom
+  (261466 observations deleted due to missingness)
+Multiple R-squared:  0.002742,	Adjusted R-squared:  0.002741 
+F-statistic:  1860 on 1 and 676538 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                     Estimate Std. Error  z value Pr(>|z|)    
+(Intercept)                         -2.735226   0.002204 -1240.80   <2e-16 ***
+scale(log(timessince_last_a1))      -0.425013   0.004312   -98.56   <2e-16 ***
+scale(log(timessince_2ndToLast_a1)) -0.337320   0.007096   -47.54   <2e-16 ***
+scale(log(timessince_3rdToLast_a1)) -1.011248   0.006062  -166.81   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 5569378  on 7194796  degrees of freedom
+Residual deviance: 4529511  on 7194793  degrees of freedom
+  (5203 observations deleted due to missingness)
+AIC: 4529519
+
+Number of Fisher Scoring iterations: 6
+
+
+Call:
+lm(formula = a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)), data = timessince_df, 
+    na.action = na.exclude)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0919 -0.4952 -0.1279  0.0701  3.9857 
+
+Coefficients:
+                                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                         -0.1411139  0.0002911 -484.80   <2e-16 ***
+scale(log(timessince_last_a2))      -0.0503867  0.0007265  -69.36   <2e-16 ***
+scale(log(timessince_2ndToLast_a2)) -0.0161379  0.0013256  -12.17   <2e-16 ***
+scale(log(timessince_3rdToLast_a2))  0.0209980  0.0011003   19.08   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7796 on 7174043 degrees of freedom
+  (25953 observations deleted due to missingness)
+Multiple R-squared:  0.003647,	Adjusted R-squared:  0.003646 
+F-statistic:  8753 on 3 and 7174043 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = a2_resids ~ scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    data = timessince_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1172 -0.4940 -0.1288  0.0670  3.9774 
+
+Coefficients:
+                                            Estimate Std. Error t value
+(Intercept)                                0.0001500  0.0002930   0.512
+scale(log(timessince_last_a2toa1_r))      -0.0077297  0.0007473 -10.343
+scale(log(timessince_2ndToLast_a2toa1_r)) -0.0034133  0.0012249  -2.787
+scale(log(timessince_3rdToLast_a2toa1_r))  0.0158729  0.0009831  16.145
+                                          Pr(>|t|)    
+(Intercept)                                0.60860    
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r))  0.00533 ** 
+scale(log(timessince_3rdToLast_a2toa1_r))  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7799 on 7086400 degrees of freedom
+  (113596 observations deleted due to missingness)
+Multiple R-squared:  8.927e-05,	Adjusted R-squared:  8.885e-05 
+F-statistic: 210.9 on 3 and 7086400 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + 
+    scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                           Estimate Std. Error   z value
+(Intercept)                               -2.739761   0.002233 -1226.670
+scale(log(timessince_last_a1))            -0.411679   0.004354   -94.548
+scale(log(timessince_2ndToLast_a1))       -0.323817   0.007142   -45.341
+scale(log(timessince_3rdToLast_a1))       -0.867446   0.006175  -140.470
+scale(log(timessince_last_a2))            -0.239972   0.003174   -75.603
+scale(log(timessince_2ndToLast_a2))       -0.054941   0.005535    -9.926
+scale(log(timessince_3rdToLast_a2))       -0.035719   0.005012    -7.127
+scale(log(timessince_last_a2toa1_r))       0.043397   0.002778    15.619
+scale(log(timessince_2ndToLast_a2toa1_r))  0.020489   0.003873     5.290
+scale(log(timessince_3rdToLast_a2toa1_r))  0.001775   0.003103     0.572
+                                          Pr(>|z|)    
+(Intercept)                                < 2e-16 ***
+scale(log(timessince_last_a1))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a1))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a1))        < 2e-16 ***
+scale(log(timessince_last_a2))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a2))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a2))       1.03e-12 ***
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r)) 1.22e-07 ***
+scale(log(timessince_3rdToLast_a2toa1_r))    0.567    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 5493145  on 7086403  degrees of freedom
+Residual deviance: 4427217  on 7086394  degrees of freedom
+  (113596 observations deleted due to missingness)
+AIC: 4427237
+
+Number of Fisher Scoring iterations: 6
+
+[1] "Simulation parameters:"
+[1] "a2_minp: 1e-05"
+[1] "agent 1 (i.e. infant) other sensitivity: 1"
+[1] "agent 1 response sensitivity: 2"
+[1] "agent 2 (i.e. adult) other sensitivity: 1"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2093 -0.6526 -0.0959  0.5553  6.4726 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.096547   0.002180   44.30   <2e-16 ***
+ivi_response_records -0.167703   0.008999  -18.64   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.053 on 247762 degrees of freedom
+  (75579 observations deleted due to missingness)
+Multiple R-squared:  0.0014,	Adjusted R-squared:  0.001396 
+F-statistic: 347.3 on 1 and 247762 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.6660 -0.5861 -0.1143  0.4520  6.9329 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.351745   0.001838  191.40   <2e-16 ***
+ivi_response_records -0.295843   0.007588  -38.99   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8875 on 247762 degrees of freedom
+  (75579 observations deleted due to missingness)
+Multiple R-squared:  0.006098,	Adjusted R-squared:  0.006094 
+F-statistic:  1520 on 1 and 247762 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(prev3ivi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.1796 -0.7661 -0.0835  0.6061  6.9545 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -0.013979   0.002148  -6.509 7.59e-11 ***
+ivi_response_records -0.150449   0.008864 -16.973  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.036 on 247388 degrees of freedom
+  (75953 observations deleted due to missingness)
+Multiple R-squared:  0.001163,	Adjusted R-squared:  0.001159 
+F-statistic: 288.1 on 1 and 247388 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                     Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                         -4.832810   0.005147 -938.93   <2e-16 ***
+scale(log(timessince_last_a1))      -0.618972   0.006761  -91.55   <2e-16 ***
+scale(log(timessince_2ndToLast_a1)) -0.487357   0.011036  -44.16   <2e-16 ***
+scale(log(timessince_3rdToLast_a1)) -1.019767   0.009166 -111.26   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2635945  on 7183463  degrees of freedom
+Residual deviance: 1829847  on 7183460  degrees of freedom
+  (16536 observations deleted due to missingness)
+AIC: 1829855
+
+Number of Fisher Scoring iterations: 8
+
+
+Call:
+lm(formula = a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)), data = timessince_df, 
+    na.action = na.exclude)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0088 -0.1369  0.0127  0.0510  4.2690 
+
+Coefficients:
+                                      Estimate Std. Error  t value Pr(>|t|)    
+(Intercept)                         -0.0989304  0.0001846 -535.806   <2e-16 ***
+scale(log(timessince_last_a2))      -0.0043860  0.0004829   -9.083   <2e-16 ***
+scale(log(timessince_2ndToLast_a2)) -0.0012050  0.0008935   -1.349    0.177    
+scale(log(timessince_3rdToLast_a2))  0.0010742  0.0007404    1.451    0.147    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.4943 on 7168338 degrees of freedom
+  (31658 observations deleted due to missingness)
+Multiple R-squared:  8.481e-05,	Adjusted R-squared:  8.439e-05 
+F-statistic: 202.7 on 3 and 7168338 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = a2_resids ~ scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    data = timessince_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0329 -0.1358  0.0088  0.0422  4.2049 
+
+Coefficients:
+                                            Estimate Std. Error t value
+(Intercept)                               -0.0002846  0.0001919  -1.483
+scale(log(timessince_last_a2toa1_r))       0.0126909  0.0004156  30.540
+scale(log(timessince_2ndToLast_a2toa1_r))  0.0048253  0.0006994   6.899
+scale(log(timessince_3rdToLast_a2toa1_r))  0.0010156  0.0005701   1.781
+                                          Pr(>|t|)    
+(Intercept)                                 0.1382    
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r)) 5.24e-12 ***
+scale(log(timessince_3rdToLast_a2toa1_r))   0.0748 .  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.4975 on 6717053 degrees of freedom
+  (482943 observations deleted due to missingness)
+Multiple R-squared:  0.001313,	Adjusted R-squared:  0.001313 
+F-statistic:  2944 on 3 and 6717053 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + 
+    scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                            Estimate Std. Error  z value
+(Intercept)                               -4.8287171  0.0053128 -908.885
+scale(log(timessince_last_a1))            -0.6190339  0.0069671  -88.851
+scale(log(timessince_2ndToLast_a1))       -0.4877634  0.0113678  -42.908
+scale(log(timessince_3rdToLast_a1))       -0.9701372  0.0095235 -101.868
+scale(log(timessince_last_a2))            -0.0357840  0.0054434   -6.574
+scale(log(timessince_2ndToLast_a2))        0.0179492  0.0100438    1.787
+scale(log(timessince_3rdToLast_a2))        0.0363635  0.0087355    4.163
+scale(log(timessince_last_a2toa1_r))      -0.0750821  0.0034433  -21.805
+scale(log(timessince_2ndToLast_a2toa1_r)) -0.0082311  0.0048764   -1.688
+scale(log(timessince_3rdToLast_a2toa1_r))  0.0003606  0.0039546    0.091
+                                          Pr(>|z|)    
+(Intercept)                                < 2e-16 ***
+scale(log(timessince_last_a1))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a1))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a1))        < 2e-16 ***
+scale(log(timessince_last_a2))            4.90e-11 ***
+scale(log(timessince_2ndToLast_a2))         0.0739 .  
+scale(log(timessince_3rdToLast_a2))       3.14e-05 ***
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r))   0.0914 .  
+scale(log(timessince_3rdToLast_a2toa1_r))   0.9273    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2490513  on 6717056  degrees of freedom
+Residual deviance: 1728573  on 6717047  degrees of freedom
+  (482943 observations deleted due to missingness)
+AIC: 1728593
+
+Number of Fisher Scoring iterations: 8
+
+[1] "Simulation parameters:"
+[1] "a2_minp: 1e-05"
+[1] "agent 1 (i.e. infant) other sensitivity: 2"
+[1] "agent 1 response sensitivity: 2"
+[1] "agent 2 (i.e. adult) other sensitivity: 1"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1969 -0.9162 -0.0971  0.5969  7.5392 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.088755   0.001338   66.32   <2e-16 ***
+ivi_response_records -0.280764   0.004506  -62.30   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.046 on 670122 degrees of freedom
+  (259199 observations deleted due to missingness)
+Multiple R-squared:  0.005759,	Adjusted R-squared:  0.005758 
+F-statistic:  3882 on 1 and 670122 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.1298 -0.5811 -0.1317  0.4422  7.5190 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.453910   0.001069   424.6   <2e-16 ***
+ivi_response_records -0.286903   0.003600   -79.7   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8356 on 670122 degrees of freedom
+  (259199 observations deleted due to missingness)
+Multiple R-squared:  0.00939,	Adjusted R-squared:  0.009389 
+F-statistic:  6352 on 1 and 670122 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(prev3ivi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.2607 -0.8554 -0.0796  0.6504  7.9493 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -0.011161   0.001320  -8.459   <2e-16 ***
+ivi_response_records -0.184075   0.004443 -41.435   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.031 on 669790 degrees of freedom
+  (259531 observations deleted due to missingness)
+Multiple R-squared:  0.002557,	Adjusted R-squared:  0.002555 
+F-statistic:  1717 on 1 and 669790 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                     Estimate Std. Error  z value Pr(>|z|)    
+(Intercept)                         -2.753253   0.002218 -1241.31   <2e-16 ***
+scale(log(timessince_last_a1))      -0.436954   0.004310  -101.37   <2e-16 ***
+scale(log(timessince_2ndToLast_a1)) -0.342316   0.007095   -48.24   <2e-16 ***
+scale(log(timessince_3rdToLast_a1)) -0.998621   0.006055  -164.92   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 5536915  on 7196925  degrees of freedom
+Residual deviance: 4495423  on 7196922  degrees of freedom
+  (3074 observations deleted due to missingness)
+AIC: 4495431
+
+Number of Fisher Scoring iterations: 6
+
+
+Call:
+lm(formula = a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)), data = timessince_df, 
+    na.action = na.exclude)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0962 -0.4902 -0.1241  0.0695  3.9912 
+
+Coefficients:
+                                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                         -0.1409854  0.0002895 -486.92   <2e-16 ***
+scale(log(timessince_last_a2))      -0.0521597  0.0007295  -71.50   <2e-16 ***
+scale(log(timessince_2ndToLast_a2)) -0.0157530  0.0013233  -11.90   <2e-16 ***
+scale(log(timessince_3rdToLast_a2))  0.0221372  0.0010971   20.18   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7761 on 7185557 degrees of freedom
+  (14439 observations deleted due to missingness)
+Multiple R-squared:  0.00375,	Adjusted R-squared:  0.00375 
+F-statistic:  9016 on 3 and 7185557 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = a2_resids ~ scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    data = timessince_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1279 -0.4899 -0.1255  0.0672  3.9825 
+
+Coefficients:
+                                            Estimate Std. Error t value
+(Intercept)                               -3.233e-06  2.918e-04  -0.011
+scale(log(timessince_last_a2toa1_r))      -1.098e-02  7.497e-04 -14.646
+scale(log(timessince_2ndToLast_a2toa1_r))  2.144e-03  1.217e-03   1.762
+scale(log(timessince_3rdToLast_a2toa1_r))  1.262e-02  9.727e-04  12.970
+                                          Pr(>|t|)    
+(Intercept)                                 0.9912    
+scale(log(timessince_last_a2toa1_r))        <2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r))   0.0781 .  
+scale(log(timessince_3rdToLast_a2toa1_r))   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.777 on 7090545 degrees of freedom
+  (109451 observations deleted due to missingness)
+Multiple R-squared:  8.387e-05,	Adjusted R-squared:  8.344e-05 
+F-statistic: 198.2 on 3 and 7090545 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + 
+    scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                            Estimate Std. Error   z value
+(Intercept)                               -2.7555199  0.0022441 -1227.875
+scale(log(timessince_last_a1))            -0.4260684  0.0043486   -97.979
+scale(log(timessince_2ndToLast_a1))       -0.3310616  0.0071382   -46.379
+scale(log(timessince_3rdToLast_a1))       -0.8485208  0.0061696  -137.532
+scale(log(timessince_last_a2))            -0.2393803  0.0031997   -74.813
+scale(log(timessince_2ndToLast_a2))       -0.0543238  0.0055413    -9.803
+scale(log(timessince_3rdToLast_a2))       -0.0243858  0.0050051    -4.872
+scale(log(timessince_last_a2toa1_r))       0.0304417  0.0027981    10.879
+scale(log(timessince_2ndToLast_a2toa1_r))  0.0249795  0.0038650     6.463
+scale(log(timessince_3rdToLast_a2toa1_r)) -0.0004529  0.0031025    -0.146
+                                          Pr(>|z|)    
+(Intercept)                                < 2e-16 ***
+scale(log(timessince_last_a1))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a1))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a1))        < 2e-16 ***
+scale(log(timessince_last_a2))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a2))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a2))       1.10e-06 ***
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r)) 1.03e-10 ***
+scale(log(timessince_3rdToLast_a2toa1_r))    0.884    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 5464620  on 7090548  degrees of freedom
+Residual deviance: 4398568  on 7090539  degrees of freedom
+  (109451 observations deleted due to missingness)
+AIC: 4398588
+
+Number of Fisher Scoring iterations: 6
+
+[1] "Simulation parameters:"
+[1] "a2_minp: 1e-05"
+[1] "agent 1 (i.e. infant) other sensitivity: 1"
+[1] "agent 1 response sensitivity: 1"
+[1] "agent 2 (i.e. adult) other sensitivity: 2"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2938 -0.7692 -0.2368  0.5210  6.0037 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.161309   0.002861   56.37   <2e-16 ***
+ivi_response_records -0.225582   0.004967  -45.42   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.043 on 198866 degrees of freedom
+  (55541 observations deleted due to missingness)
+Multiple R-squared:  0.01027,	Adjusted R-squared:  0.01026 
+F-statistic:  2063 on 1 and 198866 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.7643 -0.6020 -0.1145  0.4568  6.6219 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.32146    0.00246 130.667  < 2e-16 ***
+ivi_response_records -0.03335    0.00427  -7.809 5.77e-15 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8968 on 198866 degrees of freedom
+  (55541 observations deleted due to missingness)
+Multiple R-squared:  0.0003066,	Adjusted R-squared:  0.0003016 
+F-statistic: 60.99 on 1 and 198866 DF,  p-value: 5.774e-15
+
+
+Call:
+lm(formula = scale(prev3ivi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.2237 -0.7544 -0.0802  0.6044  7.1202 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -0.011597   0.002851  -4.068 4.75e-05 ***
+ivi_response_records -0.022173   0.004948  -4.481 7.43e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.038 on 198493 degrees of freedom
+  (55914 observations deleted due to missingness)
+Multiple R-squared:  0.0001011,	Adjusted R-squared:  9.611e-05 
+F-statistic: 20.08 on 1 and 198493 DF,  p-value: 7.435e-06
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                     Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                         -5.087748   0.005628 -904.04   <2e-16 ***
+scale(log(timessince_last_a1))      -0.641756   0.006956  -92.27   <2e-16 ***
+scale(log(timessince_2ndToLast_a1)) -0.467468   0.011218  -41.67   <2e-16 ***
+scale(log(timessince_3rdToLast_a1)) -0.936675   0.009265 -101.10   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2196503  on 7160900  degrees of freedom
+Residual deviance: 1519930  on 7160897  degrees of freedom
+  (39099 observations deleted due to missingness)
+AIC: 1519938
+
+Number of Fisher Scoring iterations: 8
+
+
+Call:
+lm(formula = a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)), data = timessince_df, 
+    na.action = na.exclude)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0484 -0.0918 -0.0022  0.0300  4.3446 
+
+Coefficients:
+                                      Estimate Std. Error  t value Pr(>|t|)    
+(Intercept)                         -0.0936338  0.0001682 -556.738  < 2e-16 ***
+scale(log(timessince_last_a2))       0.0020050  0.0004854    4.130 3.62e-05 ***
+scale(log(timessince_2ndToLast_a2)) -0.0025675  0.0008838   -2.905  0.00367 ** 
+scale(log(timessince_3rdToLast_a2))  0.0301008  0.0007398   40.686  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.45 on 7160215 degrees of freedom
+  (39781 observations deleted due to missingness)
+Multiple R-squared:  0.00426,	Adjusted R-squared:  0.00426 
+F-statistic: 1.021e+04 on 3 and 7160215 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = a2_resids ~ scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    data = timessince_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0805 -0.0834 -0.0149  0.0156  4.2705 
+
+Coefficients:
+                                            Estimate Std. Error t value
+(Intercept)                               -4.891e-05  1.690e-04  -0.289
+scale(log(timessince_last_a2toa1_r))       2.398e-02  4.743e-04  50.562
+scale(log(timessince_2ndToLast_a2toa1_r))  5.518e-03  7.804e-04   7.070
+scale(log(timessince_3rdToLast_a2toa1_r)) -5.446e-03  6.226e-04  -8.746
+                                          Pr(>|t|)    
+(Intercept)                                  0.772    
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r)) 1.55e-12 ***
+scale(log(timessince_3rdToLast_a2toa1_r))  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.45 on 7091305 degrees of freedom
+  (108691 observations deleted due to missingness)
+Multiple R-squared:  0.002907,	Adjusted R-squared:  0.002907 
+F-statistic:  6893 on 3 and 7091305 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + 
+    scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                            Estimate Std. Error  z value
+(Intercept)                               -5.1241145  0.0059509 -861.071
+scale(log(timessince_last_a1))            -0.6536956  0.0070453  -92.785
+scale(log(timessince_2ndToLast_a1))       -0.4830554  0.0113021  -42.740
+scale(log(timessince_3rdToLast_a1))       -0.7943858  0.0098423  -80.711
+scale(log(timessince_last_a2))            -0.0727416  0.0075669   -9.613
+scale(log(timessince_2ndToLast_a2))       -0.0792419  0.0120105   -6.598
+scale(log(timessince_3rdToLast_a2))        0.0790035  0.0105032    7.522
+scale(log(timessince_last_a2toa1_r))       0.0002042  0.0051138    0.040
+scale(log(timessince_2ndToLast_a2toa1_r)) -0.0427458  0.0067070   -6.373
+scale(log(timessince_3rdToLast_a2toa1_r)) -0.0787192  0.0053110  -14.822
+                                          Pr(>|z|)    
+(Intercept)                                < 2e-16 ***
+scale(log(timessince_last_a1))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a1))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a1))        < 2e-16 ***
+scale(log(timessince_last_a2))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a2))       4.18e-11 ***
+scale(log(timessince_3rdToLast_a2))       5.40e-14 ***
+scale(log(timessince_last_a2toa1_r))         0.968    
+scale(log(timessince_2ndToLast_a2toa1_r)) 1.85e-10 ***
+scale(log(timessince_3rdToLast_a2toa1_r))  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2179167  on 7091308  degrees of freedom
+Residual deviance: 1506242  on 7091299  degrees of freedom
+  (108691 observations deleted due to missingness)
+AIC: 1506262
+
+Number of Fisher Scoring iterations: 8
+
+[1] "Simulation parameters:"
+[1] "a2_minp: 1e-05"
+[1] "agent 1 (i.e. infant) other sensitivity: 2"
+[1] "agent 1 response sensitivity: 1"
+[1] "agent 2 (i.e. adult) other sensitivity: 2"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1498 -1.1343 -0.1718  0.7751  5.3256 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.0073377  0.0009987   7.347 2.02e-13 ***
+ivi_response_records -0.0154831  0.0016424  -9.427  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.002 on 1596838 degrees of freedom
+  (809135 observations deleted due to missingness)
+Multiple R-squared:  5.565e-05,	Adjusted R-squared:  5.502e-05 
+F-statistic: 88.87 on 1 and 1596838 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.8803 -0.7067 -0.1474  0.4869  4.7053 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.6118418  0.0007108  860.84   <2e-16 ***
+ivi_response_records -0.0892358  0.0011689  -76.34   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.713 on 1596838 degrees of freedom
+  (809135 observations deleted due to missingness)
+Multiple R-squared:  0.003636,	Adjusted R-squared:  0.003636 
+F-statistic:  5828 on 1 and 1596838 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(prev3ivi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2811 -1.1305 -0.1689  0.7783  5.0142 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.004819   0.000997   4.834 1.34e-06 ***
+ivi_response_records -0.015279   0.001640  -9.318  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1 on 1596561 degrees of freedom
+  (809412 observations deleted due to missingness)
+Multiple R-squared:  5.438e-05,	Adjusted R-squared:  5.376e-05 
+F-statistic: 86.83 on 1 and 1596561 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                      Estimate Std. Error  z value Pr(>|z|)    
+(Intercept)                         -0.6890399  0.0007902 -871.936  < 2e-16 ***
+scale(log(timessince_last_a1))      -0.0088799  0.0010961   -8.102 5.42e-16 ***
+scale(log(timessince_2ndToLast_a1)) -0.0064815  0.0015429   -4.201 2.66e-05 ***
+scale(log(timessince_3rdToLast_a1)) -0.0104264  0.0013439   -7.758 8.60e-15 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 9171497  on 7197182  degrees of freedom
+Residual deviance: 9170662  on 7197179  degrees of freedom
+  (2817 observations deleted due to missingness)
+AIC: 9170670
+
+Number of Fisher Scoring iterations: 4
+
+
+Call:
+lm(formula = a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)), data = timessince_df, 
+    na.action = na.exclude)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9070 -0.8173 -0.7471  1.5309  1.9494 
+
+Coefficients:
+                                      Estimate Std. Error  t value Pr(>|t|)    
+(Intercept)                         -0.1056689  0.0004183 -252.645  < 2e-16 ***
+scale(log(timessince_last_a2))      -0.0537411  0.0005665  -94.869  < 2e-16 ***
+scale(log(timessince_2ndToLast_a2)) -0.0122398  0.0007903  -15.487  < 2e-16 ***
+scale(log(timessince_3rdToLast_a2)) -0.0036795  0.0006935   -5.306 1.12e-07 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.122 on 7195980 degrees of freedom
+  (4016 observations deleted due to missingness)
+Multiple R-squared:  0.003344,	Adjusted R-squared:  0.003343 
+F-statistic:  8048 on 3 and 7195980 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = a2_resids ~ scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    data = timessince_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9102 -0.8174 -0.7465  1.5305  1.9525 
+
+Coefficients:
+                                            Estimate Std. Error t value
+(Intercept)                                1.933e-05  4.184e-04   0.046
+scale(log(timessince_last_a2toa1_r))      -1.694e-03  5.628e-04  -3.009
+scale(log(timessince_2ndToLast_a2toa1_r))  2.669e-04  7.849e-04   0.340
+scale(log(timessince_3rdToLast_a2toa1_r))  3.568e-04  6.892e-04   0.518
+                                          Pr(>|t|)   
+(Intercept)                                0.96315   
+scale(log(timessince_last_a2toa1_r))       0.00262 **
+scale(log(timessince_2ndToLast_a2toa1_r))  0.73382   
+scale(log(timessince_3rdToLast_a2toa1_r))  0.60465   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.122 on 7190699 degrees of freedom
+  (9297 observations deleted due to missingness)
+Multiple R-squared:  1.565e-06,	Adjusted R-squared:  1.148e-06 
+F-statistic: 3.752 on 3 and 7190699 DF,  p-value: 0.01042
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + 
+    scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                            Estimate Std. Error  z value
+(Intercept)                               -0.6918274  0.0007928 -872.611
+scale(log(timessince_last_a1))            -0.0287648  0.0011131  -25.842
+scale(log(timessince_2ndToLast_a1))       -0.0167591  0.0015515  -10.802
+scale(log(timessince_3rdToLast_a1))       -0.0206704  0.0013741  -15.042
+scale(log(timessince_last_a2))            -0.1139914  0.0011858  -96.127
+scale(log(timessince_2ndToLast_a2))       -0.0261545  0.0014869  -17.589
+scale(log(timessince_3rdToLast_a2))       -0.0101737  0.0013360   -7.615
+scale(log(timessince_last_a2toa1_r))       0.0101242  0.0011933    8.484
+scale(log(timessince_2ndToLast_a2toa1_r))  0.0031625  0.0015009    2.107
+scale(log(timessince_3rdToLast_a2toa1_r))  0.0001353  0.0013006    0.104
+                                          Pr(>|z|)    
+(Intercept)                                < 2e-16 ***
+scale(log(timessince_last_a1))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a1))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a1))        < 2e-16 ***
+scale(log(timessince_last_a2))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a2))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a2))       2.64e-14 ***
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r))   0.0351 *  
+scale(log(timessince_3rdToLast_a2toa1_r))   0.9171    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 9163380  on 7190702  degrees of freedom
+Residual deviance: 9136214  on 7190693  degrees of freedom
+  (9297 observations deleted due to missingness)
+AIC: 9136234
+
+Number of Fisher Scoring iterations: 4
+
+[1] "Simulation parameters:"
+[1] "a2_minp: 1e-05"
+[1] "agent 1 (i.e. infant) other sensitivity: 1"
+[1] "agent 1 response sensitivity: 2"
+[1] "agent 2 (i.e. adult) other sensitivity: 2"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1842 -1.0720 -0.0381  0.6070  8.4707 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.105101   0.001700   61.81   <2e-16 ***
+ivi_response_records -0.112242   0.002838  -39.55   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.057 on 602744 degrees of freedom
+  (246100 observations deleted due to missingness)
+Multiple R-squared:  0.002588,	Adjusted R-squared:  0.002586 
+F-statistic:  1564 on 1 and 602744 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.6571 -0.5812 -0.1371  0.4276  8.3388 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.524008   0.001349   388.4   <2e-16 ***
+ivi_response_records -0.232710   0.002252  -103.3   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8387 on 602744 degrees of freedom
+  (246100 observations deleted due to missingness)
+Multiple R-squared:  0.01741,	Adjusted R-squared:  0.01741 
+F-statistic: 1.068e+04 on 1 and 602744 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(prev3ivi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.3194 -0.8486 -0.0898  0.6283  8.8355 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -0.003433   0.001650   -2.08   0.0375 *  
+ivi_response_records -0.089367   0.002755  -32.44   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.026 on 602402 degrees of freedom
+  (246442 observations deleted due to missingness)
+Multiple R-squared:  0.001744,	Adjusted R-squared:  0.001742 
+F-statistic:  1052 on 1 and 602402 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                     Estimate Std. Error  z value Pr(>|z|)    
+(Intercept)                         -3.329442   0.003121 -1066.71   <2e-16 ***
+scale(log(timessince_last_a1))      -0.509756   0.005625   -90.63   <2e-16 ***
+scale(log(timessince_2ndToLast_a1)) -0.456983   0.009478   -48.22   <2e-16 ***
+scale(log(timessince_3rdToLast_a1)) -1.234762   0.008119  -152.09   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 5217991  on 7183142  degrees of freedom
+Residual deviance: 3919403  on 7183139  degrees of freedom
+  (16857 observations deleted due to missingness)
+AIC: 3919411
+
+Number of Fisher Scoring iterations: 7
+
+
+Call:
+lm(formula = a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)), data = timessince_df, 
+    na.action = na.exclude)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1140 -0.4519 -0.0412  0.0376  4.0355 
+
+Coefficients:
+                                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                         -0.1201990  0.0002719 -442.13  < 2e-16 ***
+scale(log(timessince_last_a2))      -0.0175531  0.0007916  -22.17  < 2e-16 ***
+scale(log(timessince_2ndToLast_a2)) -0.0051847  0.0014522   -3.57 0.000357 ***
+scale(log(timessince_3rdToLast_a2))  0.0366645  0.0012314   29.77  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7286 on 7182122 degrees of freedom
+  (17874 observations deleted due to missingness)
+Multiple R-squared:  0.0005695,	Adjusted R-squared:  0.0005691 
+F-statistic:  1364 on 3 and 7182122 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = a2_resids ~ scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    data = timessince_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2816 -0.4510 -0.0382  0.0378  4.0298 
+
+Coefficients:
+                                            Estimate Std. Error t value
+(Intercept)                                8.439e-05  2.723e-04   0.310
+scale(log(timessince_last_a2toa1_r))      -4.548e-02  9.402e-04 -48.373
+scale(log(timessince_2ndToLast_a2toa1_r)) -1.102e-02  1.621e-03  -6.799
+scale(log(timessince_3rdToLast_a2toa1_r))  5.624e-02  1.331e-03  42.246
+                                          Pr(>|t|)    
+(Intercept)                                  0.757    
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r)) 1.05e-11 ***
+scale(log(timessince_3rdToLast_a2toa1_r))  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7287 on 7160067 degrees of freedom
+  (39929 observations deleted due to missingness)
+Multiple R-squared:  0.0005875,	Adjusted R-squared:  0.000587 
+F-statistic:  1403 on 3 and 7160067 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + 
+    scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                           Estimate Std. Error  z value
+(Intercept)                               -3.432781   0.003590 -956.083
+scale(log(timessince_last_a1))            -0.489208   0.005776  -84.703
+scale(log(timessince_2ndToLast_a1))       -0.425742   0.009624  -44.238
+scale(log(timessince_3rdToLast_a1))       -0.815277   0.008725  -93.440
+scale(log(timessince_last_a2))            -0.073687   0.004720  -15.612
+scale(log(timessince_2ndToLast_a2))       -0.068763   0.007339   -9.369
+scale(log(timessince_3rdToLast_a2))       -0.008302   0.006833   -1.215
+scale(log(timessince_last_a2toa1_r))      -0.335557   0.004306  -77.936
+scale(log(timessince_2ndToLast_a2toa1_r)) -0.084346   0.005887  -14.328
+scale(log(timessince_3rdToLast_a2toa1_r)) -0.087812   0.004923  -17.836
+                                          Pr(>|z|)    
+(Intercept)                                 <2e-16 ***
+scale(log(timessince_last_a1))              <2e-16 ***
+scale(log(timessince_2ndToLast_a1))         <2e-16 ***
+scale(log(timessince_3rdToLast_a1))         <2e-16 ***
+scale(log(timessince_last_a2))              <2e-16 ***
+scale(log(timessince_2ndToLast_a2))         <2e-16 ***
+scale(log(timessince_3rdToLast_a2))          0.224    
+scale(log(timessince_last_a2toa1_r))        <2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r))   <2e-16 ***
+scale(log(timessince_3rdToLast_a2toa1_r))   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 5205004  on 7160070  degrees of freedom
+Residual deviance: 3876880  on 7160061  degrees of freedom
+  (39929 observations deleted due to missingness)
+AIC: 3876900
+
+Number of Fisher Scoring iterations: 7
+
+[1] "Simulation parameters:"
+[1] "a2_minp: 1e-05"
+[1] "agent 1 (i.e. infant) other sensitivity: 2"
+[1] "agent 1 response sensitivity: 2"
+[1] "agent 2 (i.e. adult) other sensitivity: 2"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1506 -1.1366 -0.1722  0.7781  6.0819 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.0079884  0.0009976   8.008 1.17e-15 ***
+ivi_response_records -0.0139950  0.0016407  -8.530  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.002 on 1600985 degrees of freedom
+  (810962 observations deleted due to missingness)
+Multiple R-squared:  4.545e-05,	Adjusted R-squared:  4.482e-05 
+F-statistic: 72.76 on 1 and 1600985 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9049 -0.7022 -0.1429  0.4887  5.4268 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.6135118  0.0007097  864.44   <2e-16 ***
+ivi_response_records -0.0941255  0.0011673  -80.64   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7129 on 1600985 degrees of freedom
+  (810962 observations deleted due to missingness)
+Multiple R-squared:  0.004045,	Adjusted R-squared:  0.004044 
+F-statistic:  6502 on 1 and 1600985 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(prev3ivi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2913 -1.1296 -0.1660  0.7822  6.0298 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.0049184  0.0009955   4.941 7.79e-07 ***
+ivi_response_records -0.0164534  0.0016373 -10.049  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1 on 1600708 degrees of freedom
+  (811239 observations deleted due to missingness)
+Multiple R-squared:  6.308e-05,	Adjusted R-squared:  6.246e-05 
+F-statistic:   101 on 1 and 1600708 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                      Estimate Std. Error  z value Pr(>|z|)    
+(Intercept)                         -0.6852671  0.0007898 -867.696  < 2e-16 ***
+scale(log(timessince_last_a1))      -0.0054908  0.0010960   -5.010 5.45e-07 ***
+scale(log(timessince_2ndToLast_a1)) -0.0101345  0.0015434   -6.566 5.15e-11 ***
+scale(log(timessince_3rdToLast_a1)) -0.0087217  0.0013436   -6.491 8.51e-11 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 9179556  on 7196998  degrees of freedom
+Residual deviance: 9178783  on 7196995  degrees of freedom
+  (3001 observations deleted due to missingness)
+AIC: 9178791
+
+Number of Fisher Scoring iterations: 4
+
+
+Call:
+lm(formula = a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)), data = timessince_df, 
+    na.action = na.exclude)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9069 -0.8197 -0.7478  1.5300  2.0232 
+
+Coefficients:
+                                      Estimate Std. Error  t value Pr(>|t|)    
+(Intercept)                         -0.1051659  0.0004184 -251.324  < 2e-16 ***
+scale(log(timessince_last_a2))      -0.0570275  0.0005664 -100.681  < 2e-16 ***
+scale(log(timessince_2ndToLast_a2)) -0.0095875  0.0007911  -12.119  < 2e-16 ***
+scale(log(timessince_3rdToLast_a2)) -0.0030649  0.0006944   -4.414 1.02e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.122 on 7195848 degrees of freedom
+  (4148 observations deleted due to missingness)
+Multiple R-squared:  0.003421,	Adjusted R-squared:  0.003421 
+F-statistic:  8235 on 3 and 7195848 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = a2_resids ~ scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    data = timessince_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9185 -0.8195 -0.7463  1.5282  2.0323 
+
+Coefficients:
+                                            Estimate Std. Error t value
+(Intercept)                                1.751e-05  4.186e-04   0.042
+scale(log(timessince_last_a2toa1_r))      -4.923e-03  5.628e-04  -8.747
+scale(log(timessince_2ndToLast_a2toa1_r))  3.011e-03  7.850e-04   3.835
+scale(log(timessince_3rdToLast_a2toa1_r)) -9.394e-04  6.896e-04  -1.362
+                                          Pr(>|t|)    
+(Intercept)                               0.966629    
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r)) 0.000126 ***
+scale(log(timessince_3rdToLast_a2toa1_r)) 0.173122    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.122 on 7190744 degrees of freedom
+  (9252 observations deleted due to missingness)
+Multiple R-squared:  1.174e-05,	Adjusted R-squared:  1.132e-05 
+F-statistic: 28.14 on 3 and 7190744 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + 
+    scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                            Estimate Std. Error  z value
+(Intercept)                               -0.6880798  0.0007923 -868.404
+scale(log(timessince_last_a1))            -0.0255009  0.0011133  -22.906
+scale(log(timessince_2ndToLast_a1))       -0.0198095  0.0015523  -12.762
+scale(log(timessince_3rdToLast_a1))       -0.0178048  0.0013739  -12.959
+scale(log(timessince_last_a2))            -0.1166407  0.0011848  -98.446
+scale(log(timessince_2ndToLast_a2))       -0.0214214  0.0014866  -14.409
+scale(log(timessince_3rdToLast_a2))       -0.0088984  0.0013362   -6.659
+scale(log(timessince_last_a2toa1_r))       0.0023495  0.0011923    1.971
+scale(log(timessince_2ndToLast_a2toa1_r))  0.0081025  0.0014992    5.404
+scale(log(timessince_3rdToLast_a2toa1_r)) -0.0021361  0.0013004   -1.643
+                                          Pr(>|z|)    
+(Intercept)                                < 2e-16 ***
+scale(log(timessince_last_a1))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a1))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a1))        < 2e-16 ***
+scale(log(timessince_last_a2))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a2))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a2))       2.75e-11 ***
+scale(log(timessince_last_a2toa1_r))        0.0488 *  
+scale(log(timessince_2ndToLast_a2toa1_r)) 6.50e-08 ***
+scale(log(timessince_3rdToLast_a2toa1_r))   0.1004    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 9171715  on 7190747  degrees of freedom
+Residual deviance: 9144151  on 7190738  degrees of freedom
+  (9252 observations deleted due to missingness)
+AIC: 9144171
+
+Number of Fisher Scoring iterations: 4
+
+[1] "Simulation parameters:"
+[1] "a2_minp: 0.001"
+[1] "agent 1 (i.e. infant) other sensitivity: 1"
+[1] "agent 1 response sensitivity: 1"
+[1] "agent 2 (i.e. adult) other sensitivity: 1"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2201 -0.6924 -0.1665  0.5288  5.8571 
+
+Coefficients:
+                     Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          0.086808   0.002448  35.466   <2e-16 ***
+ivi_response_records 0.001763   0.009017   0.195    0.845    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.047 on 197685 degrees of freedom
+  (55429 observations deleted due to missingness)
+Multiple R-squared:  1.933e-07,	Adjusted R-squared:  -4.865e-06 
+F-statistic: 0.03822 on 1 and 197685 DF,  p-value: 0.845
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.7731 -0.6017 -0.1160  0.4626  7.0654 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.311797   0.002096 148.789   <2e-16 ***
+ivi_response_records -0.008208   0.007720  -1.063    0.288    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8967 on 197685 degrees of freedom
+  (55429 observations deleted due to missingness)
+Multiple R-squared:  5.719e-06,	Adjusted R-squared:  6.6e-07 
+F-statistic:  1.13 on 1 and 197685 DF,  p-value: 0.2877
+
+
+Call:
+lm(formula = scale(prev3ivi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.1338 -0.7565 -0.0803  0.6076  7.2910 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -0.018306   0.002428  -7.538 4.79e-14 ***
+ivi_response_records -0.008048   0.008946  -0.900    0.368    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.038 on 197301 degrees of freedom
+  (55813 observations deleted due to missingness)
+Multiple R-squared:  4.101e-06,	Adjusted R-squared:  -9.671e-07 
+F-statistic: 0.8092 on 1 and 197301 DF,  p-value: 0.3684
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                     Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                         -5.130909   0.005728 -895.78   <2e-16 ***
+scale(log(timessince_last_a1))      -0.643449   0.007070  -91.01   <2e-16 ***
+scale(log(timessince_2ndToLast_a1)) -0.477842   0.011391  -41.95   <2e-16 ***
+scale(log(timessince_3rdToLast_a1)) -0.946545   0.009388 -100.82   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2189159  on 7177632  degrees of freedom
+Residual deviance: 1508670  on 7177629  degrees of freedom
+  (22367 observations deleted due to missingness)
+AIC: 1508678
+
+Number of Fisher Scoring iterations: 8
+
+
+Call:
+lm(formula = a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)), data = timessince_df, 
+    na.action = na.exclude)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9898 -0.1028  0.0163  0.0482  4.2454 
+
+Coefficients:
+                                      Estimate Std. Error  t value Pr(>|t|)    
+(Intercept)                         -0.0925337  0.0001674 -552.825   <2e-16 ***
+scale(log(timessince_last_a2))      -0.0005520  0.0003464   -1.594   0.1110    
+scale(log(timessince_2ndToLast_a2)) -0.0009490  0.0006253   -1.518   0.1291    
+scale(log(timessince_3rdToLast_a2))  0.0011213  0.0005292    2.119   0.0341 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.4482 on 7170121 degrees of freedom
+  (29875 observations deleted due to missingness)
+Multiple R-squared:  1.72e-06,	Adjusted R-squared:  1.302e-06 
+F-statistic: 4.111 on 3 and 7170121 DF,  p-value: 0.006327
+
+
+Call:
+lm(formula = a2_resids ~ scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    data = timessince_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0486 -0.0878  0.0075  0.0280  4.1947 
+
+Coefficients:
+                                            Estimate Std. Error t value
+(Intercept)                               -7.079e-05  1.703e-04  -0.416
+scale(log(timessince_last_a2toa1_r))       2.982e-02  3.266e-04  91.298
+scale(log(timessince_2ndToLast_a2toa1_r))  6.121e-03  5.365e-04  11.409
+scale(log(timessince_3rdToLast_a2toa1_r)) -2.877e-04  4.402e-04  -0.654
+                                          Pr(>|t|)    
+(Intercept)                                  0.678    
+scale(log(timessince_last_a2toa1_r))        <2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r))   <2e-16 ***
+scale(log(timessince_3rdToLast_a2toa1_r))    0.513    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.4468 on 6887620 degrees of freedom
+  (312376 observations deleted due to missingness)
+Multiple R-squared:  0.006088,	Adjusted R-squared:  0.006087 
+F-statistic: 1.406e+04 on 3 and 6887620 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + 
+    scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                           Estimate Std. Error  z value
+(Intercept)                               -5.141384   0.005883 -873.995
+scale(log(timessince_last_a1))            -0.644477   0.007232  -89.110
+scale(log(timessince_2ndToLast_a1))       -0.479339   0.011646  -41.159
+scale(log(timessince_3rdToLast_a1))       -0.918280   0.009712  -94.552
+scale(log(timessince_last_a2))            -0.008018   0.004762   -1.684
+scale(log(timessince_2ndToLast_a2))       -0.008083   0.008493   -0.952
+scale(log(timessince_3rdToLast_a2))        0.053134   0.007412    7.169
+scale(log(timessince_last_a2toa1_r))      -0.027949   0.003397   -8.228
+scale(log(timessince_2ndToLast_a2toa1_r)) -0.008746   0.004708   -1.858
+scale(log(timessince_3rdToLast_a2toa1_r)) -0.014234   0.003840   -3.707
+                                          Pr(>|z|)    
+(Intercept)                                < 2e-16 ***
+scale(log(timessince_last_a1))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a1))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a1))        < 2e-16 ***
+scale(log(timessince_last_a2))             0.09221 .  
+scale(log(timessince_2ndToLast_a2))        0.34122    
+scale(log(timessince_3rdToLast_a2))       7.55e-13 ***
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r))  0.06324 .  
+scale(log(timessince_3rdToLast_a2toa1_r))  0.00021 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2093168  on 6887623  degrees of freedom
+Residual deviance: 1442362  on 6887614  degrees of freedom
+  (312376 observations deleted due to missingness)
+AIC: 1442382
+
+Number of Fisher Scoring iterations: 8
+
+[1] "Simulation parameters:"
+[1] "a2_minp: 0.001"
+[1] "agent 1 (i.e. infant) other sensitivity: 2"
+[1] "agent 1 response sensitivity: 1"
+[1] "agent 2 (i.e. adult) other sensitivity: 1"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2066 -0.9920 -0.0117  0.5440  7.4029 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.074644   0.001106   67.47   <2e-16 ***
+ivi_response_records -0.214604   0.003421  -62.74   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.036 on 979064 degrees of freedom
+  (398428 observations deleted due to missingness)
+Multiple R-squared:  0.004004,	Adjusted R-squared:  0.004003 
+F-statistic:  3936 on 1 and 979064 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.6614 -0.6230 -0.1521  0.4419  6.8250 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.4866557  0.0008634  563.62   <2e-16 ***
+ivi_response_records -0.2523997  0.0026698  -94.54   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8084 on 979064 degrees of freedom
+  (398428 observations deleted due to missingness)
+Multiple R-squared:  0.009046,	Adjusted R-squared:  0.009045 
+F-statistic:  8937 on 1 and 979064 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(prev3ivi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.4415 -0.9194 -0.0826  0.6718  7.2354 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -0.005346   0.001094  -4.888 1.02e-06 ***
+ivi_response_records -0.171547   0.003381 -50.735  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.024 on 978728 degrees of freedom
+  (398764 observations deleted due to missingness)
+Multiple R-squared:  0.002623,	Adjusted R-squared:  0.002622 
+F-statistic:  2574 on 1 and 978728 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                     Estimate Std. Error  z value Pr(>|z|)    
+(Intercept)                         -1.724127   0.001234 -1396.72   <2e-16 ***
+scale(log(timessince_last_a1))      -0.245668   0.002593   -94.75   <2e-16 ***
+scale(log(timessince_2ndToLast_a1)) -0.207589   0.004204   -49.38   <2e-16 ***
+scale(log(timessince_3rdToLast_a1)) -0.621733   0.003616  -171.95   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 7027186  on 7196938  degrees of freedom
+Residual deviance: 6363572  on 7196935  degrees of freedom
+  (3061 observations deleted due to missingness)
+AIC: 6363580
+
+Number of Fisher Scoring iterations: 5
+
+
+Call:
+lm(formula = a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)), data = timessince_df, 
+    na.action = na.exclude)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0573 -0.6164 -0.3275  0.0222  3.6109 
+
+Coefficients:
+                                      Estimate Std. Error  t value Pr(>|t|)    
+(Intercept)                         -0.1555332  0.0003443 -451.773  < 2e-16 ***
+scale(log(timessince_last_a2))      -0.0652557  0.0006767  -96.437  < 2e-16 ***
+scale(log(timessince_2ndToLast_a2)) -0.0222636  0.0012000  -18.553  < 2e-16 ***
+scale(log(timessince_3rdToLast_a2)) -0.0070487  0.0010176   -6.927  4.3e-12 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.923 on 7187469 degrees of freedom
+  (12527 observations deleted due to missingness)
+Multiple R-squared:  0.009688,	Adjusted R-squared:  0.009688 
+F-statistic: 2.344e+04 on 3 and 7187469 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = a2_resids ~ scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    data = timessince_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0648 -0.6158 -0.3290  0.0194  3.6057 
+
+Coefficients:
+                                            Estimate Std. Error t value
+(Intercept)                               -1.793e-05  3.455e-04  -0.052
+scale(log(timessince_last_a2toa1_r))      -1.203e-03  6.825e-04  -1.762
+scale(log(timessince_2ndToLast_a2toa1_r))  1.852e-03  1.105e-03   1.675
+scale(log(timessince_3rdToLast_a2toa1_r))  2.389e-03  9.066e-04   2.635
+                                          Pr(>|t|)   
+(Intercept)                                0.95861   
+scale(log(timessince_last_a2toa1_r))       0.07802 . 
+scale(log(timessince_2ndToLast_a2toa1_r))  0.09394 . 
+scale(log(timessince_3rdToLast_a2toa1_r))  0.00842 **
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.9233 on 7142246 degrees of freedom
+  (57750 observations deleted due to missingness)
+Multiple R-squared:  1.221e-05,	Adjusted R-squared:  1.179e-05 
+F-statistic: 29.06 on 3 and 7142246 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + 
+    scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                           Estimate Std. Error   z value
+(Intercept)                               -1.742160   0.001258 -1385.146
+scale(log(timessince_last_a1))            -0.233161   0.002612   -89.268
+scale(log(timessince_2ndToLast_a1))       -0.195872   0.004222   -46.391
+scale(log(timessince_3rdToLast_a1))       -0.525020   0.003683  -142.556
+scale(log(timessince_last_a2))            -0.212713   0.002067  -102.925
+scale(log(timessince_2ndToLast_a2))       -0.059894   0.003492   -17.152
+scale(log(timessince_3rdToLast_a2))       -0.050635   0.003230   -15.678
+scale(log(timessince_last_a2toa1_r))       0.030060   0.002005    14.992
+scale(log(timessince_2ndToLast_a2toa1_r))  0.017753   0.002829     6.275
+scale(log(timessince_3rdToLast_a2toa1_r)) -0.005305   0.002298    -2.308
+                                          Pr(>|z|)    
+(Intercept)                                < 2e-16 ***
+scale(log(timessince_last_a1))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a1))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a1))        < 2e-16 ***
+scale(log(timessince_last_a2))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a2))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a2))        < 2e-16 ***
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r)) 3.49e-10 ***
+scale(log(timessince_3rdToLast_a2toa1_r))    0.021 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 6978162  on 7142249  degrees of freedom
+Residual deviance: 6254975  on 7142240  degrees of freedom
+  (57750 observations deleted due to missingness)
+AIC: 6254995
+
+Number of Fisher Scoring iterations: 5
+
+[1] "Simulation parameters:"
+[1] "a2_minp: 0.001"
+[1] "agent 1 (i.e. infant) other sensitivity: 1"
+[1] "agent 1 response sensitivity: 2"
+[1] "agent 2 (i.e. adult) other sensitivity: 1"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1954 -0.6256 -0.0559  0.5139  6.4962 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.094523   0.002140   44.17   <2e-16 ***
+ivi_response_records -0.120872   0.007234  -16.71   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.054 on 266072 degrees of freedom
+  (84471 observations deleted due to missingness)
+Multiple R-squared:  0.001048,	Adjusted R-squared:  0.001044 
+F-statistic: 279.2 on 1 and 266072 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.7338 -0.5833 -0.1119  0.4455  7.9874 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.369999   0.001792  206.51   <2e-16 ***
+ivi_response_records -0.270897   0.006057  -44.72   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8828 on 266072 degrees of freedom
+  (84471 observations deleted due to missingness)
+Multiple R-squared:  0.007461,	Adjusted R-squared:  0.007458 
+F-statistic:  2000 on 1 and 266072 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(prev3ivi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.5643 -0.7724 -0.0815  0.6065  8.4976 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -0.011761   0.002106  -5.586 2.33e-08 ***
+ivi_response_records -0.140061   0.007116 -19.683  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.037 on 265697 degrees of freedom
+  (84846 observations deleted due to missingness)
+Multiple R-squared:  0.001456,	Adjusted R-squared:  0.001452 
+F-statistic: 387.4 on 1 and 265697 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                     Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                         -4.759964   0.005034 -945.50   <2e-16 ***
+scale(log(timessince_last_a1))      -0.617819   0.006709  -92.09   <2e-16 ***
+scale(log(timessince_2ndToLast_a1)) -0.479198   0.011008  -43.53   <2e-16 ***
+scale(log(timessince_3rdToLast_a1)) -1.059109   0.009179 -115.39   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2800224  on 7187345  degrees of freedom
+Residual deviance: 1937798  on 7187342  degrees of freedom
+  (12654 observations deleted due to missingness)
+AIC: 1937806
+
+Number of Fisher Scoring iterations: 8
+
+
+Call:
+lm(formula = a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)), data = timessince_df, 
+    na.action = na.exclude)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0192 -0.1464  0.0116  0.0511  4.2362 
+
+Coefficients:
+                                      Estimate Std. Error  t value Pr(>|t|)    
+(Intercept)                         -0.0998525  0.0001900 -525.557  < 2e-16 ***
+scale(log(timessince_last_a2))      -0.0042635  0.0003915  -10.889  < 2e-16 ***
+scale(log(timessince_2ndToLast_a2)) -0.0025535  0.0007088   -3.602 0.000315 ***
+scale(log(timessince_3rdToLast_a2)) -0.0013619  0.0006002   -2.269 0.023255 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.5091 on 7179831 degrees of freedom
+  (20165 observations deleted due to missingness)
+Multiple R-squared:  0.0002379,	Adjusted R-squared:  0.0002375 
+F-statistic: 569.6 on 3 and 7179831 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = a2_resids ~ scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    data = timessince_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0557 -0.1387  0.0046  0.0336  4.1950 
+
+Coefficients:
+                                            Estimate Std. Error t value
+(Intercept)                               -0.0001294  0.0001938  -0.668
+scale(log(timessince_last_a2toa1_r))       0.0156940  0.0004155  37.774
+scale(log(timessince_2ndToLast_a2toa1_r))  0.0040947  0.0006874   5.957
+scale(log(timessince_3rdToLast_a2toa1_r))  0.0073850  0.0005596  13.198
+                                          Pr(>|t|)    
+(Intercept)                                  0.504    
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r)) 2.58e-09 ***
+scale(log(timessince_3rdToLast_a2toa1_r))  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.5102 on 6932530 degrees of freedom
+  (267466 observations deleted due to missingness)
+Multiple R-squared:  0.002595,	Adjusted R-squared:  0.002594 
+F-statistic:  6011 on 3 and 6932530 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + 
+    scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                           Estimate Std. Error  z value
+(Intercept)                               -4.763803   0.005141 -926.573
+scale(log(timessince_last_a1))            -0.618221   0.006827  -90.556
+scale(log(timessince_2ndToLast_a1))       -0.476459   0.011191  -42.574
+scale(log(timessince_3rdToLast_a1))       -0.968308   0.009486 -102.074
+scale(log(timessince_last_a2))            -0.022481   0.004145   -5.424
+scale(log(timessince_2ndToLast_a2))       -0.010621   0.007350   -1.445
+scale(log(timessince_3rdToLast_a2))        0.056752   0.006454    8.793
+scale(log(timessince_last_a2toa1_r))      -0.111907   0.003313  -33.783
+scale(log(timessince_2ndToLast_a2toa1_r)) -0.018952   0.004491   -4.220
+scale(log(timessince_3rdToLast_a2toa1_r))  0.001494   0.003633    0.411
+                                          Pr(>|z|)    
+(Intercept)                                < 2e-16 ***
+scale(log(timessince_last_a1))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a1))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a1))        < 2e-16 ***
+scale(log(timessince_last_a2))            5.84e-08 ***
+scale(log(timessince_2ndToLast_a2))          0.148    
+scale(log(timessince_3rdToLast_a2))        < 2e-16 ***
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r)) 2.44e-05 ***
+scale(log(timessince_3rdToLast_a2toa1_r))    0.681    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2713560  on 6932533  degrees of freedom
+Residual deviance: 1875283  on 6932524  degrees of freedom
+  (267466 observations deleted due to missingness)
+AIC: 1875303
+
+Number of Fisher Scoring iterations: 8
+
+[1] "Simulation parameters:"
+[1] "a2_minp: 0.001"
+[1] "agent 1 (i.e. infant) other sensitivity: 2"
+[1] "agent 1 response sensitivity: 2"
+[1] "agent 2 (i.e. adult) other sensitivity: 1"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2045 -0.9872 -0.0094  0.5463  7.4834 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.073626   0.001108   66.46   <2e-16 ***
+ivi_response_records -0.217350   0.003452  -62.96   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.035 on 973741 degrees of freedom
+  (396793 observations deleted due to missingness)
+Multiple R-squared:  0.004055,	Adjusted R-squared:  0.004054 
+F-statistic:  3964 on 1 and 973741 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.4366 -0.6262 -0.1518  0.4408  6.9654 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.4884433  0.0008649   564.7   <2e-16 ***
+ivi_response_records -0.2715101  0.0026953  -100.7   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8084 on 973741 degrees of freedom
+  (396793 observations deleted due to missingness)
+Multiple R-squared:  0.01031,	Adjusted R-squared:  0.01031 
+F-statistic: 1.015e+04 on 1 and 973741 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(prev3ivi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.2821 -0.9206 -0.0821  0.6699  7.1473 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -0.005440   0.001096  -4.963 6.93e-07 ***
+ivi_response_records -0.173807   0.003415 -50.892  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.024 on 973425 degrees of freedom
+  (397109 observations deleted due to missingness)
+Multiple R-squared:  0.002654,	Adjusted R-squared:  0.002653 
+F-statistic:  2590 on 1 and 973425 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                     Estimate Std. Error  z value Pr(>|z|)    
+(Intercept)                         -1.742425   0.001252 -1391.86   <2e-16 ***
+scale(log(timessince_last_a1))      -0.257966   0.002654   -97.21   <2e-16 ***
+scale(log(timessince_2ndToLast_a1)) -0.213209   0.004296   -49.63   <2e-16 ***
+scale(log(timessince_3rdToLast_a1)) -0.628660   0.003691  -170.32   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 7006801  on 7196259  degrees of freedom
+Residual deviance: 6329677  on 7196256  degrees of freedom
+  (3740 observations deleted due to missingness)
+AIC: 6329685
+
+Number of Fisher Scoring iterations: 5
+
+
+Call:
+lm(formula = a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)), data = timessince_df, 
+    na.action = na.exclude)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0558 -0.6157 -0.3246  0.0272  3.6657 
+
+Coefficients:
+                                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)                         -0.1550748  0.0003433 -451.71  < 2e-16 ***
+scale(log(timessince_last_a2))      -0.0681939  0.0006732 -101.29  < 2e-16 ***
+scale(log(timessince_2ndToLast_a2)) -0.0209173  0.0011969  -17.48  < 2e-16 ***
+scale(log(timessince_3rdToLast_a2)) -0.0047333  0.0010157   -4.66 3.16e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.9205 on 7188699 degrees of freedom
+  (11297 observations deleted due to missingness)
+Multiple R-squared:  0.00966,	Adjusted R-squared:  0.009659 
+F-statistic: 2.337e+04 on 3 and 7188699 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = a2_resids ~ scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    data = timessince_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0848 -0.6153 -0.3253  0.0257  3.6610 
+
+Coefficients:
+                                            Estimate Std. Error t value
+(Intercept)                               -0.0000348  0.0003443  -0.101
+scale(log(timessince_last_a2toa1_r))      -0.0074086  0.0006853 -10.810
+scale(log(timessince_2ndToLast_a2toa1_r))  0.0064375  0.0011052   5.825
+scale(log(timessince_3rdToLast_a2toa1_r))  0.0032784  0.0009061   3.618
+                                          Pr(>|t|)    
+(Intercept)                               0.919506    
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r)) 5.71e-09 ***
+scale(log(timessince_3rdToLast_a2toa1_r)) 0.000297 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.9207 on 7148152 degrees of freedom
+  (51844 observations deleted due to missingness)
+Multiple R-squared:  2.987e-05,	Adjusted R-squared:  2.945e-05 
+F-statistic: 71.17 on 3 and 7148152 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + 
+    scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                           Estimate Std. Error   z value
+(Intercept)                               -1.759865   0.001274 -1381.304
+scale(log(timessince_last_a1))            -0.244991   0.002673   -91.653
+scale(log(timessince_2ndToLast_a1))       -0.201583   0.004315   -46.712
+scale(log(timessince_3rdToLast_a1))       -0.528414   0.003760  -140.532
+scale(log(timessince_last_a2))            -0.218761   0.002069  -105.750
+scale(log(timessince_2ndToLast_a2))       -0.053283   0.003501   -15.221
+scale(log(timessince_3rdToLast_a2))       -0.043653   0.003245   -13.454
+scale(log(timessince_last_a2toa1_r))       0.011890   0.002005     5.929
+scale(log(timessince_2ndToLast_a2toa1_r))  0.025347   0.002834     8.945
+scale(log(timessince_3rdToLast_a2toa1_r)) -0.003596   0.002306    -1.560
+                                          Pr(>|z|)    
+(Intercept)                                < 2e-16 ***
+scale(log(timessince_last_a1))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a1))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a1))        < 2e-16 ***
+scale(log(timessince_last_a2))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a2))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a2))        < 2e-16 ***
+scale(log(timessince_last_a2toa1_r))      3.04e-09 ***
+scale(log(timessince_2ndToLast_a2toa1_r))  < 2e-16 ***
+scale(log(timessince_3rdToLast_a2toa1_r))    0.119    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 6962249  on 7148155  degrees of freedom
+Residual deviance: 6224116  on 7148146  degrees of freedom
+  (51844 observations deleted due to missingness)
+AIC: 6224136
+
+Number of Fisher Scoring iterations: 5
+
+[1] "Simulation parameters:"
+[1] "a2_minp: 0.001"
+[1] "agent 1 (i.e. infant) other sensitivity: 1"
+[1] "agent 1 response sensitivity: 1"
+[1] "agent 2 (i.e. adult) other sensitivity: 2"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2924 -0.7644 -0.2364  0.5342  5.9507 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.156038   0.002826   55.21   <2e-16 ***
+ivi_response_records -0.208004   0.004855  -42.84   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.043 on 205875 degrees of freedom
+  (57372 observations deleted due to missingness)
+Multiple R-squared:  0.008836,	Adjusted R-squared:  0.008831 
+F-statistic:  1835 on 1 and 205875 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.6706 -0.6050 -0.1160  0.4558  6.9601 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.319027   0.002427 131.462  < 2e-16 ***
+ivi_response_records -0.024122   0.004169  -5.786 7.23e-09 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8953 on 205875 degrees of freedom
+  (57372 observations deleted due to missingness)
+Multiple R-squared:  0.0001626,	Adjusted R-squared:  0.0001577 
+F-statistic: 33.47 on 1 and 205875 DF,  p-value: 7.23e-09
+
+
+Call:
+lm(formula = scale(prev3ivi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.2602 -0.7552 -0.0779  0.6030  7.3563 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -0.012553   0.002818  -4.455 8.39e-06 ***
+ivi_response_records -0.015618   0.004840  -3.227  0.00125 ** 
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.039 on 205496 degrees of freedom
+  (57751 observations deleted due to missingness)
+Multiple R-squared:  5.067e-05,	Adjusted R-squared:  4.581e-05 
+F-statistic: 10.41 on 1 and 205496 DF,  p-value: 0.001251
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                     Estimate Std. Error z value Pr(>|z|)    
+(Intercept)                         -5.041127   0.005525 -912.46   <2e-16 ***
+scale(log(timessince_last_a1))      -0.641153   0.006930  -92.52   <2e-16 ***
+scale(log(timessince_2ndToLast_a1)) -0.473423   0.011206  -42.25   <2e-16 ***
+scale(log(timessince_3rdToLast_a1)) -0.946454   0.009258 -102.23   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2255632  on 7175114  degrees of freedom
+Residual deviance: 1569338  on 7175111  degrees of freedom
+  (24885 observations deleted due to missingness)
+AIC: 1569346
+
+Number of Fisher Scoring iterations: 8
+
+
+Call:
+lm(formula = a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)), data = timessince_df, 
+    na.action = na.exclude)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0459 -0.1019 -0.0025  0.0362  4.2923 
+
+Coefficients:
+                                      Estimate Std. Error  t value Pr(>|t|)    
+(Intercept)                         -0.0950843  0.0001706 -557.228  < 2e-16 ***
+scale(log(timessince_last_a2))       0.0007965  0.0003812    2.089   0.0367 *  
+scale(log(timessince_2ndToLast_a2)) -0.0030315  0.0006906   -4.390 1.13e-05 ***
+scale(log(timessince_3rdToLast_a2))  0.0281724  0.0005855   48.113  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.457 on 7174078 degrees of freedom
+  (25918 observations deleted due to missingness)
+Multiple R-squared:  0.003215,	Adjusted R-squared:  0.003215 
+F-statistic:  7713 on 3 and 7174078 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = a2_resids ~ scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    data = timessince_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.0779 -0.0891 -0.0171  0.0149  4.2416 
+
+Coefficients:
+                                            Estimate Std. Error t value
+(Intercept)                               -0.0001080  0.0001714  -0.630
+scale(log(timessince_last_a2toa1_r))       0.0279288  0.0004665  59.864
+scale(log(timessince_2ndToLast_a2toa1_r))  0.0053984  0.0007889   6.843
+scale(log(timessince_3rdToLast_a2toa1_r)) -0.0026915  0.0006385  -4.215
+                                          Pr(>|t|)    
+(Intercept)                                  0.529    
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r)) 7.78e-12 ***
+scale(log(timessince_3rdToLast_a2toa1_r)) 2.49e-05 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.4569 on 7105455 degrees of freedom
+  (94541 observations deleted due to missingness)
+Multiple R-squared:  0.004453,	Adjusted R-squared:  0.004453 
+F-statistic: 1.06e+04 on 3 and 7105455 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + 
+    scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                           Estimate Std. Error  z value
+(Intercept)                               -5.085604   0.005798 -877.186
+scale(log(timessince_last_a1))            -0.654690   0.007029  -93.139
+scale(log(timessince_2ndToLast_a1))       -0.491337   0.011289  -43.525
+scale(log(timessince_3rdToLast_a1))       -0.781014   0.009903  -78.864
+scale(log(timessince_last_a2))            -0.061967   0.006006  -10.317
+scale(log(timessince_2ndToLast_a2))       -0.065980   0.009650   -6.837
+scale(log(timessince_3rdToLast_a2))        0.027314   0.008682    3.146
+scale(log(timessince_last_a2toa1_r))       0.004327   0.005135    0.843
+scale(log(timessince_2ndToLast_a2toa1_r)) -0.051171   0.006772   -7.556
+scale(log(timessince_3rdToLast_a2toa1_r)) -0.089522   0.005406  -16.561
+                                          Pr(>|z|)    
+(Intercept)                                < 2e-16 ***
+scale(log(timessince_last_a1))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a1))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a1))        < 2e-16 ***
+scale(log(timessince_last_a2))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a2))       8.07e-12 ***
+scale(log(timessince_3rdToLast_a2))        0.00166 ** 
+scale(log(timessince_last_a2toa1_r))       0.39943    
+scale(log(timessince_2ndToLast_a2toa1_r)) 4.15e-14 ***
+scale(log(timessince_3rdToLast_a2toa1_r))  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 2240161  on 7105458  degrees of freedom
+Residual deviance: 1556506  on 7105449  degrees of freedom
+  (94541 observations deleted due to missingness)
+AIC: 1556526
+
+Number of Fisher Scoring iterations: 8
+
+[1] "Simulation parameters:"
+[1] "a2_minp: 0.001"
+[1] "agent 1 (i.e. infant) other sensitivity: 2"
+[1] "agent 1 response sensitivity: 1"
+[1] "agent 2 (i.e. adult) other sensitivity: 2"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1513 -1.1368 -0.1743  0.7737  6.1052 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.0080248  0.0009985   8.037 9.24e-16 ***
+ivi_response_records -0.0145256  0.0016426  -8.843  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.002 on 1597082 degrees of freedom
+  (807540 observations deleted due to missingness)
+Multiple R-squared:  4.896e-05,	Adjusted R-squared:  4.834e-05 
+F-statistic:  78.2 on 1 and 1597082 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9051 -0.7069 -0.1484  0.4881  5.4516 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.6106496  0.0007108  859.05   <2e-16 ***
+ivi_response_records -0.0882490  0.0011693  -75.47   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7133 on 1597082 degrees of freedom
+  (807540 observations deleted due to missingness)
+Multiple R-squared:  0.003554,	Adjusted R-squared:  0.003553 
+F-statistic:  5696 on 1 and 1597082 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(prev3ivi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2691 -1.1306 -0.1688  0.7775  6.0697 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.0058069  0.0009973   5.823 5.79e-09 ***
+ivi_response_records -0.0165888  0.0016405 -10.112  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.001 on 1596803 degrees of freedom
+  (807819 observations deleted due to missingness)
+Multiple R-squared:  6.403e-05,	Adjusted R-squared:  6.341e-05 
+F-statistic: 102.3 on 1 and 1596803 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                      Estimate Std. Error  z value Pr(>|z|)    
+(Intercept)                         -0.6898408  0.0007904 -872.819  < 2e-16 ***
+scale(log(timessince_last_a1))      -0.0072323  0.0010970   -6.593 4.31e-11 ***
+scale(log(timessince_2ndToLast_a1)) -0.0097878  0.0015451   -6.335 2.38e-10 ***
+scale(log(timessince_3rdToLast_a1)) -0.0085803  0.0013453   -6.378 1.79e-10 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 9169459  on 7196966  degrees of freedom
+Residual deviance: 9168619  on 7196963  degrees of freedom
+  (3033 observations deleted due to missingness)
+AIC: 9168627
+
+Number of Fisher Scoring iterations: 4
+
+
+Call:
+lm(formula = a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)), data = timessince_df, 
+    na.action = na.exclude)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9080 -0.8172 -0.7460  1.5307  2.0044 
+
+Coefficients:
+                                      Estimate Std. Error  t value Pr(>|t|)    
+(Intercept)                         -0.1057810  0.0004182 -252.949  < 2e-16 ***
+scale(log(timessince_last_a2))      -0.0553614  0.0005665  -97.729  < 2e-16 ***
+scale(log(timessince_2ndToLast_a2)) -0.0101028  0.0007911  -12.771  < 2e-16 ***
+scale(log(timessince_3rdToLast_a2)) -0.0049938  0.0006943   -7.193 6.34e-13 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.122 on 7195934 degrees of freedom
+  (4062 observations deleted due to missingness)
+Multiple R-squared:  0.003424,	Adjusted R-squared:  0.003424 
+F-statistic:  8242 on 3 and 7195934 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = a2_resids ~ scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    data = timessince_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9121 -0.8173 -0.7457  1.5306  2.0052 
+
+Coefficients:
+                                            Estimate Std. Error t value
+(Intercept)                                0.0000215  0.0004183   0.051
+scale(log(timessince_last_a2toa1_r))      -0.0014856  0.0005626  -2.641
+scale(log(timessince_2ndToLast_a2toa1_r))  0.0014275  0.0007851   1.818
+scale(log(timessince_3rdToLast_a2toa1_r)) -0.0002359  0.0006898  -0.342
+                                          Pr(>|t|)   
+(Intercept)                                0.95901   
+scale(log(timessince_last_a2toa1_r))       0.00828 **
+scale(log(timessince_2ndToLast_a2toa1_r))  0.06904 . 
+scale(log(timessince_3rdToLast_a2toa1_r))  0.73233   
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.122 on 7191204 degrees of freedom
+  (8792 observations deleted due to missingness)
+Multiple R-squared:  1.035e-06,	Adjusted R-squared:  6.176e-07 
+F-statistic:  2.48 on 3 and 7191204 DF,  p-value: 0.05909
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + 
+    scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                            Estimate Std. Error  z value
+(Intercept)                               -0.6927205  0.0007930 -873.579
+scale(log(timessince_last_a1))            -0.0273787  0.0011139  -24.579
+scale(log(timessince_2ndToLast_a1))       -0.0202196  0.0015536  -13.015
+scale(log(timessince_3rdToLast_a1))       -0.0194373  0.0013753  -14.133
+scale(log(timessince_last_a2))            -0.1177290  0.0011857  -99.287
+scale(log(timessince_2ndToLast_a2))       -0.0225351  0.0014889  -15.136
+scale(log(timessince_3rdToLast_a2))       -0.0130515  0.0013379   -9.756
+scale(log(timessince_last_a2toa1_r))       0.0112025  0.0011932    9.389
+scale(log(timessince_2ndToLast_a2toa1_r))  0.0054570  0.0015023    3.633
+scale(log(timessince_3rdToLast_a2toa1_r)) -0.0009845  0.0013022   -0.756
+                                          Pr(>|z|)    
+(Intercept)                                < 2e-16 ***
+scale(log(timessince_last_a1))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a1))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a1))        < 2e-16 ***
+scale(log(timessince_last_a2))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a2))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a2))        < 2e-16 ***
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r)) 0.000281 ***
+scale(log(timessince_3rdToLast_a2toa1_r)) 0.449642    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 9162249  on 7191207  degrees of freedom
+Residual deviance: 9134384  on 7191198  degrees of freedom
+  (8792 observations deleted due to missingness)
+AIC: 9134404
+
+Number of Fisher Scoring iterations: 4
+
+[1] "Simulation parameters:"
+[1] "a2_minp: 0.001"
+[1] "agent 1 (i.e. infant) other sensitivity: 1"
+[1] "agent 1 response sensitivity: 2"
+[1] "agent 2 (i.e. adult) other sensitivity: 2"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1759 -1.0744 -0.0311  0.6026  8.5785 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.100917   0.001732   58.26   <2e-16 ***
+ivi_response_records -0.101455   0.002879  -35.24   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.058 on 584365 degrees of freedom
+  (240396 observations deleted due to missingness)
+Multiple R-squared:  0.002121,	Adjusted R-squared:  0.002119 
+F-statistic:  1242 on 1 and 584365 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-3.4625 -0.5859 -0.1384  0.4274  8.7728 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.526404   0.001374   383.2   <2e-16 ***
+ivi_response_records -0.231679   0.002284  -101.5   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.8389 on 584365 degrees of freedom
+  (240396 observations deleted due to missingness)
+Multiple R-squared:  0.01731,	Adjusted R-squared:  0.01731 
+F-statistic: 1.029e+04 on 1 and 584365 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(prev3ivi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-4.6318 -0.8505 -0.0934  0.6298  9.3865 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(>|t|)    
+(Intercept)          -0.001837   0.001682  -1.092    0.275    
+ivi_response_records -0.092856   0.002795 -33.218   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.027 on 584027 degrees of freedom
+  (240734 observations deleted due to missingness)
+Multiple R-squared:  0.001886,	Adjusted R-squared:  0.001884 
+F-statistic:  1103 on 1 and 584027 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                     Estimate Std. Error  z value Pr(>|z|)    
+(Intercept)                         -3.441830   0.003290 -1046.16   <2e-16 ***
+scale(log(timessince_last_a1))      -0.533902   0.005825   -91.66   <2e-16 ***
+scale(log(timessince_2ndToLast_a1)) -0.476501   0.009806   -48.59   <2e-16 ***
+scale(log(timessince_3rdToLast_a1)) -1.245836   0.008393  -148.43   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 5122575  on 7192106  degrees of freedom
+Residual deviance: 3803870  on 7192103  degrees of freedom
+  (7893 observations deleted due to missingness)
+AIC: 3803878
+
+Number of Fisher Scoring iterations: 7
+
+
+Call:
+lm(formula = a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)), data = timessince_df, 
+    na.action = na.exclude)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1029 -0.4428 -0.0325  0.0471  4.0594 
+
+Coefficients:
+                                      Estimate Std. Error  t value Pr(>|t|)    
+(Intercept)                         -0.1175245  0.0002676 -439.253  < 2e-16 ***
+scale(log(timessince_last_a2))      -0.0156201  0.0005985  -26.098  < 2e-16 ***
+scale(log(timessince_2ndToLast_a2)) -0.0079013  0.0010745   -7.353 1.93e-13 ***
+scale(log(timessince_3rdToLast_a2))  0.0320491  0.0009188   34.883  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7175 on 7191181 degrees of freedom
+  (8815 observations deleted due to missingness)
+Multiple R-squared:  0.0004203,	Adjusted R-squared:  0.0004198 
+F-statistic:  1008 on 3 and 7191181 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = a2_resids ~ scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    data = timessince_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2214 -0.4367 -0.0337  0.0389  4.0391 
+
+Coefficients:
+                                            Estimate Std. Error t value
+(Intercept)                                8.683e-05  2.682e-04   0.324
+scale(log(timessince_last_a2toa1_r))      -3.998e-02  9.224e-04 -43.346
+scale(log(timessince_2ndToLast_a2toa1_r)) -1.074e-02  1.631e-03  -6.587
+scale(log(timessince_3rdToLast_a2toa1_r))  5.801e-02  1.350e-03  42.961
+                                          Pr(>|t|)    
+(Intercept)                                  0.746    
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r))  4.5e-11 ***
+scale(log(timessince_3rdToLast_a2toa1_r))  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7178 on 7164363 degrees of freedom
+  (35633 observations deleted due to missingness)
+Multiple R-squared:  0.0006522,	Adjusted R-squared:  0.0006518 
+F-statistic:  1559 on 3 and 7164363 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + 
+    scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                           Estimate Std. Error  z value
+(Intercept)                               -3.552340   0.003681 -965.007
+scale(log(timessince_last_a1))            -0.508312   0.005995  -84.792
+scale(log(timessince_2ndToLast_a1))       -0.438980   0.009962  -44.067
+scale(log(timessince_3rdToLast_a1))       -0.807863   0.009041  -89.351
+scale(log(timessince_last_a2))            -0.046525   0.003750  -12.405
+scale(log(timessince_2ndToLast_a2))       -0.072451   0.005809  -12.473
+scale(log(timessince_3rdToLast_a2))       -0.037330   0.005527   -6.754
+scale(log(timessince_last_a2toa1_r))      -0.353059   0.004432  -79.670
+scale(log(timessince_2ndToLast_a2toa1_r)) -0.078348   0.006058  -12.932
+scale(log(timessince_3rdToLast_a2toa1_r)) -0.114636   0.005067  -22.622
+                                          Pr(>|z|)    
+(Intercept)                                < 2e-16 ***
+scale(log(timessince_last_a1))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a1))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a1))        < 2e-16 ***
+scale(log(timessince_last_a2))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a2))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a2))       1.44e-11 ***
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r))  < 2e-16 ***
+scale(log(timessince_3rdToLast_a2toa1_r))  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 5108703  on 7164366  degrees of freedom
+Residual deviance: 3759459  on 7164357  degrees of freedom
+  (35633 observations deleted due to missingness)
+AIC: 3759479
+
+Number of Fisher Scoring iterations: 7
+
+[1] "Simulation parameters:"
+[1] "a2_minp: 0.001"
+[1] "agent 1 (i.e. infant) other sensitivity: 2"
+[1] "agent 1 response sensitivity: 2"
+[1] "agent 2 (i.e. adult) other sensitivity: 2"
+[1] "* The values indicate the factor that probability of vocalizing is multiplied by after the other agent vocalizes or responds. 1 is thus completely insensitive and higher values indicate higher degrees of sensitivity."
+
+Call:
+lm(formula = scale(log(ivi_records)) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.1490 -1.1354 -0.1723  0.7772  4.9222 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.0069680  0.0009976   6.985 2.86e-12 ***
+ivi_response_records -0.0136174  0.0016428  -8.289  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.002 on 1598353 degrees of freedom
+  (810584 observations deleted due to missingness)
+Multiple R-squared:  4.299e-05,	Adjusted R-squared:  4.236e-05 
+F-statistic: 68.71 on 1 and 1598353 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(previvi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.8876 -0.7033 -0.1435  0.4865  4.2825 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.6135625  0.0007097  864.48   <2e-16 ***
+ivi_response_records -0.0933246  0.0011687  -79.85   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.7129 on 1598353 degrees of freedom
+  (810584 observations deleted due to missingness)
+Multiple R-squared:  0.003973,	Adjusted R-squared:  0.003973 
+F-statistic:  6376 on 1 and 1598353 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = scale(prev3ivi_resids) ~ ivi_response_records)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.2767 -1.1292 -0.1671  0.7807  4.8512 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(>|t|)    
+(Intercept)           0.0043991  0.0009954   4.420 9.89e-06 ***
+ivi_response_records -0.0146622  0.0016391  -8.945  < 2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.9997 on 1598086 degrees of freedom
+  (810851 observations deleted due to missingness)
+Multiple R-squared:  5.007e-05,	Adjusted R-squared:  4.944e-05 
+F-statistic: 80.02 on 1 and 1598086 DF,  p-value: < 2.2e-16
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                     Estimate Std. Error  z value Pr(>|z|)    
+(Intercept)                         -0.687163   0.000790 -869.832  < 2e-16 ***
+scale(log(timessince_last_a1))      -0.007939   0.001095   -7.248 4.21e-13 ***
+scale(log(timessince_2ndToLast_a1)) -0.008428   0.001541   -5.468 4.56e-08 ***
+scale(log(timessince_3rdToLast_a1)) -0.007985   0.001342   -5.949 2.70e-09 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 9175507  on 7197097  degrees of freedom
+Residual deviance: 9174754  on 7197094  degrees of freedom
+  (2902 observations deleted due to missingness)
+AIC: 9174762
+
+Number of Fisher Scoring iterations: 4
+
+
+Call:
+lm(formula = a1_resids ~ scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)), data = timessince_df, 
+    na.action = na.exclude)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9037 -0.8185 -0.7477  1.5310  1.9279 
+
+Coefficients:
+                                      Estimate Std. Error  t value Pr(>|t|)    
+(Intercept)                         -0.1054214  0.0004184 -251.989  < 2e-16 ***
+scale(log(timessince_last_a2))      -0.0563322  0.0005664  -99.460  < 2e-16 ***
+scale(log(timessince_2ndToLast_a2)) -0.0092222  0.0007905  -11.667  < 2e-16 ***
+scale(log(timessince_3rdToLast_a2)) -0.0031925  0.0006936   -4.603 4.17e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.122 on 7196017 degrees of freedom
+  (3979 observations deleted due to missingness)
+Multiple R-squared:  0.00333,	Adjusted R-squared:  0.00333 
+F-statistic:  8015 on 3 and 7196017 DF,  p-value: < 2.2e-16
+
+
+Call:
+lm(formula = a2_resids ~ scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    data = timessince_df)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.9154 -0.8185 -0.7464  1.5299  1.9326 
+
+Coefficients:
+                                            Estimate Std. Error t value
+(Intercept)                                6.413e-06  4.185e-04   0.015
+scale(log(timessince_last_a2toa1_r))      -4.723e-03  5.626e-04  -8.395
+scale(log(timessince_2ndToLast_a2toa1_r))  3.015e-03  7.855e-04   3.838
+scale(log(timessince_3rdToLast_a2toa1_r)) -3.622e-04  6.897e-04  -0.525
+                                          Pr(>|t|)    
+(Intercept)                               0.987774    
+scale(log(timessince_last_a2toa1_r))       < 2e-16 ***
+scale(log(timessince_2ndToLast_a2toa1_r)) 0.000124 ***
+scale(log(timessince_3rdToLast_a2toa1_r)) 0.599517    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 1.122 on 7191056 degrees of freedom
+  (8940 observations deleted due to missingness)
+Multiple R-squared:  9.985e-06,	Adjusted R-squared:  9.568e-06 
+F-statistic: 23.93 on 3 and 7191056 DF,  p-value: 1.756e-15
+
+
+Call:
+glm(formula = a1_voc_record ~ scale(log(timessince_last_a1)) + 
+    scale(log(timessince_2ndToLast_a1)) + scale(log(timessince_3rdToLast_a1)) + 
+    scale(log(timessince_last_a2)) + scale(log(timessince_2ndToLast_a2)) + 
+    scale(log(timessince_3rdToLast_a2)) + scale(log(timessince_last_a2toa1_r)) + 
+    scale(log(timessince_2ndToLast_a2toa1_r)) + scale(log(timessince_3rdToLast_a2toa1_r)), 
+    family = "binomial", data = timessince_df, na.action = na.exclude)
+
+Coefficients:
+                                            Estimate Std. Error  z value
+(Intercept)                               -0.6899419  0.0007925 -870.551
+scale(log(timessince_last_a1))            -0.0278600  0.0011122  -25.049
+scale(log(timessince_2ndToLast_a1))       -0.0181003  0.0015499  -11.678
+scale(log(timessince_3rdToLast_a1))       -0.0173756  0.0013724  -12.661
+scale(log(timessince_last_a2))            -0.1159471  0.0011849  -97.853
+scale(log(timessince_2ndToLast_a2))       -0.0206933  0.0014863  -13.922
+scale(log(timessince_3rdToLast_a2))       -0.0094977  0.0013352   -7.113
+scale(log(timessince_last_a2toa1_r))       0.0030365  0.0011916    2.548
+scale(log(timessince_2ndToLast_a2toa1_r))  0.0081349  0.0015007    5.421
+scale(log(timessince_3rdToLast_a2toa1_r)) -0.0010622  0.0013013   -0.816
+                                          Pr(>|z|)    
+(Intercept)                                < 2e-16 ***
+scale(log(timessince_last_a1))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a1))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a1))        < 2e-16 ***
+scale(log(timessince_last_a2))             < 2e-16 ***
+scale(log(timessince_2ndToLast_a2))        < 2e-16 ***
+scale(log(timessince_3rdToLast_a2))       1.13e-12 ***
+scale(log(timessince_last_a2toa1_r))        0.0108 *  
+scale(log(timessince_2ndToLast_a2toa1_r)) 5.93e-08 ***
+scale(log(timessince_3rdToLast_a2toa1_r))   0.4143    
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 9167899  on 7191059  degrees of freedom
+Residual deviance: 9140977  on 7191050  degrees of freedom
+  (8940 observations deleted due to missingness)
+AIC: 9140997
+
+Number of Fisher Scoring iterations: 4
+

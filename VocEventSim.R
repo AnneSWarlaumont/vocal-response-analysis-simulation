@@ -3,8 +3,6 @@
 library(lme4)
 library(lmerTest)
 library(ggplot2)
-#library(brms)
-#library(reservoirnet)
 
 two_agent_vocal_sim <- function(sim_length,a1_p_voc,a2_p_voc,a1_meanlog,a2_meanlog,a1_sdlog,a2_sdlog,a1_minp,a2_minp,a1_maxp,a2_maxp,a1_othersensitivity,a2_othersensitivity,a1_respsensitivity,a2_respsensitivity,rthresh) {
   
