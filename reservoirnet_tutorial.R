@@ -104,4 +104,3 @@ dfOutcome %>%
   scale_color_manual(values = c("#3772ff", "#080708", "#df2935")) +
   theme_bw() +
   labs(color = "", x = "Date", y = "Hospitalisations")
-       })
