@@ -1,7 +1,3 @@
-#########################################################################
-# Randomly search simulation parameters to find best match to human data
-#########################################################################
-
 ######################################
 # Read in and format the human sample
 ######################################
@@ -79,3 +75,29 @@ chn_ivi_90 = quantile(chn_ivi_record,probs=.9,names=FALSE)
 adu_ivi_10 = quantile(adu_ivi_record,probs=.1,names=FALSE)
 adu_ivi_50 = quantile(adu_ivi_record,probs=.5,names=FALSE)
 adu_ivi_90 = quantile(adu_ivi_record,probs=.9,names=FALSE)
+
+#########################################################################
+# Randomly search simulation parameters to find best match to human data
+#########################################################################
+
+sim_length = length(chn_voc_record)
+
+# Start with a child-only simulation
+minp_range = c(.000001,.01)
+maxp_range = c(.01,1)
+sdlog_range = c(.01,1)
+
+for (sim in 1:50){
+  a1_p_voc = runif(1,min=a1_minp,max=a1_maxp)
+  a1_minp = runif(1,min=minp_range[1],max=minp_range[2])
+  a1_maxp = runif(1,min=maxp_range[1],max=maxp_range[2])
+  a1_sdlog = runif(1,min=sdlog_range[1],max=sdlog_range[2])
+  
+  # run the sim
+  # save the parameters in a data frame
+}
+
+# find out what parameter combinations are the best (and maybe 2nd through 5th best match).
+# Consider different weightings for different measures?
+# Plot the best match(es)'s ivi distributions (on log-log), compared to human data
+# And plot raw data points at three timescales, compared to human data
