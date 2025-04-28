@@ -227,7 +227,44 @@ for (simNum in 1:10000){
   sims_df = rbind(sims_df,df_row)
 }
 
-# find out what parameter combinations are the best (and maybe 2nd through 5th best match).
+# Assess each simulation's fit to human data
 # Consider different weightings for different measures?
+# Start with looking at the 10th, 50th, and 90th percentiles, for both child and adult, plus turn count, all log scaled then z-scored.
+# Can then take Euclidean distance in this 7-dimensional space.
+
+
 # Plot the best match(es)'s ivi distributions (on log-log), compared to human data
 # And plot raw data points at three timescales, compared to human data
+# Plot fitness as a function of parameter value, perhaps starting with one parameter at a time and then maybe for some pairs of parameter combinations.
+
+chn_sim_ivi_10_scaled = scale(log(sims_df$chn_sim_ivi_10))
+sims_df$chn_sim_ivi_10_scaled = chn_sim_ivi_10_scaled[,1]
+chn_ivi_10_scaled = (log(chn_ivi_10)-attr(chn_sim_ivi_10_scaled,"scaled:center"))/attr(chn_sim_ivi_10_scaled,"scaled:scale")
+
+chn_sim_ivi_50_scaled = scale(log(sims_df$chn_sim_ivi_50))
+sims_df$chn_sim_ivi_50_scaled = chn_sim_ivi_50_scaled[,1]
+chn_ivi_50_scaled = (log(chn_ivi_50)-attr(chn_sim_ivi_50_scaled,"scaled:center"))/attr(chn_sim_ivi_50_scaled,"scaled:scale")
+
+chn_sim_ivi_90_scaled = scale(log(sims_df$chn_sim_ivi_90))
+sims_df$chn_sim_ivi_90_scaled = chn_sim_ivi_90_scaled[,1]
+chn_ivi_90_scaled = (log(chn_ivi_90)-attr(chn_sim_ivi_90_scaled,"scaled:center"))/attr(chn_sim_ivi_90_scaled,"scaled:scale")
+
+adu_sim_ivi_10_scaled = scale(log(sims_df$adu_sim_ivi_10))
+sims_df$adu_sim_ivi_10_scaled = adu_sim_ivi_10_scaled[,1]
+adu_ivi_10_scaled = (log(adu_ivi_10)-attr(adu_sim_ivi_10_scaled,"scaled:center"))/attr(adu_sim_ivi_10_scaled,"scaled:scale")
+
+adu_sim_ivi_50_scaled = scale(log(sims_df$adu_sim_ivi_50))
+sims_df$adu_sim_ivi_50_scaled = adu_sim_ivi_50_scaled[,1]
+adu_ivi_50_scaled = (log(adu_ivi_50)-attr(adu_sim_ivi_50_scaled,"scaled:center"))/attr(adu_sim_ivi_50_scaled,"scaled:scale")
+
+adu_sim_ivi_90_scaled = scale(log(sims_df$adu_sim_ivi_90))
+sims_df$adu_sim_ivi_90_scaled = adu_sim_ivi_90_scaled[,1]
+adu_ivi_90_scaled = (log(adu_ivi_90)-attr(adu_sim_ivi_90_scaled,"scaled:center"))/attr(adu_sim_ivi_90_scaled,"scaled:scale")
+
+sim_turnCount_scaled = scale(log(sims_df$sim_turnCount+1))
+sims_df$sim_turnCount_scaled = sim_turnCount_scaled[,1]
+turnCount_scaled = (log(turnCount+1)-attr(sim_turnCount_scaled,"scaled:center"))/attr(sim_turnCount_scaled,"scaled:scale")
+
+sims_df$simDist = sqrt((sims_df$chn_sim_ivi_10_scaled-chn_ivi_10_scaled)^2+(sims_df$chn_sim_ivi_50_scaled-chn_ivi_50_scaled)^2+(sims_df$chn_sim_ivi_90_scaled-chn_ivi_90_scaled)^2+(sims_df$adu_sim_ivi_10_scaled-adu_ivi_10_scaled)^2+(sims_df$adu_sim_ivi_50_scaled-adu_ivi_50_scaled)^2+(sims_df$adu_sim_ivi_90_scaled-adu_ivi_90_scaled)^2+(sims_df$sim_turnCount_scaled-turnCount_scaled)^2)
+
+sims_df <- sims_df[order(sims_df$simDist),]
