@@ -94,8 +94,8 @@ a2_meanlog = 0
 minp_range = c(.000001,.01)
 maxp_range = c(.01,.5)
 sdlog_range = c(.01,.5)
-othersensitivity_range = c(.5,3)
-respsensitivity_range = c(.5,3)
+othersensitivity_range = 1 #c(.5,3)
+respsensitivity_range = 1 #c(.5,3)
 
 sims_df = data.frame(chn_sim_minp = double(),
                      chn_sim_maxp = double(),
@@ -268,3 +268,42 @@ turnCount_scaled = (log(turnCount+1)-attr(sim_turnCount_scaled,"scaled:center"))
 sims_df$simDist = sqrt((sims_df$chn_sim_ivi_10_scaled-chn_ivi_10_scaled)^2+(sims_df$chn_sim_ivi_50_scaled-chn_ivi_50_scaled)^2+(sims_df$chn_sim_ivi_90_scaled-chn_ivi_90_scaled)^2+(sims_df$adu_sim_ivi_10_scaled-adu_ivi_10_scaled)^2+(sims_df$adu_sim_ivi_50_scaled-adu_ivi_50_scaled)^2+(sims_df$adu_sim_ivi_90_scaled-adu_ivi_90_scaled)^2+(sims_df$sim_turnCount_scaled-turnCount_scaled)^2)
 
 sims_df <- sims_df[order(sims_df$simDist),]
+
+save.image(VocEventSim_Optimize_20250430.RData)
+
+# # Playing around with plotting, only the final sim b/c neither voc nor ivi records were saved for the other sims
+# 
+# library(ggplot2)
+# hist(a1_ivi_record)
+# hist(log(a1_ivi_record))
+# plot(ecdf(a1_ivi_record))
+# 
+# library(poweRlaw)
+# m = displ$new(chn_ivi_record)
+# est = estimate_xmin(m)
+# m$setXmin(est[[2]])
+# m$setPars(est[[3]])
+# plot(m)
+# lines(m, col=2)
+# 
+# m = displ$new(a1_ivi_record)
+# est = estimate_xmin(m)
+# m$setXmin(est[[2]])
+# m$setPars(est[[3]])
+# plot(m)
+# lines(m, col=2)
+# 
+# m = displ$new(adu_ivi_record)
+# est = estimate_xmin(m)
+# m$setXmin(est[[2]])
+# m$setPars(est[[3]])
+# plot(m)
+# lines(m, col=2)
+# 
+# m = displ$new(a2_ivi_record)
+# est = estimate_xmin(m)
+# m$setXmin(est[[2]])
+# m$setPars(est[[3]])
+# plot(m)
+# lines(m, col=2)
+
