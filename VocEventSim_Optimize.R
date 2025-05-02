@@ -129,7 +129,7 @@ sims_adu_voc_records <- list()
 sims_chn_ivi_records <- list()
 sims_adu_ivi_records <- list()
 
-for (simNum in 1:10){#10000){
+for (simNum in 1:100){#10000){
   
   a1_minp = runif(1,min=minp_range[1],max=minp_range[2])
   a2_minp = runif(1,min=minp_range[1],max=minp_range[2])
@@ -379,3 +379,6 @@ stripchart(which(chn_voc_record_5min==1),xaxt="n",main="5 minutes within the hou
 mtext("Onsets of human child vocalizations",side=3, line = 1, outer=TRUE, cex=2)
 
 save.image("VocEventSim_Optimize_20250502_bidirectional.RData")
+
+# for the best-matched simulation, analyze the chn and adu ivis using our two response analysis procedures
+
