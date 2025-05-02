@@ -90,19 +90,21 @@ source('VocEventSim.R')
 sim_length = length(chn_voc_record)
 
 rthresh = 5
-a1_meanlog = 0
 
-a2_meanlog_range = c(-.05,0)
+meanlog_range = c(-.05,0)
 minp_range = c(.000000001,.00001)
 maxp_range = c(.05,.5)
 sdlog_range = c(.01,1)
-interactiveSim = TRUE
-adu_othersensitivity_range = c(1,10)
-chn_othersensitivity_range = c(1,1)
-respsensitivity_range = c(1,1) #c(.5,3)
+othersensitivity_range = c(1,10)
+
+# Set one and only one of the below to TRUE
+nonInteractiveSim = FALSE
+a2interactiveSim = FALSE
+bidirectionalSim = TRUE
 
 sims_df = data.frame(chn_sim_minp = double(),
                      chn_sim_maxp = double(),
+                     chn_sim_meanlog = double(),
                      chn_sim_sdlog = double(),
                      chn_sim_othersensitivity = double(),
                      chn_sim_respsensitivity = double(),
@@ -127,20 +129,36 @@ sims_adu_voc_records <- list()
 sims_chn_ivi_records <- list()
 sims_adu_ivi_records <- list()
 
-for (simNum in 1:10000){
+for (simNum in 1:10){#10000){
   
   a1_minp = runif(1,min=minp_range[1],max=minp_range[2])
-  a1_maxp = runif(1,min=maxp_range[1],max=maxp_range[2])
-  a2_meanlog = runif(1,min=a2_meanlog_range[1],max=a2_meanlog_range[2])
-  a1_sdlog = runif(1,min=sdlog_range[1],max=sdlog_range[2])
-  a1_othersensitivity = runif(1,min=chn_othersensitivity_range[1],max=chn_othersensitivity_range[2])
-  a1_respsensitivity = runif(1,min=respsensitivity_range[1],max=respsensitivity_range[2])
-  
   a2_minp = runif(1,min=minp_range[1],max=minp_range[2])
+  
+  a1_maxp = runif(1,min=maxp_range[1],max=maxp_range[2])
   a2_maxp = runif(1,min=maxp_range[1],max=maxp_range[2])
+  
+  a1_sdlog = runif(1,min=sdlog_range[1],max=sdlog_range[2])
   a2_sdlog = runif(1,min=sdlog_range[1],max=sdlog_range[2])
-  a2_othersensitivity = runif(1,min=adu_othersensitivity_range[1],max=adu_othersensitivity_range[2])
-  a2_respsensitivity = runif(1,min=respsensitivity_range[1],max=respsensitivity_range[2])
+  
+  if (nonInteractiveSim) {
+    a1_meanlog = 0
+    a2_meanlog = 0
+    a1_othersensitivity = 1
+    a2_othersensitivity = 1
+  } else if (a2interactiveSim) {
+    a1_meanlog = 0
+    a2_meanlog = runif(1,min=meanlog_range[1],max=meanlog_range[2])
+    a1_othersensitivity = 1
+    a2_othersensitivity = runif(1,min=othersensitivity_range[1],max=othersensitivity_range[2])
+  } else if (bidirectionalSim) {
+    a1_meanlog = runif(1,min=meanlog_range[1],max=meanlog_range[2])
+    a2_meanlog = runif(1,min=meanlog_range[1],max=meanlog_range[2])
+    a1_othersensitivity = runif(1,min=othersensitivity_range[1],max=othersensitivity_range[2])
+    a2_othersensitivity = runif(1,min=othersensitivity_range[1],max=othersensitivity_range[2])
+  }
+  
+  a1_respsensitivity = 1
+  a2_respsensitivity = 1
   
   a1_p_voc = runif(1,min=a1_minp,max=a1_maxp)
   a2_p_voc = runif(1,min=a2_minp,max=a2_maxp)
@@ -193,9 +211,10 @@ for (simNum in 1:10000){
   # match a1 and a2 with chn or adu based on which pairing provides the better fit
   # as an initial step, can try matching based on vocalization count
   # save the simulation parameters and measures to a data frame
-  if (interactiveSim || (chn_total < adu_total && a1_total < a2_total) || (chn_total > adu_total && a2_total > a1_total)){
+  if (a2interactiveSim || (chn_total < adu_total && a1_total < a2_total) || (chn_total > adu_total && a2_total > a1_total)){
     df_row = data.frame(chn_sim_minp = a1_minp,
                         chn_sim_maxp = a1_maxp,
+                        chn_sim_meanlog = a1_meanlog,
                         chn_sim_sdlog = a1_sdlog,
                         chn_sim_othersensitivity = a1_othersensitivity,
                         chn_sim_respsensitivity = a1_respsensitivity,
@@ -221,6 +240,7 @@ for (simNum in 1:10000){
   } else {
     df_row = data.frame(chn_sim_minp = a2_minp,
                         chn_sim_maxp = a2_maxp,
+                        chn_sim_meanlog = a2_meanlog,
                         chn_sim_sdlog = a2_sdlog,
                         chn_sim_othersensitivity = a2_othersensitivity,
                         chn_sim_respsensitivity = a2_respsensitivity,
@@ -230,6 +250,7 @@ for (simNum in 1:10000){
                         chn_sim_ivi_max = a2_ivi_max,
                         adu_sim_minp = a1_minp,
                         adu_sim_maxp = a1_maxp,
+                        adu_sim_meanlog = a1_meanlog,
                         adu_sim_sdlog = a1_sdlog,
                         adu_sim_othersensitivity = a1_othersensitivity,
                         adu_sim_respsensitivity = a1_respsensitivity,
@@ -249,7 +270,7 @@ for (simNum in 1:10000){
 
 # Assess each simulation's fit to human data
 
-chn_sim_total_scaled = scale(log(sims_df$chn_sim_total))
+chn_sim_total_scaled = scale(log(sims_df$chn_sim_total+1))
 sims_df$chn_sim_total_scaled = chn_sim_total_scaled[,1]
 chn_total_scaled = (log(chn_total)-attr(chn_sim_total_scaled,"scaled:center"))/attr(chn_sim_total_scaled,"scaled:scale")
 
@@ -267,7 +288,7 @@ chn_sim_n_ivi_1_scaled = scale(log(sims_df$chn_sim_n_ivi_1+1))
 sims_df$chn_sim_n_ivi_1_scaled = chn_sim_n_ivi_1_scaled[,1]
 chn_n_ivi_1_scaled = (log(chn_n_ivi_1)-attr(chn_sim_n_ivi_1_scaled,"scaled:center"))/attr(chn_sim_n_ivi_1_scaled,"scaled:scale")
 
-adu_sim_total_scaled = scale(log(sims_df$adu_sim_total))
+adu_sim_total_scaled = scale(log(sims_df$adu_sim_total+1))
 sims_df$adu_sim_total_scaled = adu_sim_total_scaled[,1]
 adu_total_scaled = (log(adu_total)-attr(adu_sim_total_scaled,"scaled:center"))/attr(adu_sim_total_scaled,"scaled:scale")
 
@@ -289,11 +310,7 @@ sim_turnCount_scaled = scale(log(sims_df$sim_turnCount+1))
 sims_df$sim_turnCount_scaled = sim_turnCount_scaled[,1]
 turnCount_scaled = (log(turnCount+1)-attr(sim_turnCount_scaled,"scaled:center"))/attr(sim_turnCount_scaled,"scaled:scale")
 
-if (interactiveSim){
-  sims_df$simDist = sqrt((sims_df$chn_sim_n_ivi_1_scaled-chn_n_ivi_1_scaled)^2+(sims_df$chn_sim_ivi_50_scaled-chn_ivi_50_scaled)^2+(sims_df$chn_sim_ivi_max_scaled-chn_ivi_max_scaled)^2+(sims_df$adu_sim_n_ivi_1_scaled-adu_n_ivi_1_scaled)^2+(sims_df$adu_sim_ivi_50_scaled-adu_ivi_50_scaled)^2+(sims_df$adu_sim_ivi_max_scaled-adu_ivi_max_scaled)^2+(sims_df$sim_turnCount_scaled-turnCount_scaled)^2)
-} else {
-  sims_df$simDist = sqrt((sims_df$chn_sim_n_ivi_1_scaled-chn_n_ivi_1_scaled)^2+(sims_df$chn_sim_ivi_50_scaled-chn_ivi_50_scaled)^2+(sims_df$chn_sim_ivi_max_scaled-chn_ivi_max_scaled)^2+(sims_df$adu_sim_n_ivi_1_scaled-adu_n_ivi_1_scaled)^2+(sims_df$adu_sim_ivi_50_scaled-adu_ivi_50_scaled)^2+(sims_df$adu_sim_ivi_max_scaled-adu_ivi_max_scaled)^2) 
-}
+sims_df$simDist = sqrt((sims_df$chn_sim_total_scaled-chn_total_scaled)^2+(sims_df$chn_sim_n_ivi_1_scaled-chn_n_ivi_1_scaled)^2+(sims_df$chn_sim_ivi_50_scaled-chn_ivi_50_scaled)^2+(sims_df$chn_sim_ivi_max_scaled-chn_ivi_max_scaled)^2+(sims_df$adu_sim_total_scaled-adu_total_scaled)^2+(sims_df$adu_sim_n_ivi_1_scaled-adu_n_ivi_1_scaled)^2+(sims_df$adu_sim_ivi_50_scaled-adu_ivi_50_scaled)^2+(sims_df$adu_sim_ivi_max_scaled-adu_ivi_max_scaled)^2+(sims_df$sim_turnCount_scaled-turnCount_scaled)^2)
 
 fitOrder = order(sims_df$simDist)
 
@@ -361,4 +378,4 @@ chn_voc_record_5min = chn_voc_record_1hr[700:1000]
 stripchart(which(chn_voc_record_5min==1),xaxt="n",main="5 minutes within the hour",pch=19,ylim=c(.5,1.5),xlim=c(0,300))
 mtext("Onsets of human child vocalizations",side=3, line = 1, outer=TRUE, cex=2)
 
-save.image("VocEventSim_Optimize_20250501.RData")
+save.image("VocEventSim_Optimize_20250502_bidirectional.RData")
