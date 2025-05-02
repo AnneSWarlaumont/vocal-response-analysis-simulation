@@ -205,7 +205,7 @@ for (simNum in 1:10000){
                         chn_sim_ivi_max = a1_ivi_max,
                         adu_sim_minp = a2_minp,
                         adu_sim_maxp = a2_maxp,
-                        adu_sim_meanlog = adu_meanlog,
+                        adu_sim_meanlog = a2_meanlog,
                         adu_sim_sdlog = a2_sdlog,
                         adu_sim_othersensitivity = a2_othersensitivity,
                         adu_sim_respsensitivity = a2_respsensitivity,
