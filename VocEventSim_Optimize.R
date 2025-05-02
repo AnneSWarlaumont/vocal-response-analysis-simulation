@@ -129,7 +129,7 @@ sims_adu_voc_records <- list()
 sims_chn_ivi_records <- list()
 sims_adu_ivi_records <- list()
 
-for (simNum in 1:100){#10000){
+for (simNum in 1:10000){
   
   a1_minp = runif(1,min=minp_range[1],max=minp_range[2])
   a2_minp = runif(1,min=minp_range[1],max=minp_range[2])
