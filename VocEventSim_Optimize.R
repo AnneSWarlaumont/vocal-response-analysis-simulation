@@ -380,5 +380,8 @@ mtext("Onsets of human child vocalizations",side=3, line = 1, outer=TRUE, cex=2)
 
 save.image("VocEventSim_Optimize_20250502_bidirectional.RData")
 
+save(sims_adu_ivi_records,sims_chn_ivi_records,sims_df,fitOrder,file = "VocEventSim_Optimize_20250502_bidirectional_subset1.RData")
+save(sims_adu_voc_records,sims_chn_voc_records,file = "VocEventSim_Optimize_20250502_bidirectional_subset2.RData")
+
 # for the best-matched simulation, analyze the chn and adu ivis using our two response analysis procedures
 
