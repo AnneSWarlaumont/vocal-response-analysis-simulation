@@ -378,10 +378,11 @@ chn_voc_record_5min = chn_voc_record_1hr[700:1000]
 stripchart(which(chn_voc_record_5min==1),xaxt="n",main="5 minutes within the hour",pch=19,ylim=c(.5,1.5),xlim=c(0,300))
 mtext("Onsets of human child vocalizations",side=3, line = 1, outer=TRUE, cex=2)
 
-save.image("VocEventSim_Optimize_20250502_bidirectional.RData")
-
-save(sims_adu_ivi_records,sims_chn_ivi_records,sims_df,fitOrder,file = "VocEventSim_Optimize_20250502_bidirectional_subset1.RData")
-save(sims_adu_voc_records,sims_chn_voc_records,file = "VocEventSim_Optimize_20250502_bidirectional_subset2.RData")
+# run the line below if the data will not be too large for GitHub
+save.image("VocEventSim_Optimize_20250505.RData")
+# otherwise, run the two lines below instead
+save(sims_adu_ivi_records,sims_chn_ivi_records,sims_df,fitOrder,file = "VocEventSim_Optimize_20250505_subset1.RData")
+save(sims_adu_voc_records,sims_chn_voc_records,file = "VocEventSim_Optimize_20250505_subset.RData")
 
 # for the best-matched simulation, analyze the chn and adu ivis using our two response analysis procedures
 
