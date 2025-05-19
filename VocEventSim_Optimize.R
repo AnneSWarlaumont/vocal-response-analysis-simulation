@@ -1,6 +1,6 @@
 setwd('~/Documents/GitHub/vocal-response-analysis-simulation/')
 
-recordings = c("0344_000913","0833_010606")
+recordings = c("0344_000913","0833_010606","0054_000603")
 simTypes = c("nonInteractive","a2interactive","bidirectional")
 
 #nSims = 3 # for debugging
@@ -344,3 +344,4 @@ for (recording in recordings){
     rm(list=ls()[! ls() %in% c("recording","recordings","simType","simTypes","nSims")])
   }
 }
+

@@ -1,3 +1,5 @@
+# Load in data:
+
 # This script assumes that key data frames and variables from a run of VocEventSim_Optimize are loaded.
 
 
@@ -96,7 +98,7 @@ for (fitRank in 1:20){
   for (i in 1:n_ivi){
     if (ivi_series[i]==1){
       ivi_r_record[i] = NA
-    } else if (sum(adu_voc_record[(t+1):(t+rthresh)])>0){
+    } else if (sum(adu_voc_record[(t+1):(t+rthresh)],na.rm = TRUE)>0){
       ivi_r_record[i] = 1
     } else{
       ivi_r_record[i] = 0
