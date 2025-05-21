@@ -3,4 +3,4 @@
 .Rhistory
 VocEventSim.RData
 .Rapp.history
-VocEventSim_Run.RData
+*.RData
