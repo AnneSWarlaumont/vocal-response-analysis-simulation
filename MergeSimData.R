@@ -10,6 +10,8 @@ recordings2merge = c("0344_000913","0833_010606","0054_000603")
 # simTypes2merge = c("nonInteractive")
 # recordings2merge = c("0344_000913")
 
+mem.maxVSize(vsize = Inf)
+
 for (simType2merge in simTypes2merge){
   for (recording2merge in recordings2merge){
     workspace_fileAndPath = Sys.glob(paste("~/Documents/GitHub/vocal-response-analysis-simulation/data/",recording2merge,"/",simType2merge,"/*",sep=""))
