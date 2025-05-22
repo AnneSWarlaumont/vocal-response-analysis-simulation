@@ -158,7 +158,7 @@ fitOrder_noTurns_nonInteractive = subset(fitOrder_noTurns,(sims_df$chn_sim_other
 fitOrder_noTurns_a2Interactive = subset(fitOrder_noTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity!=1))
 fitOrder_noTurns_bidirectional = subset(fitOrder_noTurns,(sims_df$chn_sim_othersensitivity!=1&sims_df$adu_sim_othersensitivity!=1))
 
-### Find out what the fitRanks are for the three simulation types for each recording
+### Find out what the fits are for the three simulation types for each recording (lower is better)
 colMeans(cbind(simFits_noTurns[fitOrder_noTurns_nonInteractive[1:5,1],1],simFits_noTurns[fitOrder_noTurns_nonInteractive[1:5,2],2],simFits_noTurns[fitOrder_noTurns_nonInteractive[1:5,3],3]))
 colMeans(cbind(simFits_noTurns[fitOrder_noTurns_a2Interactive[1:5,1],1],simFits_noTurns[fitOrder_noTurns_a2Interactive[1:5,2],2],simFits_noTurns[fitOrder_noTurns_a2Interactive[1:5,3],3]))
 colMeans(cbind(simFits_noTurns[fitOrder_noTurns_bidirectional[1:5,1],1],simFits_noTurns[fitOrder_noTurns_bidirectional[1:5,2],2],simFits_noTurns[fitOrder_noTurns_bidirectional[1:5,3],3]))
@@ -168,7 +168,7 @@ fitOrder_wTurns_nonInteractive = subset(fitOrder_wTurns,(sims_df$chn_sim_otherse
 fitOrder_wTurns_a2Interactive = subset(fitOrder_wTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity!=1))
 fitOrder_wTurns_bidirectional = subset(fitOrder_wTurns,(sims_df$chn_sim_othersensitivity!=1&sims_df$adu_sim_othersensitivity!=1))
 
-### Find out what the fitRanks are for the three simulation types for each recording
+### Find out what the fits are for the three simulation types for each recording (lower is better)
 colMeans(cbind(simFits_wTurns[fitOrder_wTurns_nonInteractive[1:5,1],1],simFits_wTurns[fitOrder_wTurns_nonInteractive[1:5,2],2],simFits_wTurns[fitOrder_wTurns_nonInteractive[1:5,3],3]))
 colMeans(cbind(simFits_wTurns[fitOrder_wTurns_a2Interactive[1:5,1],1],simFits_wTurns[fitOrder_wTurns_a2Interactive[1:5,2],2],simFits_wTurns[fitOrder_wTurns_a2Interactive[1:5,3],3]))
 colMeans(cbind(simFits_wTurns[fitOrder_wTurns_bidirectional[1:5,1],1],simFits_wTurns[fitOrder_wTurns_bidirectional[1:5,2],2],simFits_wTurns[fitOrder_wTurns_bidirectional[1:5,3],3]))
@@ -178,22 +178,19 @@ fitOrder_onlyTurns_nonInteractive = subset(fitOrder_onlyTurns,(sims_df$chn_sim_o
 fitOrder_onlyTurns_a2Interactive = subset(fitOrder_onlyTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity!=1))
 fitOrder_onlyTurns_bidirectional = subset(fitOrder_onlyTurns,(sims_df$chn_sim_othersensitivity!=1&sims_df$adu_sim_othersensitivity!=1))
 
-### Find out what the fitRanks are for the three simulation types for each recording
+### Find out what the fits are for the three simulation types for each recording (lower is better)
 colMeans(cbind(simFits_onlyTurns[fitOrder_onlyTurns_nonInteractive[1:5,1],1],simFits_onlyTurns[fitOrder_onlyTurns_nonInteractive[1:5,2],2],simFits_onlyTurns[fitOrder_onlyTurns_nonInteractive[1:5,3],3]))
 colMeans(cbind(simFits_onlyTurns[fitOrder_onlyTurns_a2Interactive[1:5,1],1],simFits_onlyTurns[fitOrder_onlyTurns_a2Interactive[1:5,2],2],simFits_onlyTurns[fitOrder_onlyTurns_a2Interactive[1:5,3],3]))
 colMeans(cbind(simFits_onlyTurns[fitOrder_onlyTurns_bidirectional[1:5,1],1],simFits_onlyTurns[fitOrder_onlyTurns_bidirectional[1:5,2],2],simFits_onlyTurns[fitOrder_onlyTurns_bidirectional[1:5,3],3]))
 
+#################################################################################
+# for the best-matched simulations,
+# analyze the chn and adu ivis to test for response effects on ivis
+# using 1. no control for previous ivi and 2. control for previous ivi or 2 ivis
+#################################################################################
 
-#### Left off here
+load("~/Documents/GitHub/vocal-response-analysis-simulation/mergedSimData_20250521.Rdat")
 
-# #################################################################################
-# # for the best-matched simulations,
-# # analyze the chn and adu ivis to test for response effects on ivis
-# # using 1. no control for previous ivi and 2. control for previous ivi or 2 ivis
-# #################################################################################
-# 
-# rthresh = 5
-# 
 # simID = 0
 # ivi_records = c()
 # ivi_r_records = c()
