@@ -276,55 +276,77 @@ for (recording in recordings){
     
     #################################################
     # Assess the simulations' fits to the human data
+    # (In the future, move this into the for loop,
+    # so as to be computed after each simulation)
     #################################################
     
-    chn_sim_total_scaled = scale(log(sims_df$chn_sim_total+1))
-    sims_df$chn_sim_total_scaled = chn_sim_total_scaled[,1]
-    chn_total_scaled = (log(chn_total)-attr(chn_sim_total_scaled,"scaled:center"))/attr(chn_sim_total_scaled,"scaled:scale")
+    chn_total_logplus1 = log(chn_total+1)
+    sims_df$chn_sim_total_logplus1 = log(sims_df$chn_sim_total+1)
+    sims_df$chn_total_diff = (sims_df$chn_sim_total_logplus1-chn_total_logplus1)/chn_total_logplus1
     
-    chn_sim_ivi_50_scaled = scale(log(sims_df$chn_sim_ivi_50))
-    sims_df$chn_sim_ivi_50_scaled = chn_sim_ivi_50_scaled[,1]
-    chn_ivi_50_scaled = (log(chn_ivi_50)-attr(chn_sim_ivi_50_scaled,"scaled:center"))/attr(chn_sim_ivi_50_scaled,"scaled:scale")
+    chn_ivi_50_logplus1 = log(chn_ivi_50+1)
+    sims_df$chn_sim_ivi_50_logplus1 = log(sims_df$chn_sim_ivi_50+1)
+    sims_df$chn_ivi_50_diff = (sims_df$chn_sim_ivi_50_logplus1-chn_ivi_50_logplus1)/chn_ivi_50_logplus1
     
-    chn_ivi_max = max(chn_ivi_record)
-    chn_sim_ivi_max_scaled = scale(log(sims_df$chn_sim_ivi_max))
-    sims_df$chn_sim_ivi_max_scaled = chn_sim_ivi_max_scaled[,1]
-    chn_ivi_max_scaled = (log(chn_ivi_max)-attr(chn_sim_ivi_max_scaled,"scaled:center"))/attr(chn_sim_ivi_max_scaled,"scaled:scale")
+    chn_ivi_max_logplus1 = log(max(chn_ivi_record)+1)
+    sims_df$chn_sim_ivi_max_logplus1 = log(sims_df$chn_sim_ivi_max+1)
+    sims_df$chn_ivi_max_diff = (sims_df$chn_sim_ivi_max_logplus1-chn_ivi_max_logplus1)/chn_ivi_max_logplus1
     
     chn_n_ivi_1 = sum(chn_ivi_record==1)
-    chn_sim_n_ivi_1_scaled = scale(log(sims_df$chn_sim_n_ivi_1+1))
-    sims_df$chn_sim_n_ivi_1_scaled = chn_sim_n_ivi_1_scaled[,1]
-    chn_n_ivi_1_scaled = (log(chn_n_ivi_1)-attr(chn_sim_n_ivi_1_scaled,"scaled:center"))/attr(chn_sim_n_ivi_1_scaled,"scaled:scale")
+    chn_n_ivi_1_logplus1 = log(chn_n_ivi_1+1)
+    sims_df$chn_sim_n_ivi_1_logplus1 = log(sims_df$chn_sim_n_ivi_1+1)
+    sims_df$chn_n_ivi_1_diff = (sims_df$chn_sim_n_ivi_1_logplus1-chn_n_ivi_1_logplus1)/chn_n_ivi_1_logplus1
     
-    adu_sim_total_scaled = scale(log(sims_df$adu_sim_total+1))
-    sims_df$adu_sim_total_scaled = adu_sim_total_scaled[,1]
-    adu_total_scaled = (log(adu_total)-attr(adu_sim_total_scaled,"scaled:center"))/attr(adu_sim_total_scaled,"scaled:scale")
+    adu_total_logplus1 = log(adu_total+1)
+    sims_df$adu_sim_total_logplus1 = log(sims_df$adu_sim_total+1)
+    sims_df$adu_total_diff = (sims_df$adu_sim_total_logplus1-adu_total_logplus1)/adu_total_logplus1
     
-    adu_sim_ivi_50_scaled = scale(log(sims_df$adu_sim_ivi_50))
-    sims_df$adu_sim_ivi_50_scaled = adu_sim_ivi_50_scaled[,1]
-    adu_ivi_50_scaled = (log(adu_ivi_50)-attr(adu_sim_ivi_50_scaled,"scaled:center"))/attr(adu_sim_ivi_50_scaled,"scaled:scale")
+    adu_ivi_50_logplus1 = log(adu_ivi_50+1)
+    sims_df$adu_sim_ivi_50_logplus1 = log(sims_df$adu_sim_ivi_50+1)
+    sims_df$adu_ivi_50_diff = (sims_df$adu_sim_ivi_50_logplus1-adu_ivi_50_logplus1)/adu_ivi_50_logplus1
     
-    adu_ivi_max = max(adu_ivi_record)
-    adu_sim_ivi_max_scaled = scale(log(sims_df$adu_sim_ivi_max))
-    sims_df$adu_sim_ivi_max_scaled = adu_sim_ivi_max_scaled[,1]
-    adu_ivi_max_scaled = (log(adu_ivi_max)-attr(adu_sim_ivi_max_scaled,"scaled:center"))/attr(adu_sim_ivi_max_scaled,"scaled:scale")
+    adu_ivi_max_logplus1 = log(max(adu_ivi_record)+1)
+    sims_df$adu_sim_ivi_max_logplus1 = log(sims_df$adu_sim_ivi_max+1)
+    sims_df$adu_ivi_max_diff = (sims_df$adu_sim_ivi_max_logplus1-adu_ivi_max_logplus1)/adu_ivi_max_logplus1
     
     adu_n_ivi_1 = sum(adu_ivi_record==1)
-    adu_sim_n_ivi_1_scaled = scale(log(sims_df$adu_sim_n_ivi_1+1))
-    sims_df$adu_sim_n_ivi_1_scaled = adu_sim_n_ivi_1_scaled[,1]
-    adu_n_ivi_1_scaled = (log(adu_n_ivi_1)-attr(adu_sim_n_ivi_1_scaled,"scaled:center"))/attr(adu_sim_n_ivi_1_scaled,"scaled:scale")
+    adu_n_ivi_1_logplus1 = log(adu_n_ivi_1+1)
+    sims_df$adu_sim_n_ivi_1_logplus1 = log(sims_df$adu_sim_n_ivi_1+1)
+    sims_df$adu_n_ivi_1_diff = (sims_df$adu_sim_n_ivi_1_logplus1-adu_n_ivi_1_logplus1)/adu_n_ivi_1_logplus1
     
-    sim_turnCount_scaled = scale(log(sims_df$sim_turnCount+1))
-    sims_df$sim_turnCount_scaled = sim_turnCount_scaled[,1]
-    turnCount_scaled = (log(turnCount+1)-attr(sim_turnCount_scaled,"scaled:center"))/attr(sim_turnCount_scaled,"scaled:scale")
+    turnCount_logplus1 = log(turnCount+1)
+    sims_df$sim_turnCount_logplus1 = log(sims_df$sim_turnCount+1)
+    sims_df$turnCount_diff = (sims_df$sim_turnCount_logplus1-turnCount_logplus1)/turnCount_logplus1
     
-    if (simType=="nonInteractive"){
-      sims_df$simDist = sqrt((sims_df$chn_sim_total_scaled-chn_total_scaled)^2+(sims_df$chn_sim_n_ivi_1_scaled-chn_n_ivi_1_scaled)^2+(sims_df$chn_sim_ivi_50_scaled-chn_ivi_50_scaled)^2+(sims_df$chn_sim_ivi_max_scaled-chn_ivi_max_scaled)^2+(sims_df$adu_sim_total_scaled-adu_total_scaled)^2+(sims_df$adu_sim_n_ivi_1_scaled-adu_n_ivi_1_scaled)^2+(sims_df$adu_sim_ivi_50_scaled-adu_ivi_50_scaled)^2+(sims_df$adu_sim_ivi_max_scaled-adu_ivi_max_scaled)^2)
-    } else{
-      sims_df$simDist = sqrt((sims_df$chn_sim_total_scaled-chn_total_scaled)^2+(sims_df$chn_sim_n_ivi_1_scaled-chn_n_ivi_1_scaled)^2+(sims_df$chn_sim_ivi_50_scaled-chn_ivi_50_scaled)^2+(sims_df$chn_sim_ivi_max_scaled-chn_ivi_max_scaled)^2+(sims_df$adu_sim_total_scaled-adu_total_scaled)^2+(sims_df$adu_sim_n_ivi_1_scaled-adu_n_ivi_1_scaled)^2+(sims_df$adu_sim_ivi_50_scaled-adu_ivi_50_scaled)^2+(sims_df$adu_sim_ivi_max_scaled-adu_ivi_max_scaled)^2+(sims_df$sim_turnCount_scaled-turnCount_scaled)^2)
-    }
+    # Get fit without considering turn count
+    sims_df$simDist_noTurns = sqrt((sims_df$chn_total_diff)^2
+                                   +(sims_df$chn_ivi_50_diff)^2
+                                   +(sims_df$chn_ivi_max_diff)^2
+                                   +(sims_df$chn_n_ivi_1_diff)^2
+                                   +(sims_df$adu_total_diff)^2
+                                   +(sims_df$adu_ivi_50_diff)^2
+                                   +(sims_df$adu_ivi_max_diff)^2
+                                   +(sims_df$adu_n_ivi_1_diff)^2)
+    
+    # Get fit including turn count
+    sims_df$simDist_wTurns = sqrt((sims_df$chn_total_diff)^2
+                                  +(sims_df$chn_ivi_50_diff)^2
+                                  +(sims_df$chn_ivi_max_diff)^2
+                                  +(sims_df$chn_n_ivi_1_diff)^2
+                                  +(sims_df$adu_total_diff)^2
+                                  +(sims_df$adu_ivi_50_diff)^2
+                                  +(sims_df$adu_ivi_max_diff)^2
+                                  +(sims_df$adu_n_ivi_1_diff)^2
+                                  +(sims_df$turnCount_diff)^2)
+    
+    # Get fit based only on the turn count
+    sims_df$simDist_onlyTurns = sqrt((sims_df$turnCount_diff)^2)
     
     fitOrder = order(sims_df$simDist)
+    
+    fitOrder_noTurns = order(sims_df$simDist_noTurns)
+    fitOrder_wTurns = order(sims_df$simDist_wTurns)
+    fitOrder_onlyTurns = order(sims_df$simDist_onlyTurns)
     
     ####################################################
     # save the simulation data then reset the workspace
@@ -336,10 +358,8 @@ for (recording in recordings){
       dir.create(results_dir)
     }
     
-    results_timestamp = format(Sys.time(), "%Y-%m-%d-%H%M%S")
-    
     # save the full workspace
-    save.image(paste(results_dir,"/VocEventSim_Optimize_",results_timestamp,".RData",sep=""))
+    save.image(paste(results_dir,"/VocEventSim_Optimize",".RData",sep=""))
     
     rm(list=ls()[! ls() %in% c("recording","recordings","simType","simTypes","nSims")])
   }

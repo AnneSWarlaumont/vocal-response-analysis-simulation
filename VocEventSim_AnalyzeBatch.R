@@ -1,5 +1,6 @@
 setwd('~/Documents/GitHub/vocal-response-analysis-simulation/')
 
+# Will need to revise the data loading since we're no longer going to be merging across simulations
 # Load in data:
 sims_df = read.csv("~/Documents/GitHub/vocal-response-analysis-simulation/sims_df_merged_20250521.csv")
 
@@ -36,111 +37,11 @@ for (recording in recordings){
   adu_voc_record = integer(rec_length)
   adu_voc_record[as.integer(floor(adu_segments$startsec))] = 1
   
-  #######################################
-  # Get key measures for the human sample 
-  #######################################
-  
-  # Number of child and adult vocalizations
-  chn_total = sum(chn_voc_record)
-  adu_total = sum(adu_voc_record)
-  
-  # Number of conversational turns based on a 5 s threshold
-  # Initialize leader ID and time
-  # Loop through each second of the recording
-  # When a turn is identified, update the turn count
-  turnCount = 0
-  leadID = 'none'
-  leadT = 0
-  for (t in 1:rec_length){
-    leadT = leadT+1
-    if (leadID=='chn' && adu_voc_record[t]==1) {
-      if (leadT <= 5) {
-        turnCount = turnCount+1
-      }
-      leadID = 'adu'
-      leadT = 0
-    } else if (leadID=='adu' && chn_voc_record[t]==1) {
-      if (leadT <= 5) {
-        turnCount = turnCount+1
-      }
-      leadID = 'chn'
-      leadT = 0
-    } else if (leadID=='none' && adu_voc_record[t]==1) {
-      leadID = 'adu'
-      leadT = 0
-    } else if (leadID=='none' && chn_voc_record[t]==1) {
-      leadID = 'chn'
-      leadT = 0
-    }
-  }
-  
-  # 50th percentiles of the child and adult ivi distributions using the quantile function
-  get_ivis <- function(voc_record){
-    ivi_record = c()
-    voc1_t = NA # initialize the time of the first vocalization in the current IVI pair
-    voc2_t = NA # initialize the time of the second vocalization in the current IVI pair 
-    for (t in 1:length(voc_record)){
-      if (is.na(voc1_t) & voc_record[t]==1){
-        voc1_t = t
-      } else if (voc_record[t]==1){
-        voc2_t = t
-        ivi = voc2_t - voc1_t
-        ivi_record = c(ivi_record,ivi)
-        voc1_t = voc2_t
-      }
-    }
-    return(ivi_record)
-  }
-  chn_ivi_record = get_ivis(chn_voc_record)
-  adu_ivi_record = get_ivis(adu_voc_record)
-  chn_ivi_50 = quantile(chn_ivi_record,probs=.5,names=FALSE)
-  adu_ivi_50 = quantile(adu_ivi_record,probs=.5,names=FALSE)
-  
   ###################################################
   # Scale the simulation and human recording measures
   ###################################################
   
-  chn_sim_total_scaled = scale(log(sims_df$chn_sim_total+1))
-  chn_total_scaled = (log(chn_total+1)-attr(chn_sim_total_scaled,"scaled:center"))/attr(chn_sim_total_scaled,"scaled:scale")
-  
-  chn_sim_ivi_50_scaled = scale(log(sims_df$chn_sim_ivi_50))
-  chn_ivi_50_scaled = (log(chn_ivi_50)-attr(chn_sim_ivi_50_scaled,"scaled:center"))/attr(chn_sim_ivi_50_scaled,"scaled:scale")
-  
-  chn_ivi_max = max(chn_ivi_record)
-  sims_df$chn_sim_ivi_max[which(sims_df$chn_sim_ivi_max==-Inf)] = 0
-  chn_sim_ivi_max_scaled = scale(log(sims_df$chn_sim_ivi_max+1))
-  chn_ivi_max_scaled = (log(chn_ivi_max+1)-attr(chn_sim_ivi_max_scaled,"scaled:center"))/attr(chn_sim_ivi_max_scaled,"scaled:scale")
-  
-  chn_n_ivi_1 = sum(chn_ivi_record==1)
-  chn_sim_n_ivi_1_scaled = scale(log(sims_df$chn_sim_n_ivi_1+1))
-  chn_n_ivi_1_scaled = (log(chn_n_ivi_1+1)-attr(chn_sim_n_ivi_1_scaled,"scaled:center"))/attr(chn_sim_n_ivi_1_scaled,"scaled:scale")
-  
-  adu_sim_total_scaled = scale(log(sims_df$adu_sim_total+1))
-  adu_total_scaled = (log(adu_total+1)-attr(adu_sim_total_scaled,"scaled:center"))/attr(adu_sim_total_scaled,"scaled:scale")
-  
-  adu_sim_ivi_50_scaled = scale(log(sims_df$adu_sim_ivi_50))
-  adu_ivi_50_scaled = (log(adu_ivi_50)-attr(adu_sim_ivi_50_scaled,"scaled:center"))/attr(adu_sim_ivi_50_scaled,"scaled:scale")
-  
-  adu_ivi_max = max(adu_ivi_record)
-  sims_df$adu_sim_ivi_max[which(sims_df$adu_sim_ivi_max==-Inf)] = 0
-  adu_sim_ivi_max_scaled = scale(log(sims_df$adu_sim_ivi_max+1))
-  adu_ivi_max_scaled = (log(adu_ivi_max+1)-attr(adu_sim_ivi_max_scaled,"scaled:center"))/attr(adu_sim_ivi_max_scaled,"scaled:scale")
-  
-  adu_n_ivi_1 = sum(adu_ivi_record==1)
-  adu_sim_n_ivi_1_scaled = scale(log(sims_df$adu_sim_n_ivi_1+1))
-  adu_n_ivi_1_scaled = (log(adu_n_ivi_1+1)-attr(adu_sim_n_ivi_1_scaled,"scaled:center"))/attr(adu_sim_n_ivi_1_scaled,"scaled:scale")
-  
-  sim_turnCount_scaled = scale(log(sims_df$sim_turnCount+1))
-  turnCount_scaled = (log(turnCount+1)-attr(sim_turnCount_scaled,"scaled:center"))/attr(sim_turnCount_scaled,"scaled:scale")
-  
-  # Get fit without considering turn count
-  simFits_noTurns[,recording] = sqrt((chn_sim_total_scaled-chn_total_scaled)^2+(chn_sim_n_ivi_1_scaled-chn_n_ivi_1_scaled)^2+(chn_sim_ivi_50_scaled-chn_ivi_50_scaled)^2+(chn_sim_ivi_max_scaled-chn_ivi_max_scaled)^2+(adu_sim_total_scaled-adu_total_scaled)^2+(adu_sim_n_ivi_1_scaled-adu_n_ivi_1_scaled)^2+(adu_sim_ivi_50_scaled-adu_ivi_50_scaled)^2+(adu_sim_ivi_max_scaled-adu_ivi_max_scaled)^2)
-  
-  # Get fit including turn count
-  simFits_wTurns[,recording] = sqrt((chn_sim_total_scaled-chn_total_scaled)^2+(chn_sim_n_ivi_1_scaled-chn_n_ivi_1_scaled)^2+(chn_sim_ivi_50_scaled-chn_ivi_50_scaled)^2+(chn_sim_ivi_max_scaled-chn_ivi_max_scaled)^2+(adu_sim_total_scaled-adu_total_scaled)^2+(adu_sim_n_ivi_1_scaled-adu_n_ivi_1_scaled)^2+(adu_sim_ivi_50_scaled-adu_ivi_50_scaled)^2+(adu_sim_ivi_max_scaled-adu_ivi_max_scaled)^2+(sim_turnCount_scaled-turnCount_scaled)^2)
-  
-  # Get fit focusing only on the turn count
-  simFits_onlyTurns[,recording] = sqrt((sim_turnCount_scaled-turnCount_scaled)^2)
+  # To-do: Load in the simulation data
   
   fitOrder_noTurns[,recording] = order(simFits_noTurns[,recording])
   fitOrder_wTurns[,recording] = order(simFits_wTurns[,recording])
