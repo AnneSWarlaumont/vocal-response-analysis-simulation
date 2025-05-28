@@ -342,8 +342,6 @@ for (recording in recordings){
     # Get fit based only on the turn count
     sims_df$simDist_onlyTurns = sqrt((sims_df$turnCount_diff)^2)
     
-    fitOrder = order(sims_df$simDist)
-    
     fitOrder_noTurns = order(sims_df$simDist_noTurns)
     fitOrder_wTurns = order(sims_df$simDist_wTurns)
     fitOrder_onlyTurns = order(sims_df$simDist_onlyTurns)

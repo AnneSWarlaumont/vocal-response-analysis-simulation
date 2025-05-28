@@ -1,96 +1,109 @@
 setwd('~/Documents/GitHub/vocal-response-analysis-simulation/')
 
-# Will need to revise the data loading since we're no longer going to be merging across simulations
-# Load in data:
-sims_df = read.csv("~/Documents/GitHub/vocal-response-analysis-simulation/sims_df_merged_20250521.csv")
+recordingsToAnalyze = c("0344_000913","0833_010606","0054_000603")
+simTypesToAnalyze = c("nonInteractive","a2interactive","bidirectional")
 
-recordings = c("0344_000913","0833_010606","0054_000603")
-simTypes = c("nonInteractive","a2interactive","bidirectional")
+allSimFits <- data.frame(recording = character(),
+                      simType = character(),
+                      simNum = integer(),
+                      fitType = character(),
+                      simDist = double(),
+                      fitOrder = integer(),
+                      stringsAsFactors = FALSE)
 
 #############################################################
 # Assess the fit between each simulation and each recording,
 # with and without turn count included
 #############################################################
 
-# initialize two matrices, which will store the fits of each simulation (in rows) to each recording (in columns)
-simFits_noTurns = matrix(data = NA, nrow = nrow(sims_df), ncol = length(recordings))
-simFits_wTurns = matrix(data = NA, nrow = nrow(sims_df), ncol = length(recordings))
-simFits_onlyTurns = matrix(data = NA, nrow = nrow(sims_df), ncol = length(recordings))
-fitOrder_noTurns = matrix(data = NA, nrow = nrow(sims_df), ncol = length(recordings))
-fitOrder_wTurns = matrix(data = NA, nrow = nrow(sims_df), ncol = length(recordings))
-fitOrder_onlyTurns = matrix(data = NA, nrow = nrow(sims_df), ncol = length(recordings))
-colnames(simFits_noTurns) = recordings
-colnames(simFits_wTurns) = recordings
-colnames(simFits_onlyTurns) = recordings
-colnames(fitOrder_noTurns) = recordings
-colnames(fitOrder_wTurns) = recordings
-colnames(fitOrder_onlyTurns) = recordings
-
-for (recording in recordings){
-  recording_dir = paste("data/",recording,sep="")
-  lena_segments = read.csv(paste(recording_dir,"/",recording,"_segments.csv",sep=""))
-  chn_segments = subset(lena_segments,segtype=="CHNSP")
-  adu_segments = subset(lena_segments,segtype=="FAN"|segtype=="MAN")
-  rec_length = floor(lena_segments$endsec[nrow(lena_segments)])
-  chn_voc_record = integer(rec_length)
-  chn_voc_record[as.integer(floor(chn_segments$startsec))] = 1
-  adu_voc_record = integer(rec_length)
-  adu_voc_record[as.integer(floor(adu_segments$startsec))] = 1
-  
-  ###################################################
-  # Scale the simulation and human recording measures
-  ###################################################
-  
-  # To-do: Load in the simulation data
-  
-  fitOrder_noTurns[,recording] = order(simFits_noTurns[,recording])
-  fitOrder_wTurns[,recording] = order(simFits_wTurns[,recording])
-  fitOrder_onlyTurns[,recording] = order(simFits_onlyTurns[,recording])
-  
+for (recordingToA in recordingsToAnalyze){
+  for (simTypeToA in simTypesToAnalyze){
+    
+    # Load in the simulation data
+    recording_file = paste("data/",recordingToA,"/",simTypeToA,"/VocEventSim_Optimize.RData",sep="")
+    load(recording_file)
+    
+    simFits = data.frame(recording = rep(recordingToA,nSims),
+                         simType = rep(simTypeToA,nSims),
+                         simNum = seq(1,nSims),
+                         fitType = rep("noTurns",nSims),
+                         simDist = sims_df$simDist_noTurns,
+                         fitOrder = fitOrder_noTurns)
+    allSimFits = rbind(allSimFits,simFits)
+    
+    simFits = data.frame(recording = rep(recordingToA,nSims),
+                         simType = rep(simTypeToA,nSims),
+                         simNum = seq(1,nSims),
+                         fitType = rep("wTurns",nSims),
+                         simDist = sims_df$simDist_wTurns,
+                         fitOrder = fitOrder_wTurns)
+    allSimFits = rbind(allSimFits,simFits)
+    
+    simFits = data.frame(recording = rep(recordingToA,nSims),
+                         simType = rep(simTypeToA,nSims),
+                         simNum = seq(1,nSims),
+                         fitType = rep("onlyTurns",nSims),
+                         simDist = sims_df$simDist_onlyTurns,
+                         fitOrder = fitOrder_onlyTurns)
+    allSimFits = rbind(allSimFits,simFits)
+    
+    
+  }
 }
 
-### subset sims_df by type of simulation
-sims_df_nonInteractive = subset(sims_df,(chn_sim_othersensitivity==1&adu_sim_othersensitivity==1))
-sims_df_a2Interactive = subset(sims_df,(chn_sim_othersensitivity==1&adu_sim_othersensitivity!=1))
-sims_df_bidirectional = subset(sims_df,(chn_sim_othersensitivity!=1&adu_sim_othersensitivity!=1))
+# export allSimFits to csv
+write.csv(allSimFits, file = "data/allSimFits.csv")
 
-### subset fitOrder_noTurns by type of simulation
-fitOrder_noTurns_nonInteractive = subset(fitOrder_noTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity==1))
-fitOrder_noTurns_a2Interactive = subset(fitOrder_noTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity!=1))
-fitOrder_noTurns_bidirectional = subset(fitOrder_noTurns,(sims_df$chn_sim_othersensitivity!=1&sims_df$adu_sim_othersensitivity!=1))
+# To-do:
+# subset simFits by recording, type of simulation, and measure type
+# then get a table with the recordings' best simulations' mean simDist,
+# for each simulation type and measure type combination
+# the output the table in latex formatting for inclusion in manuscript.
 
-### Find out what the fits are for the three simulation types for each recording (lower is better)
-colMeans(cbind(simFits_noTurns[fitOrder_noTurns_nonInteractive[1:5,1],1],simFits_noTurns[fitOrder_noTurns_nonInteractive[1:5,2],2],simFits_noTurns[fitOrder_noTurns_nonInteractive[1:5,3],3]))
-colMeans(cbind(simFits_noTurns[fitOrder_noTurns_a2Interactive[1:5,1],1],simFits_noTurns[fitOrder_noTurns_a2Interactive[1:5,2],2],simFits_noTurns[fitOrder_noTurns_a2Interactive[1:5,3],3]))
-colMeans(cbind(simFits_noTurns[fitOrder_noTurns_bidirectional[1:5,1],1],simFits_noTurns[fitOrder_noTurns_bidirectional[1:5,2],2],simFits_noTurns[fitOrder_noTurns_bidirectional[1:5,3],3]))
+#### Code below is not yet adapted. Will eventually be adapted or deleted.
 
-### subset fitOrder_wTurns by type of simulation
-fitOrder_wTurns_nonInteractive = subset(fitOrder_wTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity==1))
-fitOrder_wTurns_a2Interactive = subset(fitOrder_wTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity!=1))
-fitOrder_wTurns_bidirectional = subset(fitOrder_wTurns,(sims_df$chn_sim_othersensitivity!=1&sims_df$adu_sim_othersensitivity!=1))
-
-### Find out what the fits are for the three simulation types for each recording (lower is better)
-colMeans(cbind(simFits_wTurns[fitOrder_wTurns_nonInteractive[1:5,1],1],simFits_wTurns[fitOrder_wTurns_nonInteractive[1:5,2],2],simFits_wTurns[fitOrder_wTurns_nonInteractive[1:5,3],3]))
-colMeans(cbind(simFits_wTurns[fitOrder_wTurns_a2Interactive[1:5,1],1],simFits_wTurns[fitOrder_wTurns_a2Interactive[1:5,2],2],simFits_wTurns[fitOrder_wTurns_a2Interactive[1:5,3],3]))
-colMeans(cbind(simFits_wTurns[fitOrder_wTurns_bidirectional[1:5,1],1],simFits_wTurns[fitOrder_wTurns_bidirectional[1:5,2],2],simFits_wTurns[fitOrder_wTurns_bidirectional[1:5,3],3]))
-
-### subset fitOrder_onlyTurns by type of simulation
-fitOrder_onlyTurns_nonInteractive = subset(fitOrder_onlyTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity==1))
-fitOrder_onlyTurns_a2Interactive = subset(fitOrder_onlyTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity!=1))
-fitOrder_onlyTurns_bidirectional = subset(fitOrder_onlyTurns,(sims_df$chn_sim_othersensitivity!=1&sims_df$adu_sim_othersensitivity!=1))
-
-### Find out what the fits are for the three simulation types for each recording (lower is better)
-colMeans(cbind(simFits_onlyTurns[fitOrder_onlyTurns_nonInteractive[1:5,1],1],simFits_onlyTurns[fitOrder_onlyTurns_nonInteractive[1:5,2],2],simFits_onlyTurns[fitOrder_onlyTurns_nonInteractive[1:5,3],3]))
-colMeans(cbind(simFits_onlyTurns[fitOrder_onlyTurns_a2Interactive[1:5,1],1],simFits_onlyTurns[fitOrder_onlyTurns_a2Interactive[1:5,2],2],simFits_onlyTurns[fitOrder_onlyTurns_a2Interactive[1:5,3],3]))
-colMeans(cbind(simFits_onlyTurns[fitOrder_onlyTurns_bidirectional[1:5,1],1],simFits_onlyTurns[fitOrder_onlyTurns_bidirectional[1:5,2],2],simFits_onlyTurns[fitOrder_onlyTurns_bidirectional[1:5,3],3]))
-
-#################################################################################
-# for the best-matched simulations,
-# analyze the chn and adu ivis to test for response effects on ivis
-# using 1. no control for previous ivi and 2. control for previous ivi or 2 ivis
-#################################################################################
-
-load("~/Documents/GitHub/vocal-response-analysis-simulation/mergedSimData_20250521.Rdat")
+# ### subset sims_df by type of simulation
+# sims_df_nonInteractive = subset(sims_df,(chn_sim_othersensitivity==1&adu_sim_othersensitivity==1))
+# sims_df_a2Interactive = subset(sims_df,(chn_sim_othersensitivity==1&adu_sim_othersensitivity!=1))
+# sims_df_bidirectional = subset(sims_df,(chn_sim_othersensitivity!=1&adu_sim_othersensitivity!=1))
+# 
+# ### subset fitOrder_noTurns by type of simulation
+# fitOrder_noTurns_nonInteractive = subset(fitOrder_noTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity==1))
+# fitOrder_noTurns_a2Interactive = subset(fitOrder_noTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity!=1))
+# fitOrder_noTurns_bidirectional = subset(fitOrder_noTurns,(sims_df$chn_sim_othersensitivity!=1&sims_df$adu_sim_othersensitivity!=1))
+# 
+# ### Find out what the fits are for the three simulation types for each recording (lower is better)
+# colMeans(cbind(simFits_noTurns[fitOrder_noTurns_nonInteractive[1:5,1],1],simFits_noTurns[fitOrder_noTurns_nonInteractive[1:5,2],2],simFits_noTurns[fitOrder_noTurns_nonInteractive[1:5,3],3]))
+# colMeans(cbind(simFits_noTurns[fitOrder_noTurns_a2Interactive[1:5,1],1],simFits_noTurns[fitOrder_noTurns_a2Interactive[1:5,2],2],simFits_noTurns[fitOrder_noTurns_a2Interactive[1:5,3],3]))
+# colMeans(cbind(simFits_noTurns[fitOrder_noTurns_bidirectional[1:5,1],1],simFits_noTurns[fitOrder_noTurns_bidirectional[1:5,2],2],simFits_noTurns[fitOrder_noTurns_bidirectional[1:5,3],3]))
+# 
+# ### subset fitOrder_wTurns by type of simulation
+# fitOrder_wTurns_nonInteractive = subset(fitOrder_wTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity==1))
+# fitOrder_wTurns_a2Interactive = subset(fitOrder_wTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity!=1))
+# fitOrder_wTurns_bidirectional = subset(fitOrder_wTurns,(sims_df$chn_sim_othersensitivity!=1&sims_df$adu_sim_othersensitivity!=1))
+# 
+# ### Find out what the fits are for the three simulation types for each recording (lower is better)
+# colMeans(cbind(simFits_wTurns[fitOrder_wTurns_nonInteractive[1:5,1],1],simFits_wTurns[fitOrder_wTurns_nonInteractive[1:5,2],2],simFits_wTurns[fitOrder_wTurns_nonInteractive[1:5,3],3]))
+# colMeans(cbind(simFits_wTurns[fitOrder_wTurns_a2Interactive[1:5,1],1],simFits_wTurns[fitOrder_wTurns_a2Interactive[1:5,2],2],simFits_wTurns[fitOrder_wTurns_a2Interactive[1:5,3],3]))
+# colMeans(cbind(simFits_wTurns[fitOrder_wTurns_bidirectional[1:5,1],1],simFits_wTurns[fitOrder_wTurns_bidirectional[1:5,2],2],simFits_wTurns[fitOrder_wTurns_bidirectional[1:5,3],3]))
+# 
+# ### subset fitOrder_onlyTurns by type of simulation
+# fitOrder_onlyTurns_nonInteractive = subset(fitOrder_onlyTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity==1))
+# fitOrder_onlyTurns_a2Interactive = subset(fitOrder_onlyTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity!=1))
+# fitOrder_onlyTurns_bidirectional = subset(fitOrder_onlyTurns,(sims_df$chn_sim_othersensitivity!=1&sims_df$adu_sim_othersensitivity!=1))
+# 
+# ### Find out what the fits are for the three simulation types for each recording (lower is better)
+# colMeans(cbind(simFits_onlyTurns[fitOrder_onlyTurns_nonInteractive[1:5,1],1],simFits_onlyTurns[fitOrder_onlyTurns_nonInteractive[1:5,2],2],simFits_onlyTurns[fitOrder_onlyTurns_nonInteractive[1:5,3],3]))
+# colMeans(cbind(simFits_onlyTurns[fitOrder_onlyTurns_a2Interactive[1:5,1],1],simFits_onlyTurns[fitOrder_onlyTurns_a2Interactive[1:5,2],2],simFits_onlyTurns[fitOrder_onlyTurns_a2Interactive[1:5,3],3]))
+# colMeans(cbind(simFits_onlyTurns[fitOrder_onlyTurns_bidirectional[1:5,1],1],simFits_onlyTurns[fitOrder_onlyTurns_bidirectional[1:5,2],2],simFits_onlyTurns[fitOrder_onlyTurns_bidirectional[1:5,3],3]))
+# 
+# #################################################################################
+# # for the best-matched simulations,
+# # analyze the chn and adu ivis to test for response effects on ivis
+# # using 1. no control for previous ivi and 2. control for previous ivi or 2 ivis
+# #################################################################################
+# 
+# load("~/Documents/GitHub/vocal-response-analysis-simulation/mergedSimData_20250521.Rdat")
 
 # simID = 0
 # ivi_records = c()
