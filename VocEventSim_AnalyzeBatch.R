@@ -54,49 +54,42 @@ for (recordingToA in recordingsToAnalyze){
 # export allSimFits to csv
 write.csv(allSimFits, file = "data/allSimFits.csv")
 
-# To-do:
-# subset simFits by recording, type of simulation, and measure type
-# then get a table with the recordings' best simulations' mean simDist,
-# for each simulation type and measure type combination
-# the output the table in latex formatting for inclusion in manuscript.
+bestFitDists_stats = data.frame(simType = character(),
+                                fitType = character(),
+                                mean = double(),
+                                sd = double())
+bestFitDists_details = data.frame(simType = character(),
+                                  fitType = character(),
+                                  recording = character(),
+                                  bestFitDist = double())
+for (simTypeToA in simTypesToAnalyze){
+  for (fitTypeToA in c("noTurns","wTurns","onlyTurns")){
+    simFits_subset = subset(allSimFits,((simType==simTypeToA)&(fitType==fitTypeToA)))
+    bestFitDists = double()
+    for (recordingToA in recordingsToAnalyze){
+      simFits_subsubset = subset(simFits_subset,recording==recordingToA)
+      bestFitRow = subset(simFits_subsubset,fitOrder==1)
+      bestFitDist = bestFitRow$simDist
+      details_row = data.frame(simType = simTypeToA,
+                                        fitType = fitTypeToA,
+                                        recording = recordingToA,
+                                        bestFitDist = bestFitDist)
+      bestFitDists_details = rbind(bestFitDists_details,details_row)
+      bestFitDists = c(bestFitDists,bestFitDist)
+    }
+    bestFitDists_mean = mean(bestFitDists)
+    bestFitDists_sd = sd(bestFitDists)
+    stats_row = data.frame(simType = simTypeToA,
+                                    fitType = fitTypeToA,
+                                    mean = bestFitDists_mean,
+                                    sd = bestFitDists_sd)
+    bestFitDists_stats = rbind(bestFitDists_stats,stats_row)
+  }
+}
+write.csv(bestFitDists_details, file = "data/bestFitDists_details.csv")
+write.csv(bestFitDists_stats, file = "data/bestFitDists_stats.csv")
 
 #### Code below is not yet adapted. Will eventually be adapted or deleted.
-
-# ### subset sims_df by type of simulation
-# sims_df_nonInteractive = subset(sims_df,(chn_sim_othersensitivity==1&adu_sim_othersensitivity==1))
-# sims_df_a2Interactive = subset(sims_df,(chn_sim_othersensitivity==1&adu_sim_othersensitivity!=1))
-# sims_df_bidirectional = subset(sims_df,(chn_sim_othersensitivity!=1&adu_sim_othersensitivity!=1))
-# 
-# ### subset fitOrder_noTurns by type of simulation
-# fitOrder_noTurns_nonInteractive = subset(fitOrder_noTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity==1))
-# fitOrder_noTurns_a2Interactive = subset(fitOrder_noTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity!=1))
-# fitOrder_noTurns_bidirectional = subset(fitOrder_noTurns,(sims_df$chn_sim_othersensitivity!=1&sims_df$adu_sim_othersensitivity!=1))
-# 
-# ### Find out what the fits are for the three simulation types for each recording (lower is better)
-# colMeans(cbind(simFits_noTurns[fitOrder_noTurns_nonInteractive[1:5,1],1],simFits_noTurns[fitOrder_noTurns_nonInteractive[1:5,2],2],simFits_noTurns[fitOrder_noTurns_nonInteractive[1:5,3],3]))
-# colMeans(cbind(simFits_noTurns[fitOrder_noTurns_a2Interactive[1:5,1],1],simFits_noTurns[fitOrder_noTurns_a2Interactive[1:5,2],2],simFits_noTurns[fitOrder_noTurns_a2Interactive[1:5,3],3]))
-# colMeans(cbind(simFits_noTurns[fitOrder_noTurns_bidirectional[1:5,1],1],simFits_noTurns[fitOrder_noTurns_bidirectional[1:5,2],2],simFits_noTurns[fitOrder_noTurns_bidirectional[1:5,3],3]))
-# 
-# ### subset fitOrder_wTurns by type of simulation
-# fitOrder_wTurns_nonInteractive = subset(fitOrder_wTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity==1))
-# fitOrder_wTurns_a2Interactive = subset(fitOrder_wTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity!=1))
-# fitOrder_wTurns_bidirectional = subset(fitOrder_wTurns,(sims_df$chn_sim_othersensitivity!=1&sims_df$adu_sim_othersensitivity!=1))
-# 
-# ### Find out what the fits are for the three simulation types for each recording (lower is better)
-# colMeans(cbind(simFits_wTurns[fitOrder_wTurns_nonInteractive[1:5,1],1],simFits_wTurns[fitOrder_wTurns_nonInteractive[1:5,2],2],simFits_wTurns[fitOrder_wTurns_nonInteractive[1:5,3],3]))
-# colMeans(cbind(simFits_wTurns[fitOrder_wTurns_a2Interactive[1:5,1],1],simFits_wTurns[fitOrder_wTurns_a2Interactive[1:5,2],2],simFits_wTurns[fitOrder_wTurns_a2Interactive[1:5,3],3]))
-# colMeans(cbind(simFits_wTurns[fitOrder_wTurns_bidirectional[1:5,1],1],simFits_wTurns[fitOrder_wTurns_bidirectional[1:5,2],2],simFits_wTurns[fitOrder_wTurns_bidirectional[1:5,3],3]))
-# 
-# ### subset fitOrder_onlyTurns by type of simulation
-# fitOrder_onlyTurns_nonInteractive = subset(fitOrder_onlyTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity==1))
-# fitOrder_onlyTurns_a2Interactive = subset(fitOrder_onlyTurns,(sims_df$chn_sim_othersensitivity==1&sims_df$adu_sim_othersensitivity!=1))
-# fitOrder_onlyTurns_bidirectional = subset(fitOrder_onlyTurns,(sims_df$chn_sim_othersensitivity!=1&sims_df$adu_sim_othersensitivity!=1))
-# 
-# ### Find out what the fits are for the three simulation types for each recording (lower is better)
-# colMeans(cbind(simFits_onlyTurns[fitOrder_onlyTurns_nonInteractive[1:5,1],1],simFits_onlyTurns[fitOrder_onlyTurns_nonInteractive[1:5,2],2],simFits_onlyTurns[fitOrder_onlyTurns_nonInteractive[1:5,3],3]))
-# colMeans(cbind(simFits_onlyTurns[fitOrder_onlyTurns_a2Interactive[1:5,1],1],simFits_onlyTurns[fitOrder_onlyTurns_a2Interactive[1:5,2],2],simFits_onlyTurns[fitOrder_onlyTurns_a2Interactive[1:5,3],3]))
-# colMeans(cbind(simFits_onlyTurns[fitOrder_onlyTurns_bidirectional[1:5,1],1],simFits_onlyTurns[fitOrder_onlyTurns_bidirectional[1:5,2],2],simFits_onlyTurns[fitOrder_onlyTurns_bidirectional[1:5,3],3]))
-# 
 # #################################################################################
 # # for the best-matched simulations,
 # # analyze the chn and adu ivis to test for response effects on ivis
