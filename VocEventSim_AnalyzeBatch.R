@@ -89,25 +89,41 @@ for (simTypeToA in simTypesToAnalyze){
 write.csv(bestFitDists_details, file = "data/bestFitDists_details.csv")
 write.csv(bestFitDists_stats, file = "data/bestFitDists_stats.csv")
 
-#### Code below is not yet adapted. Will eventually be adapted or deleted.
-# #################################################################################
-# # for the best-matched simulations,
-# # analyze the chn and adu ivis to test for response effects on ivis
-# # using 1. no control for previous ivi and 2. control for previous ivi or 2 ivis
-# #################################################################################
-# 
-# load("~/Documents/GitHub/vocal-response-analysis-simulation/mergedSimData_20250521.Rdat")
+################################################################################
+# To-do: for the best-matched simulations,
+# analyze the chn and adu ivis to test for response effects on ivis using:
+# 1. no control for previous ivi,
+# 2. control for previous ivi, or
+# 3. control for 3 previous ivis
+################################################################################
 
-# simID = 0
-# ivi_records = c()
-# ivi_r_records = c()
-# simIDs=c()
-# previvi_resids = c()
-# prev3ivi_resids = c()
+for (simTypeToA in simTypesToAnalyze){
+  for (recordingToA in recordingsToAnalyze){
+    
+    # Load in the simulation data
+    recording_file = paste("data/",recordingToA,"/",simTypeToA,"/VocEventSim_Optimize.RData",sep="")
+    load(recording_file)
+    
+    simID = 0
+    ivi_records = c()
+    ivi_r_records = c()
+    simIDs=c()
+    previvi_resids = c()
+    prev3ivi_resids = c()
+    
+    for (fitRank in 1:20){
+
+      simID = simID + 1
+      #ivi_series = sims_chn_ivi_records[[fitOrder[fitRank]]] # HERE in adaptation of old code below.
+    }
+    
+  }
+}
+
+#### Code below is not yet adapted. Will eventually be adapted or deleted.
+#
 # 
 # for (fitRank in 1:20){
-#   
-#   simID = simID + 1
 #   
 #   ivi_series = sims_chn_ivi_records[[fitOrder[fitRank]]]
 #   chn_voc_record = sims_chn_voc_records[[fitOrder[fitRank]]]
