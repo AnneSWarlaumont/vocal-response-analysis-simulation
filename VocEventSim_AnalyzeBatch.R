@@ -105,8 +105,7 @@ write.csv(bestFitDists_stats, file = "data/bestFitDists_stats.csv")
 # and we should probably pre-register those analyses, for maximal impact.
 ################################################################################
 
-response_results = data.frame(recording = character(),
-                              simType = character(),
+response_results = data.frame(simType = character(),
                               rBeta0 = double(),
                               rP0 = double(),
                               rBeta1 = double(),
@@ -115,6 +114,13 @@ response_results = data.frame(recording = character(),
                               rP3 = double())
 
 for (simTypeToA in simTypesToAnalyze){
+  
+  ivi_records = c()
+  ivi_r_records = c()
+  simIDs = c()
+  recordingIDs = c()
+  previvi_resids = c()
+  prev3ivi_resids = c()
   for (recordingToA in recordingsToAnalyze){
     
     # Load in the simulation data
@@ -128,12 +134,6 @@ for (simTypeToA in simTypesToAnalyze){
     }
     
     simID = 0
-    ivi_records = c()
-    ivi_r_records = c()
-    simIDs = c()
-    recordingIDs = c()
-    previvi_resids = c()
-    prev3ivi_resids = c()
     
     for (fitRank in 1:20){
 
@@ -173,37 +173,44 @@ for (simTypeToA in simTypesToAnalyze){
         prev3ivi_resids = c(prev3ivi_resids,prev3ivi_resid)
       
     }
-    
-    # Analyze using IVI-based approaches (our original and its variants controlling for previous IVIs)
-    ivi_models = analyze_ivis(ivi_records,ivi_r_records,previvi_resids,prev3ivi_resids,simIDs)
-    uncontrolled_response_model = ivi_models[[1]]
-    residual_response_model = ivi_models[[2]]
-    prev3residual_response_model = ivi_models[[3]]
-    
-    rSummary0 = summary(uncontrolled_response_model)
-    rBeta0 = rSummary0$coefficients["ivi_response_records","Estimate"]
-    rP0 = rSummary0$coefficients["ivi_response_records","Pr(>|t|)"]
-    
-    rSummary1 = summary(residual_response_model)
-    rBeta1 = rSummary1$coefficients["ivi_response_records","Estimate"]
-    rP1 = rSummary1$coefficients["ivi_response_records","Pr(>|t|)"]
-    
-    rSummary3 = summary(prev3residual_response_model)
-    rBeta3 = rSummary3$coefficients["ivi_response_records","Estimate"]
-    rP3 = rSummary3$coefficients["ivi_response_records","Pr(>|t|)"]
-    
-    newrow = data.frame(recording = recordingToA,
-                        simType = simTypeToA,
-                        rBeta0 = rBeta0,
-                        rP0 = rP0,
-                        rBeta1 = rBeta1,
-                        rP1 = rP1,
-                        rBeta3 = rBeta3,
-                        rP3 = rP3)
-    response_results = rbind(response_results,newrow)
-    
   }
+  
+  # Analyze using IVI-based approaches (our original and its variants controlling for previous IVIs)
+  source('VocEventSim.R') # Need to reload this here, as a different version of the function is contained in the workspace that were loaded for each simulation batch
+  ivi_models = analyze_ivis(ivi_records,ivi_r_records,previvi_resids,prev3ivi_resids,simIDs)
+  uncontrolled_response_model = ivi_models[[1]]
+  residual_response_model = ivi_models[[2]]
+  prev3residual_response_model = ivi_models[[3]]
+  
+  rSummary0 = summary(uncontrolled_response_model)
+  rBeta0 = rSummary0$coefficients["ivi_response_records","Estimate"]
+  rP0 = rSummary0$coefficients["ivi_response_records","Pr(>|t|)"]
+  
+  rSummary1 = summary(residual_response_model)
+  rBeta1 = rSummary1$coefficients["ivi_response_records","Estimate"]
+  rP1 = rSummary1$coefficients["ivi_response_records","Pr(>|t|)"]
+  
+  rSummary3 = summary(prev3residual_response_model)
+  rBeta3 = rSummary3$coefficients["ivi_response_records","Estimate"]
+  rP3 = rSummary3$coefficients["ivi_response_records","Pr(>|t|)"]
+  
+  # print(simTypeToA)
+  # print(rSummary0)
+  # print(rSummary1)
+  # print(rSummary3)
+  
+  newrow = data.frame(simType = simTypeToA,
+                      rBeta0 = rBeta0,
+                      rP0 = rP0,
+                      rBeta1 = rBeta1,
+                      rP1 = rP1,
+                      rBeta3 = rBeta3,
+                      rP3 = rP3)
+  response_results = rbind(response_results,newrow)
+  
 }
+
+write.csv(response_results, file = "data/response_results.csv")
 
 #### Code below is not yet adapted. Will eventually be adapted or deleted.
 # 
