@@ -1,6 +1,7 @@
 setwd('~/Documents/GitHub/vocal-response-analysis-simulation/')
 
-recordingsToAnalyze = c("0344_000913","0833_010606","0054_000603")
+recordingsToAnalyze = c("0054_000603","0196_000902","0344_000913","0833_010606")
+# recordingsToAnalyze = c("0054_000603","0196_000902","0274_000221","0300_000607","0344_000913","0437_010603","0833_010606") # once all the recordings I have queued up have their simulations completed.
 simTypesToAnalyze = c("nonInteractive","a2interactive","bidirectional")
 
 allSimFits <- data.frame(recording = character(),
