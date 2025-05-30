@@ -211,23 +211,3 @@ for (simTypeToA in simTypesToAnalyze){
 }
 
 write.csv(response_results, file = "data/response_results.csv")
-
-#### Code below is not yet adapted. Will eventually be adapted or deleted.
-# 
-# #################################################################################
-# # Plot fit to human data as a function of parameter value
-# #################################################################################
-# 
-# library(lattice)
-# library(latticeExtra) 
-# 
-# # showing data points on the same color scale 
-# nona_sims_df = subset(sims_df, !is.na(simDist) & !is.infinite(simDist))
-# levelplot(simDist ~ chn_sim_minp * chn_sim_maxp, nona_sims_df, 
-#           panel = panel.levelplot.points, cex = 1.2) + layer_(panel.2dsmoother(..., n = 200))
-# levelplot(simDist ~ adu_sim_minp * adu_sim_maxp, nona_sims_df, 
-#           panel = panel.levelplot.points, cex = 1.2) + layer_(panel.2dsmoother(..., n = 200))
-# levelplot(simDist ~ chn_sim_sdlog * chn_sim_maxp, nona_sims_df, 
-#           panel = panel.levelplot.points, cex = 1.2) + layer_(panel.2dsmoother(..., n = 200))
-# levelplot(simDist ~ adu_sim_sdlog * adu_sim_maxp, nona_sims_df, 
-#           panel = panel.levelplot.points, cex = 1.2) + layer_(panel.2dsmoother(..., n = 200))
