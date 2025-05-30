@@ -107,10 +107,16 @@ write.csv(bestFitDists_stats, file = "data/bestFitDists_stats.csv")
 
 response_results = data.frame(simType = character(),
                               rBeta0 = double(),
+                              rBeta0Lower = double(),
+                              rBeta0Upper = double(),
                               rP0 = double(),
                               rBeta1 = double(),
+                              rBeta1Lower = double(),
+                              rBeta1Upper = double(),
                               rP1 = double(),
                               rBeta3 = double(),
+                              rBeta3Lower = double(),
+                              rBeta3Upper = double(),
                               rP3 = double())
 
 for (simTypeToA in simTypesToAnalyze){
@@ -185,14 +191,17 @@ for (simTypeToA in simTypesToAnalyze){
   rSummary0 = summary(uncontrolled_response_model)
   rBeta0 = rSummary0$coefficients["ivi_response_records","Estimate"]
   rP0 = rSummary0$coefficients["ivi_response_records","Pr(>|t|)"]
+  rCI0 = confint.merMod(uncontrolled_response_model, "ivi_response_records", level = 0.99)
   
   rSummary1 = summary(residual_response_model)
   rBeta1 = rSummary1$coefficients["ivi_response_records","Estimate"]
   rP1 = rSummary1$coefficients["ivi_response_records","Pr(>|t|)"]
+  rCI1 = confint.merMod(residual_response_model, "ivi_response_records", level = 0.99)
   
   rSummary3 = summary(prev3residual_response_model)
   rBeta3 = rSummary3$coefficients["ivi_response_records","Estimate"]
   rP3 = rSummary3$coefficients["ivi_response_records","Pr(>|t|)"]
+  rCI3 = confint.merMod(prev3residual_response_model, "ivi_response_records", level = 0.99)
   
   # print(simTypeToA)
   # print(rSummary0)
@@ -201,12 +210,20 @@ for (simTypeToA in simTypesToAnalyze){
   
   newrow = data.frame(simType = simTypeToA,
                       rBeta0 = rBeta0,
+                      rBeta0Lower = rCI0[1,1],
+                      rBeta0Upper = rCI0[1,2],
                       rP0 = rP0,
                       rBeta1 = rBeta1,
+                      rBeta1Lower = rCI1[1,1],
+                      rBeta1Upper = rCI1[1,2],
                       rP1 = rP1,
                       rBeta3 = rBeta3,
+                      rBeta3Lower = rCI3[1,1],
+                      rBeta3Upper = rCI3[1,2],
                       rP3 = rP3)
   response_results = rbind(response_results,newrow)
+  
+  
   
 }
 
