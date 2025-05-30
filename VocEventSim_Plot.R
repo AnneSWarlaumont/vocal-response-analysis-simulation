@@ -62,3 +62,22 @@ rect(xleft=700,xright=1000,ybottom=0,ytop=2,col=rgb(0.5,0.5,0.5,.3),border=NA)
 chn_voc_record_5min = chn_voc_record_1hr[700:1000]
 stripchart(which(chn_voc_record_5min==1),xaxt="n",main="5 minutes within the hour",pch=19,ylim=c(.5,1.5),xlim=c(0,300))
 mtext("Onsets of human child vocalizations",side=3, line = 1, outer=TRUE, cex=2)
+
+# 
+# #################################################################################
+# # Plot fit to human data as a function of parameter value
+# #################################################################################
+# 
+# library(lattice)
+# library(latticeExtra) 
+# 
+# # showing data points on the same color scale 
+# nona_sims_df = subset(sims_df, !is.na(simDist) & !is.infinite(simDist))
+# levelplot(simDist ~ chn_sim_minp * chn_sim_maxp, nona_sims_df, 
+#           panel = panel.levelplot.points, cex = 1.2) + layer_(panel.2dsmoother(..., n = 200))
+# levelplot(simDist ~ adu_sim_minp * adu_sim_maxp, nona_sims_df, 
+#           panel = panel.levelplot.points, cex = 1.2) + layer_(panel.2dsmoother(..., n = 200))
+# levelplot(simDist ~ chn_sim_sdlog * chn_sim_maxp, nona_sims_df, 
+#           panel = panel.levelplot.points, cex = 1.2) + layer_(panel.2dsmoother(..., n = 200))
+# levelplot(simDist ~ adu_sim_sdlog * adu_sim_maxp, nona_sims_df, 
+#           panel = panel.levelplot.points, cex = 1.2) + layer_(panel.2dsmoother(..., n = 200))
