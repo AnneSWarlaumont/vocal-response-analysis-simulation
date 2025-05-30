@@ -105,6 +105,15 @@ write.csv(bestFitDists_stats, file = "data/bestFitDists_stats.csv")
 # and we should probably pre-register those analyses, for maximal impact.
 ################################################################################
 
+response_results = data.frame(recording = character(),
+                              simType = character(),
+                              rBeta0 = double(),
+                              rP0 = double(),
+                              rBeta1 = double(),
+                              rP1 = double(),
+                              rBeta3 = double(),
+                              rP3 = double())
+
 for (simTypeToA in simTypesToAnalyze){
   for (recordingToA in recordingsToAnalyze){
     
@@ -121,7 +130,8 @@ for (simTypeToA in simTypesToAnalyze){
     simID = 0
     ivi_records = c()
     ivi_r_records = c()
-    simIDs=c()
+    simIDs = c()
+    recordingIDs = c()
     previvi_resids = c()
     prev3ivi_resids = c()
     
@@ -169,10 +179,28 @@ for (simTypeToA in simTypesToAnalyze){
     uncontrolled_response_model = ivi_models[[1]]
     residual_response_model = ivi_models[[2]]
     prev3residual_response_model = ivi_models[[3]]
-
-    summary(uncontrolled_response_model)
-    summary(residual_response_model)
-    summary(prev3residual_response_model)
+    
+    rSummary0 = summary(uncontrolled_response_model)
+    rBeta0 = rSummary0$coefficients["ivi_response_records","Estimate"]
+    rP0 = rSummary0$coefficients["ivi_response_records","Pr(>|t|)"]
+    
+    rSummary1 = summary(residual_response_model)
+    rBeta1 = rSummary1$coefficients["ivi_response_records","Estimate"]
+    rP1 = rSummary1$coefficients["ivi_response_records","Pr(>|t|)"]
+    
+    rSummary3 = summary(prev3residual_response_model)
+    rBeta3 = rSummary3$coefficients["ivi_response_records","Estimate"]
+    rP3 = rSummary3$coefficients["ivi_response_records","Pr(>|t|)"]
+    
+    newrow = data.frame(recording = recordingToA,
+                        simType = simTypeToA,
+                        rBeta0 = rBeta0,
+                        rP0 = rP0,
+                        rBeta1 = rBeta1,
+                        rP1 = rP1,
+                        rBeta3 = rBeta3,
+                        rP3 = rP3)
+    response_results = rbind(response_results,newrow)
     
   }
 }
