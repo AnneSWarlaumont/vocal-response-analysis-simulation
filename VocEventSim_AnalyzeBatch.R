@@ -424,5 +424,11 @@ human_response_results = rbind(human_response_results,newrow)
 write.csv(human_response_results, file = "data/human_response_results.csv")
 
 ################################################################################
-# TODO: Update all the above to also analyze adult ivis.
+# TODO: Add code to get response beta for the three analysis methods for the top
+#       fit for each simType for each recording. Then find which simType has
+#       the response beta set that best matches the response beta set for the
+#       human recording. That may be a nice indicator of whether the real human
+#       data are best explained as non-interactive, one agent interactive, or
+#       both agents interactive.
+# TODO: Update all the above to also analyze adult ivis!
 ################################################################################
