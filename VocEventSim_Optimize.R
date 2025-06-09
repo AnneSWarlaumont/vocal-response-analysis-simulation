@@ -1,8 +1,8 @@
 setwd('~/Documents/GitHub/vocal-response-analysis-simulation/')
 
 #recordings = c("0344_000913","0833_010606","0054_000603")
-recordings = c("0196_000902")
-#recordings = c("0274_000221","0300_000607","0437_010603") # queued for future. This would have us using our lab's complete daylong vetted recordings that didn't contain any recorder pauses.
+#recordings = c("0196_000902")
+recordings = c("0274_000221","0300_000607","0437_010603") # queued for future. This would have us using our lab's complete daylong vetted recordings that didn't contain any recorder pauses.
 simTypes = c("nonInteractive","a2interactive","bidirectional")
 
 #nSims = 3 # for debugging
