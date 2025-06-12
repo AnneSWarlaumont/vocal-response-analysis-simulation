@@ -73,6 +73,11 @@ mtext("Onsets of human child vocalizations",side=3, line = 1, outer=TRUE, cex=2)
 
 dev.off()
 
+print(sims_df[fitOrder[1],]$chn_sim_minp)
+print(sims_df[fitOrder[1],]$chn_sim_maxp)
+print(sims_df[fitOrder[1],]$chn_sim_meanlog)
+print(sims_df[fitOrder[1],]$chn_sim_sdlog)
+
 # 
 # #################################################################################
 # # Plot fit to human data as a function of parameter value

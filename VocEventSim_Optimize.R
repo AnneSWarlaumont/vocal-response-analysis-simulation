@@ -6,7 +6,7 @@ setwd('~/Documents/GitHub/vocal-response-analysis-simulation/')
 #recordings = c("0344_000913","0833_010606","0054_000603","0196_000902","0274_000221","0300_000607","0437_010603")
 simTypes = c("adultGenerallySensitive_infantResponseSensitive","nonInteractive","a2interactive","bidirectional")
 
-nSims = 100
+nSims = 10000
 
 
 for (simType in simTypes){
@@ -99,7 +99,7 @@ for (simType in simTypes){
     
     source('VocEventSim.R')
     
-    sim_length = 16*60*60 # 16 hours
+    sim_length = (1+16)*60*60 # 16 hours + an hour of warm-up
     
     rthresh = 5
     
@@ -367,7 +367,7 @@ for (simType in simTypes){
     # save the simulation data
     ###########################
     
-    results_dir = paste("data/BatchOf100",simType,sep="")
+    results_dir = paste("data/BatchOf10000/",simType,sep="")
     
     if (!dir.exists(results_dir)){
       dir.create(results_dir)
