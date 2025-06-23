@@ -1,8 +1,6 @@
 setwd('~/Documents/GitHub/vocal-response-analysis-simulation/')
 
-# recordingsToAnalyze = c("0054_000603") # for debugging
-recordingsToAnalyze = c("0054_000603","0196_000902","0274_000221","0344_000913","0833_010606")
-# recordingsToAnalyze = c("0054_000603","0196_000902","0274_000221","0300_000607","0344_000913","0437_010603","0833_010606") # once all the recordings I have queued up have their simulations completed.
+recordingsToAnalyze = c("0054_000603","0196_000902","0274_000221","0300_000607","0344_000913","0437_010603","0833_010606") # once all the recordings I have queued up have their simulations completed.
 simTypesToAnalyze = c("nonInteractive","a2interactive","bidirectional")
 
 allSimFits <- data.frame(recording = character(),
@@ -175,7 +173,7 @@ for (simTypeToA in simTypesToAnalyze){
       ivi_r_record = c() # initialize the record of when adu responded to chn
       t = 1
       for (i in 1:n_ivi){
-        if (ivi_series[i]==1){
+        if (ivi_series[i]<=rthresh){
           ivi_r_record[i] = NA
         } else if (sum(adu_voc_record[(t+1):(t+rthresh)],na.rm = TRUE)>0){
           ivi_r_record[i] = 1
@@ -188,7 +186,7 @@ for (simTypeToA in simTypesToAnalyze){
       adu_ivi_r_record = c() # initialize the record of when chn responded to adu
       t = 1
       for (i in 1:adu_n_ivi){
-        if (adu_ivi_series[i]==1){
+        if (adu_ivi_series[i]<=rthresh){
           adu_ivi_r_record[i] = NA
         } else if (sum(chn_voc_record[(t+1):(t+rthresh)],na.rm = TRUE)>0){
           adu_ivi_r_record[i] = 1
@@ -362,6 +360,20 @@ adu_human_response_results = data.frame(recording = character(),
                                     rBeta3Upper = double(),
                                     rP3 = double())
 
+chn_cont_human_response_results = data.frame(recording = character(),
+                                        rBeta0 = double(),
+                                        rBeta0Lower = double(),
+                                        rBeta0Upper = double(),
+                                        rP0 = double(),
+                                        rBeta1 = double(),
+                                        rBeta1Lower = double(),
+                                        rBeta1Upper = double(),
+                                        rP1 = double(),
+                                        rBeta3 = double(),
+                                        rBeta3Lower = double(),
+                                        rBeta3Upper = double(),
+                                        rP3 = double())
+
 
 ivi_records = c()
 ivi_r_records = c()
@@ -375,7 +387,14 @@ adu_recordingIDs = c()
 adu_previvi_resids = c()
 adu_prev3ivi_resids = c()
 
+chn_cont_ivi_records = c()
+chn_cont_ivi_r_records = c()
+chn_cont_recordingIDs = c()
+chn_cont_previvi_resids = c()
+chn_cont_prev3ivi_resids = c()
+
 rthresh = 5
+
 get_ivis <- function(voc_record){
   ivi_record = c()
   voc1_t = NA # initialize the time of the first vocalization in the current IVI pair
@@ -391,6 +410,30 @@ get_ivis <- function(voc_record){
     }
   }
   return(ivi_record)
+}
+
+get_ivis_continuous <- function(a1_segments,a2_segments,rthresh){
+  ivi_record = c()
+  ivi_r_record = c()
+  voc1_endt = NA
+  voc2_startt = NA
+  for (n in 1:(nrow(a1_segments)-1)){
+    voc1_endt = a1_segments[n,]$endsec
+    voc2_startt = a1_segments[n+1,]$startsec
+    ivi = voc2_startt - voc1_endt
+    if (ivi!=0){
+      if (ivi<=rthresh){
+        ivi_r = NA 
+      } else if (any(between(a2_segments$startsec,voc1_endt,voc1_endt+rthresh))){
+        ivi_r = 1
+      } else{
+        ivi_r = 0
+      }
+      ivi_record = c(ivi_record,ivi)
+      ivi_r_record = c(ivi_r_record,ivi_r)
+    }
+  }
+  return(list(ivi_record,ivi_r_record))
 }
 
 for (recordingToA in recordingsToAnalyze){
@@ -414,7 +457,7 @@ for (recordingToA in recordingsToAnalyze){
   ivi_r_record = c() # initialize the record of when adu responded to chn
   t = 1
   for (i in 1:n_ivi){
-    if (chn_ivi_record[i]==1){
+    if (chn_ivi_record[i]<=rthresh){
       ivi_r_record[i] = NA
     } else if (sum(adu_voc_record[(t+1):(t+rthresh)],na.rm = TRUE)>0){
       ivi_r_record[i] = 1
@@ -426,7 +469,7 @@ for (recordingToA in recordingsToAnalyze){
   adu_ivi_r_record = c() # initialize the record of when adu responded to chn
   t = 1
   for (i in 1:adu_n_ivi){
-    if (adu_ivi_record[i]==1){
+    if (adu_ivi_record[i]<=rthresh){
       adu_ivi_r_record[i] = NA
     } else if (sum(chn_voc_record[(t+1):(t+rthresh)],na.rm = TRUE)>0){
       adu_ivi_r_record[i] = 1
@@ -444,6 +487,18 @@ for (recordingToA in recordingsToAnalyze){
   adu_ivi_r_records = c(adu_ivi_r_records,adu_ivi_r_record[4:adu_n_ivi])
   adu_recordingIDs = c(adu_recordingIDs,rep(recordingToA,(adu_n_ivi-3)))
   
+  chn_continuous = get_ivis_continuous(chn_segments,adu_segments,rthresh)
+  chn_cont_ivi_record = chn_continuous[[1]]
+  chn_cont_ivi_r_record = chn_continuous[[2]]
+  chn_n_ivi_cont = length(chn_cont_ivi_record)
+  chn_cont_ivi_records = c(chn_cont_ivi_records,chn_cont_ivi_record[4:chn_n_ivi_cont])
+  chn_cont_ivi_r_records = c(chn_cont_ivi_r_records,chn_cont_ivi_r_record[4:chn_n_ivi_cont])
+  chn_cont_recordingIDs = c(chn_cont_recordingIDs,rep(recordingToA,(chn_n_ivi_cont-3)))
+  
+  adu_continuous = get_ivis_continuous(adu_segments,chn_segments,rthresh)
+  adu_ivi_record_continuous = adu_continuous[[1]]
+  adu_ivi_r_record_continuous = adu_continuous[[2]]
+  
   # Correlate current IVI with previous IVI and get the residuals of that correlation
   previvi_model = lm(scale(log(chn_ivi_record[2:n_ivi]))~scale(log(chn_ivi_record[1:(n_ivi-1)])))
   previvi_resid = resid(previvi_model)
@@ -451,6 +506,9 @@ for (recordingToA in recordingsToAnalyze){
   adu_previvi_model = lm(scale(log(adu_ivi_record[2:adu_n_ivi]))~scale(log(adu_ivi_record[1:(adu_n_ivi-1)])))
   adu_previvi_resid = resid(adu_previvi_model)
   adu_previvi_resids = c(adu_previvi_resids,adu_previvi_resid[3:(adu_n_ivi-1)])
+  chn_cont_previvi_model = lm(scale(log(chn_cont_ivi_record[2:chn_n_ivi_cont]+1))~scale(log(chn_cont_ivi_record[1:(chn_n_ivi_cont-1)]+1)))
+  chn_cont_previvi_resid = resid(chn_cont_previvi_model)
+  chn_cont_previvi_resids = c(chn_cont_previvi_resids,chn_cont_previvi_resid[3:(chn_n_ivi_cont-1)])
   
   # Correlate current IVI with time since the past 3 a1 IVIs and get the residuals of that correlation
   prev3ivi_model = lm(scale(log(chn_ivi_record[4:n_ivi]))~scale(log(chn_ivi_record[3:(n_ivi-1)]))+(scale(log(chn_ivi_record[3:(n_ivi-1)])+log(chn_ivi_record[2:(n_ivi-2)])))+(scale(log(chn_ivi_record[3:(n_ivi-1)])+log(chn_ivi_record[2:(n_ivi-2)])+log(chn_ivi_record[1:(n_ivi-3)]))))
@@ -459,6 +517,9 @@ for (recordingToA in recordingsToAnalyze){
   adu_prev3ivi_model = lm(scale(log(adu_ivi_record[4:adu_n_ivi]))~scale(log(adu_ivi_record[3:(adu_n_ivi-1)]))+(scale(log(adu_ivi_record[3:(adu_n_ivi-1)])+log(adu_ivi_record[2:(adu_n_ivi-2)])))+(scale(log(adu_ivi_record[3:(adu_n_ivi-1)])+log(adu_ivi_record[2:(adu_n_ivi-2)])+log(adu_ivi_record[1:(adu_n_ivi-3)]))))
   adu_prev3ivi_resid = resid(adu_prev3ivi_model)
   adu_prev3ivi_resids = c(adu_prev3ivi_resids,adu_prev3ivi_resid)
+  chn_cont_prev3ivi_model = lm(scale(log(chn_cont_ivi_record[4:chn_n_ivi_cont]+1))~scale(log(chn_cont_ivi_record[3:(chn_n_ivi_cont-1)]+1))+(scale(log(chn_cont_ivi_record[3:(chn_n_ivi_cont-1)]+1)+log(chn_cont_ivi_record[2:(chn_n_ivi_cont-2)]+1)))+(scale(log(chn_cont_ivi_record[3:(chn_n_ivi_cont-1)]+1)+log(chn_cont_ivi_record[2:(chn_n_ivi_cont-2)]+1)+log(chn_cont_ivi_record[1:(chn_n_ivi_cont-3)]+1))))
+  chn_cont_prev3ivi_resid = resid(chn_cont_prev3ivi_model)
+  chn_cont_prev3ivi_resids = c(chn_cont_prev3ivi_resids,chn_cont_prev3ivi_resid)
   
   # Analyze using IVI-based approaches (our original and its variants controlling for previous IVIs)
   uncontrolled_response_model = lm(scale(log(chn_ivi_record[4:n_ivi]))~ivi_r_record[4:n_ivi])
@@ -467,6 +528,9 @@ for (recordingToA in recordingsToAnalyze){
   adu_uncontrolled_response_model = lm(scale(log(adu_ivi_record[4:adu_n_ivi]))~adu_ivi_r_record[4:adu_n_ivi])
   adu_residual_response_model = lm(scale(adu_previvi_resid[3:(adu_n_ivi-1)])~adu_ivi_r_record[4:adu_n_ivi])
   adu_prev3residual_response_model = lm(scale(adu_prev3ivi_resid)~adu_ivi_r_record[4:adu_n_ivi])
+  chn_cont_uncontrolled_response_model = lm(scale(log(chn_cont_ivi_record[4:chn_n_ivi_cont]+1))~chn_cont_ivi_r_record[4:chn_n_ivi_cont])
+  chn_cont_residual_response_model = lm(scale(chn_cont_previvi_resid[3:(chn_n_ivi_cont-1)])~chn_cont_ivi_r_record[4:chn_n_ivi_cont])
+  chn_cont_prev3residual_response_model = lm(scale(chn_cont_prev3ivi_resid)~chn_cont_ivi_r_record[4:chn_n_ivi_cont])
   
   rSummary0 = summary(uncontrolled_response_model)
   rBeta0 = rSummary0$coefficients["ivi_r_record[4:n_ivi]","Estimate"]
@@ -483,6 +547,14 @@ for (recordingToA in recordingsToAnalyze){
     adu_rCI0 = confint(adu_uncontrolled_response_model, "adu_ivi_r_record[4:adu_n_ivi]", level = 0.99)
   } else{
     adu_rCI0 = confint.merMod(adu_uncontrolled_response_model, "adu_ivi_r_record[4:adu_n_ivi]", level = 0.99) 
+  }
+  chn_cont_rSummary0 = summary(chn_cont_uncontrolled_response_model)
+  chn_cont_rBeta0 = chn_cont_rSummary0$coefficients["chn_cont_ivi_r_record[4:chn_n_ivi_cont]","Estimate"]
+  chn_cont_rP0 = chn_cont_rSummary0$coefficients["chn_cont_ivi_r_record[4:chn_n_ivi_cont]","Pr(>|t|)"]
+  if (class(chn_cont_uncontrolled_response_model)=="lm"){
+    chn_cont_rCI0 = confint(chn_cont_uncontrolled_response_model, "chn_cont_ivi_r_record[4:chn_n_ivi_cont]", level = 0.99)
+  } else{
+    chn_cont_rCI0 = confint.merMod(chn_cont_uncontrolled_response_model, "chn_cont_ivi_r_record[4:chn_n_ivi_cont]", level = 0.99) 
   }
   
   rSummary1 = summary(residual_response_model)
@@ -501,6 +573,14 @@ for (recordingToA in recordingsToAnalyze){
   } else{
     adu_rCI1 = confint.merMod(adu_residual_response_model, "adu_ivi_r_record[4:adu_n_ivi]", level = 0.99) 
   }
+  chn_cont_rSummary1 = summary(chn_cont_residual_response_model)
+  chn_cont_rBeta1 = chn_cont_rSummary1$coefficients["chn_cont_ivi_r_record[4:chn_n_ivi_cont]","Estimate"]
+  chn_cont_rP1 = chn_cont_rSummary1$coefficients["chn_cont_ivi_r_record[4:chn_n_ivi_cont]","Pr(>|t|)"]
+  if (class(chn_cont_residual_response_model)=="lm"){
+    chn_cont_rCI1 = confint(chn_cont_residual_response_model, "chn_cont_ivi_r_record[4:chn_n_ivi_cont]", level = 0.99)
+  } else{
+    chn_cont_rCI1 = confint.merMod(chn_cont_residual_response_model, "chn_cont_ivi_r_record[4:chn_n_ivi_cont]", level = 0.99) 
+  }
   
   rSummary3 = summary(prev3residual_response_model)
   rBeta3 = rSummary3$coefficients["ivi_r_record[4:n_ivi]","Estimate"]
@@ -517,6 +597,14 @@ for (recordingToA in recordingsToAnalyze){
     adu_rCI3 = confint(adu_prev3residual_response_model, "adu_ivi_r_record[4:adu_n_ivi]", level = 0.99)
   } else{
     adu_rCI3 = confint.merMod(adu_prev3residual_response_model, "adu_ivi_r_record[4:adu_n_ivi]", level = 0.99) 
+  }
+  chn_cont_rSummary3 = summary(chn_cont_prev3residual_response_model)
+  chn_cont_rBeta3 = chn_cont_rSummary3$coefficients["chn_cont_ivi_r_record[4:chn_n_ivi_cont]","Estimate"]
+  chn_cont_rP3 = chn_cont_rSummary3$coefficients["chn_cont_ivi_r_record[4:chn_n_ivi_cont]","Pr(>|t|)"]
+  if (class(chn_cont_prev3residual_response_model)=="lm"){
+    chn_cont_rCI3 = confint(chn_cont_prev3residual_response_model, "chn_cont_ivi_r_record[4:chn_n_ivi_cont]", level = 0.99)
+  } else{
+    chn_cont_rCI3 = confint.merMod(chn_cont_prev3residual_response_model, "chn_cont_ivi_r_record[4:chn_n_ivi_cont]", level = 0.99) 
   }
   
   newrow = data.frame(recording = recordingToA,
@@ -548,6 +636,21 @@ for (recordingToA in recordingsToAnalyze){
                       rBeta3Upper = adu_rCI3[1,2],
                       rP3 = adu_rP3)
   adu_human_response_results = rbind(adu_human_response_results,adu_newrow)
+  
+  chn_cont_newrow = data.frame(recording = recordingToA,
+                          rBeta0 = chn_cont_rBeta0,
+                          rBeta0Lower = chn_cont_rCI0[1,1],
+                          rBeta0Upper = chn_cont_rCI0[1,2],
+                          rP0 = chn_cont_rP0,
+                          rBeta1 = chn_cont_rBeta1,
+                          rBeta1Lower = chn_cont_rCI1[1,1],
+                          rBeta1Upper = chn_cont_rCI1[1,2],
+                          rP1 = chn_cont_rP1,
+                          rBeta3 = chn_cont_rBeta3,
+                          rBeta3Lower = chn_cont_rCI3[1,1],
+                          rBeta3Upper = chn_cont_rCI3[1,2],
+                          rP3 = chn_cont_rP3)
+  chn_cont_human_response_results = rbind(chn_cont_human_response_results,chn_cont_newrow)
   
 }
 

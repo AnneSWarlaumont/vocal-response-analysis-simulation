@@ -55,6 +55,8 @@ pdf(file="Fig_MultiscaleClusters_Simulation.pdf")
 par(mfrow=c(3,1),cex=1,mar=c(1,1,2,1),oma=c(0,0,4,0))
 stripchart(which(sims_chn_voc_records[[fitOrder[fitRank]]]==1),xaxt="n",main="Full day simulation (10 hours)",pch=19,ylim=c(.5,1.5),xlim=c(0,sim_length))
 
+# Consider modifying the code below to automatically determine which 1-hour and 5-minute sections to zoom into.
+# It could be good to select the window with the median number of events?
 hr_offset = 0.2
 rect(xleft=hr_offset*60*60,xright=3600+hr_offset*60*60,ybottom=0,ytop=2,col=rgb(0.5,0.5,0.5,.3),border=NA)
 chn_sim_voc_record_1hr = sims_chn_voc_records[[fitOrder[fitRank]]][(hr_offset*60*60+1):(hr_offset*60*60+3600)]
