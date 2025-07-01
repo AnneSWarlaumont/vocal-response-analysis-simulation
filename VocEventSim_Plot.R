@@ -118,41 +118,124 @@ final_grid <- (quadrants[[1]] | quadrants[[2]]) /
 
 ggsave("grid_plot.pdf",plot=final_grid,width=8.5,height=11,units="in")
 
-fitRank = 1
-load('data/0344_000913/nonInteractive/VocEventSim_Optimize.RData')
-chi_ivi = chn_ivi_record
-adu_ivi = adu_ivi_record
-chi_ivi_datasets <- list(chi_ivi)
-adu_ivi_datasets <- list(adu_ivi)
-chi_ivi = sims_chn_ivi_records[[fitOrder[fitRank]]]
-adu_voc = sims_adu_voc_records[[fitOrder[fitRank]]]
-chi_ivi_datasets = append(chi_ivi_datasets,list(chi_ivi))
-adu_ivi_datasets = append(adu_ivi_datasets,list(adu_ivi))
-load('data/0344_000913/a2Interactive/VocEventSim_Optimize.RData')
-chi_ivi = sims_chn_ivi_records[[fitOrder[fitRank]]]
-adu_voc = sims_adu_voc_records[[fitOrder[fitRank]]]
-chi_ivi_datasets = append(chi_ivi_datasets,list(chi_ivi))
-adu_ivi_datasets = append(adu_ivi_datasets,list(adu_ivi))
-load('data/0344_000913/bidirectional/VocEventSim_Optimize.RData')
-chi_ivi = sims_chn_ivi_records[[fitOrder[fitRank]]]
-adu_voc = sims_adu_voc_records[[fitOrder[fitRank]]]
-chi_ivi_datasets = append(chi_ivi_datasets,list(chi_ivi))
-adu_ivi_datasets = append(adu_ivi_datasets,list(adu_ivi))
-dataTypes = c("Human","No Interaction","Unidirectional Interaction","Bidirectional Interaction")
-
 ################################################################################
-# Plot log-log *chi* ivi distributions and obtain power law and lognormal fits
-# for the human and best-matched simulations of each type
+# IVI plotting/fitting on all recordings' best-matched sims
 ################################################################################
 
 library(poweRlaw)
+recordingsToAnalyze = c("0054_000603","0196_000902","0274_000221","0300_000607","0344_000913","0437_010603","0833_010606") # once all the recordings I have queued up have their simulations completed.
+fitRank = 1
+dataTypes = c("Human","No Interaction","Unidirectional Interaction","Bidirectional Interaction")
+init = TRUE
 
-pdf("chi_ivi.pdf", width = 8.5, height = 11)
+for (rec in recordingsToAnalyze){
+  
+  load(paste('data/',rec,'/nonInteractive/VocEventSim_Optimize.RData',sep=""))
+  chi_ivi = chn_ivi_record
+  adu_ivi = adu_ivi_record
+  chi_ivi_datasets <- list(chi_ivi)
+  adu_ivi_datasets <- list(adu_ivi)
+  chi_ivi = sims_chn_ivi_records[[fitOrder[fitRank]]]
+  adu_ivi = sims_adu_ivi_records[[fitOrder[fitRank]]]
+  chi_ivi_datasets = append(chi_ivi_datasets,list(chi_ivi))
+  adu_ivi_datasets = append(adu_ivi_datasets,list(adu_ivi))
+  load(paste('data/',rec,'/a2Interactive/VocEventSim_Optimize.RData',sep=""))
+  chi_ivi = sims_chn_ivi_records[[fitOrder[fitRank]]]
+  adu_ivi = sims_adu_ivi_records[[fitOrder[fitRank]]]
+  chi_ivi_datasets = append(chi_ivi_datasets,list(chi_ivi))
+  adu_ivi_datasets = append(adu_ivi_datasets,list(adu_ivi))
+  load(paste('data/',rec,'/bidirectional/VocEventSim_Optimize.RData',sep=""))
+  chi_ivi = sims_chn_ivi_records[[fitOrder[fitRank]]]
+  adu_ivi = sims_adu_ivi_records[[fitOrder[fitRank]]]
+  chi_ivi_datasets = append(chi_ivi_datasets,list(chi_ivi))
+  adu_ivi_datasets = append(adu_ivi_datasets,list(adu_ivi))
+  
+  pdf(paste("fig_chi_ivi_",rec,".pdf",sep=""), width = 8.5, height = 11)
+  par(mfrow = c(2, 2), oma = c(0, 0, 2, 0))
+  
+  if (init){
+    chi_ivi_datasets_big = chi_ivi_datasets
+    adu_ivi_datasets_big = adu_ivi_datasets
+  }
+  
+  for (n in 1:4){
+    
+    chi_ivi = chi_ivi_datasets[[n]]
+    dataType = dataTypes[n]
+    
+    if (!init){
+      chi_ivi_datasets_big[[n]] = append(chi_ivi_datasets_big[[n]],chi_ivi)
+      adu_ivi_datasets_big[[n]] = append(adu_ivi_datasets_big[[n]],adu_ivi)
+    }
+    
+    # power law model of human infant ivis
+    pl_m = displ$new(chi_ivi)
+    est_pl = estimate_xmin(pl_m)
+    pl_m$setXmin(est_pl[[2]])
+    pl_m$setPars(est_pl[[3]])
+    plot(pl_m, xlab = "IVI (s)", ylab = "Count", main = dataTypes[n])
+    lines(pl_m, col="purple",lwd = 2)
+    
+    # lognormal model of human infant ivis
+    ln_m = dislnorm$new(chi_ivi)
+    ln_m$setXmin(est_pl[[2]])
+    est_ln = estimate_xmin(ln_m)
+    ln_m$setPars(est_ln[[3]])
+    lines(ln_m, col="orange",lwd = 2)
+    
+    if(n==1){
+      legend(x="bottomleft",legend = c("power law fit","lognormal fit"), col=c("purple","orange"),lty=1,lwd = 2)
+    }
+    
+    comp = compare_distributions(pl_m, ln_m)
+    print(comp$test_statistic)
+    print(comp$p_two_sided)
+  }
+  
+  mtext("Child IVI distributions and fits", side = 3, outer = TRUE, cex = 1.5)
+  dev.off()
+  
+  pdf(paste("fig_adu_ivi_",rec,".pdf",sep=""), width = 8.5, height = 11)
+  par(mfrow = c(2, 2), oma = c(0, 0, 2, 0))
+  
+  for (n in 1:4){
+    adu_ivi = adu_ivi_datasets[[n]]
+    dataType = dataTypes[n]
+    
+    # power law model of human adult ivis
+    pl_m = displ$new(adu_ivi)
+    est_pl = estimate_xmin(pl_m)
+    pl_m$setXmin(est_pl[[2]])
+    pl_m$setPars(est_pl[[3]])
+    plot(pl_m, xlab = "IVI (s)", ylab = "Count", main = dataTypes[n])
+    lines(pl_m, col="purple",lwd = 2)
+    
+    # lognormal model of human adult ivis
+    ln_m = dislnorm$new(adu_ivi)
+    ln_m$setXmin(est_pl[[2]])
+    est_ln = estimate_xmin(ln_m)
+    ln_m$setPars(est_ln[[3]])
+    lines(ln_m, col="orange",lwd = 2)
+    
+    if(n==1){
+      legend(x="bottomleft",legend = c("power law fit","lognormal fit"), col=c("purple","orange"),lty=1,lwd = 2)
+    }
+    
+    comp = compare_distributions(pl_m, ln_m)
+    print(comp$test_statistic)
+    print(comp$p_two_sided)
+  }
+  
+  mtext("Adult IVI distributions and fits", side = 3, outer = TRUE, cex = 1.5)
+  dev.off()
+}
+
+pdf(paste("fig_chi_ivi_ALL.pdf",sep=""), width = 8.5, height = 11)
 par(mfrow = c(2, 2), oma = c(0, 0, 2, 0))
 
 for (n in 1:4){
-  chi_ivi = chi_ivi_datasets[[n]]
-  adu_ivi = adu_ivi_datasets[[n]]
+  
+  chi_ivi = chi_ivi_datasets_big[[n]]
   dataType = dataTypes[n]
   
   # power law model of human infant ivis
@@ -182,7 +265,37 @@ for (n in 1:4){
 mtext("Child IVI distributions and fits", side = 3, outer = TRUE, cex = 1.5)
 dev.off()
 
-################################################################################
-# Plot log-log *adu* ivi distributions and obtain power law and lognormal fits
-# for the human and best-matched simulations of each type
-################################################################################
+pdf("fig_adu_ivi_ALL.pdf", width = 8.5, height = 11)
+par(mfrow = c(2, 2), oma = c(0, 0, 2, 0))
+
+for (n in 1:4){
+  adu_ivi = adu_ivi_datasets_big[[n]]
+  dataType = dataTypes[n]
+  
+  # power law model of human adult ivis
+  pl_m = displ$new(adu_ivi)
+  est_pl = estimate_xmin(pl_m)
+  pl_m$setXmin(est_pl[[2]])
+  pl_m$setPars(est_pl[[3]])
+  plot(pl_m, xlab = "IVI (s)", ylab = "Count", main = dataTypes[n])
+  lines(pl_m, col="purple",lwd = 2)
+  
+  # lognormal model of human adult ivis
+  ln_m = dislnorm$new(adu_ivi)
+  ln_m$setXmin(est_pl[[2]])
+  est_ln = estimate_xmin(ln_m)
+  ln_m$setPars(est_ln[[3]])
+  lines(ln_m, col="orange",lwd = 2)
+  
+  if(n==1){
+    legend(x="bottomleft",legend = c("power law fit","lognormal fit"), col=c("purple","orange"),lty=1,lwd = 2)
+  }
+  
+  comp = compare_distributions(pl_m, ln_m)
+  print(comp$test_statistic)
+  print(comp$p_two_sided)
+}
+
+mtext("Adult IVI distributions and fits", side = 3, outer = TRUE, cex = 1.5)
+dev.off()
+
