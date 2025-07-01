@@ -750,6 +750,15 @@ write.csv(human_response_results, file = "data/chn_human_response_results.csv")
 write.csv(adu_human_response_results, file = "data/adu_human_response_results.csv")
 
 ################################################################################
+# For the best-matched simulations,
+# run other tests for adult effects on child from the extant literature
+# 1. Su et al.'s lag sequential method (RD index)
+# 2. Pretzer et al.'s sequential prediction approach
+# 3. Harbison et al.'s child vocal reciprocity test
+# 4. de Barbaro et al.'s Granger causality approach
+################################################################################
+
+################################################################################
 # TODO: Add code to get response beta for the three analysis methods for the top
 #       fit for each simType for each recording. Then find which simType has
 #       the response beta set that best matches the response beta set for the

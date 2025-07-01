@@ -23,6 +23,11 @@ datasets = append(datasets,list(data.frame(chi_voc,adu_voc,t = seq(1,length(chi_
 
 plot_quantile = 0.9
 
+################################################################################
+# Make raster plots of chi and adu vocs at full day, 1 hour, and 5 minute levels
+# for the human and best-matched simulations of each type
+################################################################################
+
 make_quadrant_plot <- function(data,quadrant_title = "") {
   
   window_size_1hr = 60*60
@@ -135,6 +140,11 @@ chi_ivi_datasets = append(chi_ivi_datasets,list(chi_ivi))
 adu_ivi_datasets = append(adu_ivi_datasets,list(adu_ivi))
 dataTypes = c("Human","No Interaction","Unidirectional Interaction","Bidirectional Interaction")
 
+################################################################################
+# Plot log-log *chi* ivi distributions and obtain power law and lognormal fits
+# for the human and best-matched simulations of each type
+################################################################################
+
 library(poweRlaw)
 
 pdf("chi_ivi.pdf", width = 8.5, height = 11)
@@ -172,105 +182,7 @@ for (n in 1:4){
 mtext("Child IVI distributions and fits", side = 3, outer = TRUE, cex = 1.5)
 dev.off()
 
-
-m = displ$new(sims_chn_ivi_records[[fitOrder[fitRank]]])
-est = estimate_xmin(m)
-m$setXmin(est[[2]])
-m$setPars(est[[3]])
-plot(m)
-lines(m, col=2)
-
-m = displ$new(adu_ivi_record)
-est = estimate_xmin(m)
-m$setXmin(est[[2]])
-m$setPars(est[[3]])
-plot(m)
-lines(m, col=2)
-
-m = displ$new(sims_adu_ivi_records[[fitOrder[fitRank]]])
-est = estimate_xmin(m)
-m$setXmin(est[[2]])
-m$setPars(est[[3]])
-plot(m)
-lines(m, col=2)
-
-pdf(file="Fig_MultiscaleClusters_Simulation.pdf")
-
-par(mfrow=c(3,1),cex=1,mar=c(1,1,2,1),oma=c(0,0,4,0))
-stripchart(which(sims_chn_voc_records[[fitOrder[fitRank]]]==1),xaxt="n",main="Full day simulation (10 hours)",pch=19,ylim=c(.5,1.5),xlim=c(0,sim_length))
-
-# Consider modifying the code below to automatically determine which 1-hour and 5-minute sections to zoom into.
-# It could be good to select the window with the median number of events?
-hr_offset = 0.2
-rect(xleft=hr_offset*60*60,xright=3600+hr_offset*60*60,ybottom=0,ytop=2,col=rgb(0.5,0.5,0.5,.3),border=NA)
-chn_sim_voc_record_1hr = sims_chn_voc_records[[fitOrder[fitRank]]][(hr_offset*60*60+1):(hr_offset*60*60+3600)]
-stripchart(which(chn_sim_voc_record_1hr==1),xaxt="n",main="1 hour within the day",pch=19,ylim=c(.5,1.5),xlim=c(0,3600))
-
-fivemin_offset = 8.5
-rect(xleft=fivemin_offset*60*5,xright=300+fivemin_offset*60*5,ybottom=0,ytop=2,col=rgb(0.5,0.5,0.5,.3),border=NA)
-chn_sim_voc_record_5min = chn_sim_voc_record_1hr[(fivemin_offset*60*5+1):(fivemin_offset*60*5+300)]
-stripchart(which(chn_sim_voc_record_5min==1),xaxt="n",main="5 minutes within the hour",pch=19,ylim=c(.5,1.5),xlim=c(0,300))
-mtext("Onsets of simulated child vocalizations",side=3, line = 1, outer=TRUE, cex=2)
-
-dev.off()
-
-pdf(file="Fig_MultiscaleClusters_Human.pdf")
-
-par(mfrow=c(3,1),cex=1,mar=c(1,1,2,1),oma=c(0,0,4,0))
-stripchart(which(chn_voc_record==1),xaxt="n",main="Full day recording (10 hours)",pch=19,ylim=c(.5,1.5),xlim=c(0,sim_length))
-
-rect(xleft=10000,xright=13600,ybottom=0,ytop=2,col=rgb(0.5,0.5,0.5,.3),border=NA)
-chn_voc_record_1hr = chn_voc_record[10000:13600]
-stripchart(which(chn_voc_record_1hr==1),xaxt="n",main="1 hour within the day",pch=19,ylim=c(.5,1.5),xlim=c(0,3600))
-
-fivemin_offset = 0
-rect(xleft=700,xright=1000,ybottom=0,ytop=2,col=rgb(0.5,0.5,0.5,.3),border=NA)
-chn_voc_record_5min = chn_voc_record_1hr[700:1000]
-stripchart(which(chn_voc_record_5min==1),xaxt="n",main="5 minutes within the hour",pch=19,ylim=c(.5,1.5),xlim=c(0,300))
-mtext("Onsets of human child vocalizations",side=3, line = 1, outer=TRUE, cex=2)
-
-dev.off()
-
-print(sims_df[fitOrder[1],]$chn_sim_minp)
-print(sims_df[fitOrder[1],]$chn_sim_maxp)
-print(sims_df[fitOrder[1],]$chn_sim_meanlog)
-print(sims_df[fitOrder[1],]$chn_sim_sdlog)
-
-load('data/0344_000913/a2interactive/VocEventSim_Optimize.RData')
-
-pdf(file="Fig_MultiscaleClusters_Simulation_a2interactive.pdf")
-
-par(mfrow=c(3,1),cex=1,mar=c(1,1,2,1),oma=c(0,0,4,0))
-stripchart(which(sims_chn_voc_records[[fitOrder[fitRank]]]==1),xaxt="n",main="Full day simulation (10 hours)",pch=19,ylim=c(.5,1.5),xlim=c(0,sim_length))
-
-hr_offset = 2.8
-rect(xleft=hr_offset*60*60,xright=3600+hr_offset*60*60,ybottom=0,ytop=2,col=rgb(0.5,0.5,0.5,.3),border=NA)
-chn_sim_voc_record_1hr = sims_chn_voc_records[[fitOrder[fitRank]]][(hr_offset*60*60+1):(hr_offset*60*60+3600)]
-stripchart(which(chn_sim_voc_record_1hr==1),xaxt="n",main="1 hour within the day",pch=19,ylim=c(.5,1.5),xlim=c(0,3600))
-
-fivemin_offset = 8.0
-rect(xleft=fivemin_offset*60*5,xright=300+fivemin_offset*60*5,ybottom=0,ytop=2,col=rgb(0.5,0.5,0.5,.3),border=NA)
-chn_sim_voc_record_5min = chn_sim_voc_record_1hr[(fivemin_offset*60*5+1):(fivemin_offset*60*5+300)]
-stripchart(which(chn_sim_voc_record_5min==1),xaxt="n",main="5 minutes within the hour",pch=19,ylim=c(.5,1.5),xlim=c(0,300))
-mtext("Onsets of simulated child vocalizations",side=3, line = 1, outer=TRUE, cex=2)
-
-dev.off()
-
-# 
-# #################################################################################
-# # Plot fit to human data as a function of parameter value
-# #################################################################################
-# 
-# library(lattice)
-# library(latticeExtra) 
-# 
-# # showing data points on the same color scale 
-# nona_sims_df = subset(sims_df, !is.na(simDist) & !is.infinite(simDist))
-# levelplot(simDist ~ chn_sim_minp * chn_sim_maxp, nona_sims_df, 
-#           panel = panel.levelplot.points, cex = 1.2) + layer_(panel.2dsmoother(..., n = 200))
-# levelplot(simDist ~ adu_sim_minp * adu_sim_maxp, nona_sims_df, 
-#           panel = panel.levelplot.points, cex = 1.2) + layer_(panel.2dsmoother(..., n = 200))
-# levelplot(simDist ~ chn_sim_sdlog * chn_sim_maxp, nona_sims_df, 
-#           panel = panel.levelplot.points, cex = 1.2) + layer_(panel.2dsmoother(..., n = 200))
-# levelplot(simDist ~ adu_sim_sdlog * adu_sim_maxp, nona_sims_df, 
-#           panel = panel.levelplot.points, cex = 1.2) + layer_(panel.2dsmoother(..., n = 200))
+################################################################################
+# Plot log-log *adu* ivi distributions and obtain power law and lognormal fits
+# for the human and best-matched simulations of each type
+################################################################################
