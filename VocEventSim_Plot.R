@@ -113,123 +113,65 @@ final_grid <- (quadrants[[1]] | quadrants[[2]]) /
 
 ggsave("grid_plot.pdf",plot=final_grid,width=8.5,height=11,units="in")
 
-window_size_1hr = 60*60
-n_1hr <- length(chi_voc)
-window_sums_1hr <- sapply(1:(n_1hr - window_size_1hr + 1), function(i) {
-  sum(chi_voc[i:(i + window_size_1hr - 1)])
-})
-target_count_1hr <- quantile(window_sums_1hr,probs=plot_quantile)
-matching_indices_1hr <- seq(which(window_sums_1hr == target_count_1hr)[1],which(window_sums_1hr == target_count_1hr)[1]+window_size_1hr)
-df_1hr = df[matching_indices_1hr,]
-
-window_size_5min = 5*60
-chi_voc_1hr = df_1hr$chi_voc
-n_5min <- length(chi_voc_1hr)
-window_sums_5min <- sapply(1:(n_5min - window_size_5min + 1), function(i) {
-  sum(chi_voc_1hr[i:(i + window_size_5min - 1)])
-})
-target_count_5min <- quantile(window_sums_5min,probs=plot_quantile)
-matching_indices_5min <- seq(which(window_sums_5min == target_count_5min)[1],which(window_sums_5min == target_count_5min)[1]+window_size_5min)
-df_5min = df_1hr[matching_indices_5min,]
-
-p1 <- df %>%
-  mutate(f = case_when(
-    adu_voc == 1 ~ "red",
-    chi_voc == 1 ~ "blue",
-    t %in% df_1hr$t ~ "lightgray",
-    TRUE ~ "white"
-  )) %>%
-  ggplot(aes(t,1,fill=f)) +
-  geom_tile() +
-  scale_fill_identity() +
-  theme_classic() +
-  ylab("full day") +
-  theme(
-    axis.line.y = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.text.y = element_blank()
-  )
-
-p2 <- df_1hr %>%
-  mutate(f = case_when(
-    adu_voc == 1 ~ "red",
-    chi_voc == 1 ~ "blue",
-    t %in% df_5min$t ~ "lightgray",
-    TRUE ~ "white"
-  )) %>%
-  ggplot(aes(t,1,fill=f)) +
-  geom_tile() +
-  scale_fill_identity() +
-  theme_classic() +
-  ylab("1 hour") +
-  theme(
-    axis.line.y = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.text.y = element_blank()
-  )
-
-p3 <- df_5min %>%
-  mutate(f = case_when(
-    adu_voc == 1 ~ "red",
-    chi_voc == 1 ~ "blue",
-    TRUE ~ "white"
-  )) %>%
-  ggplot(aes(t,1,fill=f)) +
-  geom_tile() +
-  scale_fill_identity() +
-  theme_classic() +
-  ylab("5 minutes") +
-  theme(
-    axis.line.y = element_blank(),
-    axis.ticks.y = element_blank(),
-    axis.text.y = element_blank()
-  )
-
-p1 / p2 / p3
-
-par(mfrow=c(3,1),cex=1,mar=c(1,1,2,1),oma=c(0,0,4,0))
-stripchart(which(sims_chn_voc_records[[fitOrder[fitRank]]]==1),xaxt="n",main="Full day simulation (10 hours)",pch=19,ylim=c(.5,1.5),xlim=c(0,sim_length))
-
-# Consider modifying the code below to automatically determine which 1-hour and 5-minute sections to zoom into.
-# It could be good to select the window with the median number of events?
-hr_offset = 0.2
-rect(xleft=hr_offset*60*60,xright=3600+hr_offset*60*60,ybottom=0,ytop=2,col=rgb(0.5,0.5,0.5,.3),border=NA)
-chn_sim_voc_record_1hr = sims_chn_voc_records[[fitOrder[fitRank]]][(hr_offset*60*60+1):(hr_offset*60*60+3600)]
-stripchart(which(chn_sim_voc_record_1hr==1),xaxt="n",main="1 hour within the day",pch=19,ylim=c(.5,1.5),xlim=c(0,3600))
-
-fivemin_offset = 8.5
-rect(xleft=fivemin_offset*60*5,xright=300+fivemin_offset*60*5,ybottom=0,ytop=2,col=rgb(0.5,0.5,0.5,.3),border=NA)
-chn_sim_voc_record_5min = chn_sim_voc_record_1hr[(fivemin_offset*60*5+1):(fivemin_offset*60*5+300)]
-stripchart(which(chn_sim_voc_record_5min==1),xaxt="n",main="5 minutes within the hour",pch=19,ylim=c(.5,1.5),xlim=c(0,300))
-mtext("Onsets of simulated child vocalizations",side=3, line = 1, outer=TRUE, cex=2)
-
-ggplot(as.data.frame(chn_ivi_record), aes(x=chn_ivi_record)) + geom_histogram(bins=10) + scale_x_log10() + scale_y_log10()
-ggplot(as.data.frame(sims_chn_ivi_records[[fitOrder[fitRank]]]), aes(x=sims_chn_ivi_records[[fitOrder[fitRank]]])) + geom_histogram() + scale_x_log10() + scale_y_log10()
-
-hist(log(chn_ivi_record))
-hist(log(sims_chn_ivi_records[[fitOrder[fitRank]]]))
-hist(log(adu_ivi_record))
-hist(log(sims_adu_ivi_records[[fitOrder[fitRank]]]))
+fitRank = 1
+load('data/0344_000913/nonInteractive/VocEventSim_Optimize.RData')
+chi_ivi = chn_ivi_record
+adu_ivi = adu_ivi_record
+chi_ivi_datasets <- list(chi_ivi)
+adu_ivi_datasets <- list(adu_ivi)
+chi_ivi = sims_chn_ivi_records[[fitOrder[fitRank]]]
+adu_voc = sims_adu_voc_records[[fitOrder[fitRank]]]
+chi_ivi_datasets = append(chi_ivi_datasets,list(chi_ivi))
+adu_ivi_datasets = append(adu_ivi_datasets,list(adu_ivi))
+load('data/0344_000913/a2Interactive/VocEventSim_Optimize.RData')
+chi_ivi = sims_chn_ivi_records[[fitOrder[fitRank]]]
+adu_voc = sims_adu_voc_records[[fitOrder[fitRank]]]
+chi_ivi_datasets = append(chi_ivi_datasets,list(chi_ivi))
+adu_ivi_datasets = append(adu_ivi_datasets,list(adu_ivi))
+load('data/0344_000913/bidirectional/VocEventSim_Optimize.RData')
+chi_ivi = sims_chn_ivi_records[[fitOrder[fitRank]]]
+adu_voc = sims_adu_voc_records[[fitOrder[fitRank]]]
+chi_ivi_datasets = append(chi_ivi_datasets,list(chi_ivi))
+adu_ivi_datasets = append(adu_ivi_datasets,list(adu_ivi))
+dataTypes = c("Human","No Interaction","Unidirectional Interaction","Bidirectional Interaction")
 
 library(poweRlaw)
 
-# power law model of human infant ivis
-pl_m = displ$new(chn_ivi_record)
-est_pl = estimate_xmin(pl_m)
-pl_m$setXmin(est_pl[[2]])
-pl_m$setPars(est_pl[[3]])
-plot(pl_m)
-lines(pl_m, col=2)
+pdf("chi_ivi.pdf", width = 8.5, height = 11)
+par(mfrow = c(2, 2), oma = c(0, 0, 2, 0))
 
-# lognormal model of human infant ivis
-ln_m = dislnorm$new(chn_ivi_record)
-ln_m$setXmin(est_pl[[2]])
-est_ln = estimate_xmin(ln_m)
-ln_m$setPars(est_ln[[3]])
-lines(ln_m, col=3)
+for (n in 1:4){
+  chi_ivi = chi_ivi_datasets[[n]]
+  adu_ivi = adu_ivi_datasets[[n]]
+  dataType = dataTypes[n]
+  
+  # power law model of human infant ivis
+  pl_m = displ$new(chi_ivi)
+  est_pl = estimate_xmin(pl_m)
+  pl_m$setXmin(est_pl[[2]])
+  pl_m$setPars(est_pl[[3]])
+  plot(pl_m, xlab = "IVI (s)", ylab = "Count", main = dataTypes[n])
+  lines(pl_m, col="purple",lwd = 2)
+  
+  # lognormal model of human infant ivis
+  ln_m = dislnorm$new(chi_ivi)
+  ln_m$setXmin(est_pl[[2]])
+  est_ln = estimate_xmin(ln_m)
+  ln_m$setPars(est_ln[[3]])
+  lines(ln_m, col="orange",lwd = 2)
+  
+  if(n==1){
+    legend(x="bottomleft",legend = c("power law fit","lognormal fit"), col=c("purple","orange"),lty=1,lwd = 2)
+  }
+  
+  comp = compare_distributions(pl_m, ln_m)
+  print(comp$test_statistic)
+  print(comp$p_two_sided)
+}
 
-comp = compare_distributions(pl_m, ln_m)
-comp$test_statistic
+mtext("Child IVI distributions and fits", side = 3, outer = TRUE, cex = 1.5)
+dev.off()
+
 
 m = displ$new(sims_chn_ivi_records[[fitOrder[fitRank]]])
 est = estimate_xmin(m)
