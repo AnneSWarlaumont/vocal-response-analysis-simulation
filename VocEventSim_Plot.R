@@ -260,6 +260,8 @@ for (n in 1:4){
   comp = compare_distributions(pl_m, ln_m)
   print(comp$test_statistic)
   print(comp$p_two_sided)
+  print(pl_m$pars)
+  print("")
 }
 
 mtext("Child IVI distributions and fits", side = 3, outer = TRUE, cex = 1.5)
