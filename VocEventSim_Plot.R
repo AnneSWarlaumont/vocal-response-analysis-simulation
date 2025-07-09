@@ -173,7 +173,7 @@ for (rec in recordingsToAnalyze){
     est_pl = estimate_xmin(pl_m)
     pl_m$setXmin(est_pl[[2]])
     pl_m$setPars(est_pl[[3]])
-    plot(pl_m, xlab = "IVI (s)", ylab = "Count", main = dataTypes[n])
+    plot(pl_m, xlab = "IVI (s)", ylab = "Cumulative distribution", main = dataTypes[n])
     lines(pl_m, col="purple",lwd = 2)
     
     # lognormal model of human infant ivis
@@ -207,7 +207,7 @@ for (rec in recordingsToAnalyze){
     est_pl = estimate_xmin(pl_m)
     pl_m$setXmin(est_pl[[2]])
     pl_m$setPars(est_pl[[3]])
-    plot(pl_m, xlab = "IVI (s)", ylab = "Count", main = dataTypes[n])
+    plot(pl_m, xlab = "IVI (s)", ylab = "Cumulative distribution", main = dataTypes[n])
     lines(pl_m, col="purple",lwd = 2)
     
     # lognormal model of human adult ivis
@@ -243,7 +243,7 @@ for (n in 1:4){
   est_pl = estimate_xmin(pl_m)
   pl_m$setXmin(est_pl[[2]])
   pl_m$setPars(est_pl[[3]])
-  plot(pl_m, xlab = "IVI (s)", ylab = "Count", main = dataTypes[n])
+  plot(pl_m, xlab = "IVI (s)", ylab = "Count >= IVI", main = dataTypes[n])
   lines(pl_m, col="purple",lwd = 2)
   
   # lognormal model of human infant ivis
@@ -279,7 +279,7 @@ for (n in 1:4){
   est_pl = estimate_xmin(pl_m)
   pl_m$setXmin(est_pl[[2]])
   pl_m$setPars(est_pl[[3]])
-  plot(pl_m, xlab = "IVI (s)", ylab = "Count", main = dataTypes[n])
+  plot(pl_m, xlab = "IVI (s)", ylab = "Count >= IVI", main = dataTypes[n])
   lines(pl_m, col="purple",lwd = 2)
   
   # lognormal model of human adult ivis
