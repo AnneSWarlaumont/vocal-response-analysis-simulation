@@ -228,6 +228,10 @@ for (rec in recordingsToAnalyze){
   
   mtext("Adult IVI distributions and fits", side = 3, outer = TRUE, cex = 1.5)
   dev.off()
+  
+  if (init){
+    init = FALSE
+  }
 }
 
 pdf(paste("fig_chi_ivi_ALL.pdf",sep=""), width = 8.5, height = 11)

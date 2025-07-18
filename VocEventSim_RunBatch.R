@@ -1,7 +1,7 @@
 setwd('~/Documents/GitHub/vocal-response-analysis-simulation/')
 
-#recordings = c("0344_000913","0833_010606","0054_000603","0196_000902","0274_000221","0300_000607","0437_010603")
-simTypes = c("adultGenerallySensitive_infantResponseSensitive","nonInteractive","a2interactive","bidirectional")
+recordings = c("0344_000913","0833_010606","0054_000603","0196_000902","0274_000221","0300_000607","0437_010603")
+simTypes = c("nonInteractive","a2interactive","bidirectional")
 
 nSims = 10000
 

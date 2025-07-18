@@ -1,5 +1,0 @@
-# To-do:
-# * Add code to create visualizations of vocalization probability and vocalization events over time.
-# * Decouple computing response for increase in a1's voc probability from computing response for analysis purposes. Then test the effects of analyzing the data with different time windows, assuming different infant response sensitivities
-# * Develop an analysis method that can identify sensitivity to other vocalization regardless of contingency
-# * Try using a more flexible prediction of next vocalization onset, e.g. using reservoir computing for time/event series prediction
