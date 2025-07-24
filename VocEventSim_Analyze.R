@@ -1,33 +1,17 @@
 setwd('~/Documents/GitHub/vocal-response-analysis-simulation/')
 
 recordingsToAnalyze = c("0054_000603","0196_000902","0274_000221","0300_000607","0344_000913","0437_010603","0833_010606") # once all the recordings I have queued up have their simulations completed.
-simTypesToAnalyze = c("nonInteractive","a2interactive","bidirectional")
+#simTypesToAnalyze = c("nonInteractive","a2interactive","bidirectional")
+simTypesToAnalyze <- c("nonInteractive")
 
-allSimFits <- data.frame(recording = character(),
-                      simType = character(),
-                      simNum = integer(),
-                      fitType = character(),
-                      simDist = double(),
-                      fitOrder = integer(),
-                      stringsAsFactors = FALSE)
+# To-do: write code to load allSimFits
 
-#############################################################
-# Assess the fit between each simulation and each recording,
-# with and without turn count included.
-#
-# It would be good to add tests for statistical significance
-# between simulation types.
-#
-# It may also be good to add an evaluation of fit based on
-# match of the 3 prev ivi controlled ivi response beta.
-#############################################################
+##############################################################################
+# The code below is old; I am adapting it to the all-in-one batch simulations
+##############################################################################
 
 for (recordingToA in recordingsToAnalyze){
   for (simTypeToA in simTypesToAnalyze){
-    
-    # Load in the simulation data
-    recording_file = paste("data/",recordingToA,"/",simTypeToA,"/VocEventSim_Optimize.RData",sep="")
-    load(recording_file)
     
     simFits = data.frame(recording = rep(recordingToA,nSims),
                          simType = rep(simTypeToA,nSims),
