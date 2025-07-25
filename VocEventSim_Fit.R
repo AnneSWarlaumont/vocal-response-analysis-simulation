@@ -1,8 +1,7 @@
 setwd('~/Documents/GitHub/vocal-response-analysis-simulation/')
 
 recordings = c("0054_000603","0196_000902","0274_000221","0300_000607","0344_000913","0437_010603","0833_010606") # once all the recordings I have queued up have their simulations completed.
-#simTypesToAnalyze = c("nonInteractive","a2interactive","bidirectional")
-simTypes <- c("nonInteractive","a2interactive")
+simTypes = c("nonInteractive","a2interactive","bidirectional")
 warmup <- 1*60*60 # a one-hour simulation warmup period before matching to the human recording begins
 
 simfits_df <- data.frame(simType = character(),
