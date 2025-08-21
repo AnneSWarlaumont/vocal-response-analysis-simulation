@@ -1,80 +1,36 @@
 setwd('~/Documents/GitHub/vocal-response-analysis-simulation/')
 
 recordingsToAnalyze = c("0054_000603","0196_000902","0274_000221","0300_000607","0344_000913","0437_010603","0833_010606") # once all the recordings I have queued up have their simulations completed.
-#simTypesToAnalyze = c("nonInteractive","a2interactive","bidirectional")
-simTypesToAnalyze <- c("nonInteractive")
+simTypesToAnalyze = c("nonInteractive","a2interactive","bidirectional")
 
-# To-do: write code to load allSimFits
-
-##############################################################################
-# The code below is old; I am adapting it to the all-in-one batch simulations
-##############################################################################
-
-for (recordingToA in recordingsToAnalyze){
-  for (simTypeToA in simTypesToAnalyze){
-    
-    simFits = data.frame(recording = rep(recordingToA,nSims),
-                         simType = rep(simTypeToA,nSims),
-                         simNum = seq(1,nSims),
-                         fitType = rep("noTurns",nSims),
-                         simDist = sims_df$simDist_noTurns,
-                         fitOrder = fitOrder_noTurns)
-    allSimFits = rbind(allSimFits,simFits)
-    
-    simFits = data.frame(recording = rep(recordingToA,nSims),
-                         simType = rep(simTypeToA,nSims),
-                         simNum = seq(1,nSims),
-                         fitType = rep("wTurns",nSims),
-                         simDist = sims_df$simDist_wTurns,
-                         fitOrder = fitOrder_wTurns)
-    allSimFits = rbind(allSimFits,simFits)
-    
-    simFits = data.frame(recording = rep(recordingToA,nSims),
-                         simType = rep(simTypeToA,nSims),
-                         simNum = seq(1,nSims),
-                         fitType = rep("onlyTurns",nSims),
-                         simDist = sims_df$simDist_onlyTurns,
-                         fitOrder = fitOrder_onlyTurns)
-    allSimFits = rbind(allSimFits,simFits)
-    
-    
-  }
-}
-
-# export allSimFits to csv
-write.csv(allSimFits, file = "data/allSimFits.csv")
+allSimFits = read.csv("data/simfits.csv")
 
 bestFitDists_stats = data.frame(simType = character(),
-                                fitType = character(),
                                 mean = double(),
                                 sd = double())
 bestFitDists_details = data.frame(simType = character(),
-                                  fitType = character(),
                                   recording = character(),
                                   bestFitDist = double())
+
 for (simTypeToA in simTypesToAnalyze){
-  for (fitTypeToA in c("noTurns","wTurns","onlyTurns")){
-    simFits_subset = subset(allSimFits,((simType==simTypeToA)&(fitType==fitTypeToA)))
-    bestFitDists = double()
-    for (recordingToA in recordingsToAnalyze){
-      simFits_subsubset = subset(simFits_subset,recording==recordingToA)
-      bestFitRow = subset(simFits_subsubset,fitOrder==1)
-      bestFitDist = bestFitRow$simDist
-      details_row = data.frame(simType = simTypeToA,
-                                        fitType = fitTypeToA,
-                                        recording = recordingToA,
-                                        bestFitDist = bestFitDist)
-      bestFitDists_details = rbind(bestFitDists_details,details_row)
-      bestFitDists = c(bestFitDists,bestFitDist)
-    }
-    bestFitDists_mean = mean(bestFitDists)
-    bestFitDists_sd = sd(bestFitDists)
-    stats_row = data.frame(simType = simTypeToA,
-                                    fitType = fitTypeToA,
-                                    mean = bestFitDists_mean,
-                                    sd = bestFitDists_sd)
-    bestFitDists_stats = rbind(bestFitDists_stats,stats_row)
+  simFits_subset = subset(allSimFits,simType==simTypeToA)
+  bestFitDists = double()
+  for (recordingToA in recordingsToAnalyze){
+    simFits_subsubset = subset(simFits_subset,recording==recordingToA)
+    bestFitRow = subset(simFits_subsubset,fitRank==1)
+    bestFitDist = bestFitRow$simDist
+    details_row = data.frame(simType = simTypeToA,
+                             recording = recordingToA,
+                             bestFitDist = bestFitDist)
+    bestFitDists_details = rbind(bestFitDists_details,details_row)
+    bestFitDists = c(bestFitDists,bestFitDist)
   }
+  bestFitDists_mean = mean(bestFitDists)
+  bestFitDists_sd = sd(bestFitDists)
+  stats_row = data.frame(simType = simTypeToA,
+                         mean = bestFitDists_mean,
+                         sd = bestFitDists_sd)
+  bestFitDists_stats = rbind(bestFitDists_stats,stats_row)
 }
 write.csv(bestFitDists_details, file = "data/bestFitDists_details.csv")
 write.csv(bestFitDists_stats, file = "data/bestFitDists_stats.csv")
@@ -87,19 +43,19 @@ write.csv(bestFitDists_stats, file = "data/bestFitDists_stats.csv")
 # 3. control for 3 previous ivis.
 ################################################################################
 
-response_results = data.frame(simType = character(),
-                              rBeta0 = double(),
-                              rBeta0Lower = double(),
-                              rBeta0Upper = double(),
-                              rP0 = double(),
-                              rBeta1 = double(),
-                              rBeta1Lower = double(),
-                              rBeta1Upper = double(),
-                              rP1 = double(),
-                              rBeta3 = double(),
-                              rBeta3Lower = double(),
-                              rBeta3Upper = double(),
-                              rP3 = double())
+chi_response_results = data.frame(simType = character(),
+                                  rBeta0 = double(),
+                                  rBeta0Lower = double(),
+                                  rBeta0Upper = double(),
+                                  rP0 = double(),
+                                  rBeta1 = double(),
+                                  rBeta1Lower = double(),
+                                  rBeta1Upper = double(),
+                                  rP1 = double(),
+                                  rBeta3 = double(),
+                                  rBeta3Lower = double(),
+                                  rBeta3Upper = double(),
+                                  rP3 = double())
 
 adu_response_results = data.frame(simType = character(),
                                   rBeta0 = double(),
@@ -114,6 +70,14 @@ adu_response_results = data.frame(simType = character(),
                                   rBeta3Lower = double(),
                                   rBeta3Upper = double(),
                                   rP3 = double())
+
+##############################################################################
+# The code below is old; I am adapting it to the all-in-one batch simulations
+# fitOrder has been renamed fitRank
+# and there are no longer multiple different fitTypes
+# and I'm in the process of removing the assumption that chi is default
+# (adding the "chi_" prefix to various variable names)
+##############################################################################
 
 for (simTypeToA in simTypesToAnalyze){
   
