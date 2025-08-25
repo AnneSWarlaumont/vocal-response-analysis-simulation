@@ -101,6 +101,9 @@ for (simTypeToMatch in simTypesToAnalyze){
 ################################################################################
 
 source("get_ivis.R")
+chi_sim_ivi_records <- setNames(vector("list",length(simTypesToAnalyze)),
+                                simTypesToAnalyze)
+# HERE
 
 ################################################################################
 # For the best-matched simulations,
