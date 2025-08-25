@@ -2,6 +2,7 @@ setwd('~/Documents/GitHub/vocal-response-analysis-simulation/')
 
 recordingsToAnalyze = c("0054_000603","0196_000902","0274_000221","0300_000607","0344_000913","0437_010603","0833_010606") # once all the recordings I have queued up have their simulations completed.
 simTypesToAnalyze = c("nonInteractive","a2interactive","bidirectional")
+simsPerRecording = 20
 
 allSimFits = read.csv("data/simfits.csv")
 
@@ -34,6 +35,72 @@ for (simTypeToA in simTypesToAnalyze){
 }
 write.csv(bestFitDists_details, file = "data/bestFitDists_details.csv")
 write.csv(bestFitDists_stats, file = "data/bestFitDists_stats.csv")
+
+################################################################################
+# Identify the best-matched simulations whose data should be analyzed.
+# We should take the top 20 best-fitting simulations for each human infant
+# daylong recording. However, we don't want repeats of any simulation within
+# the dataset. So if there are cases of the same simulation being among the 20
+# best-fitting for multiple human recordings, we need a protocol for selecting
+# which human recording gets to keep its match with that simulation, and for
+# finding a replacement simulation for the other human recording(s).
+# One way to do this would be to start with the first best simulation.
+# Then randomly order the human recordings and then in that random order, get
+# the best fit simulation. If the best fit simulation in any case has already
+# been used, replace it with the next best fit simulation. Do this recursively
+# as needed. And then repeat 20 more times.
+################################################################################
+
+matches = data.frame(simType = character(),
+                    recording = character(),
+                    simNum = integer(),
+                    fitRank = integer())
+
+for (simTypeToMatch in simTypesToAnalyze){
+  
+  simFits_subset = subset(allSimFits,simType==simTypeToMatch)
+  used_sims = c()
+  nextFitRanks = setNames(rep(1,length(recordingsToAnalyze)),recordingsToAnalyze)
+  
+  for (i in 1:simsPerRecording){
+    
+    rand_sort_recordings = sample(recordingsToAnalyze)
+    
+    for (current_recording in rand_sort_recordings){
+      
+      simFits_subsubset = subset(simFits_subset,recording==current_recording)
+      
+      proposed_sim=NA
+      while(!any(proposed_sim %in% used_sims)){
+        nextFitRank = nextFitRanks[current_recording]
+        simFits_subsubsubset = subset(simFits_subsubset,fitRank==nextFitRank)
+        proposed_sim = simFits_subsubsubset$simNum
+        used_sims = c(used_sims,proposed_sim)
+        nextFitRanks[current_recording]<-nextFitRanks[current_recording]+1
+      }
+      matches_row = data.frame(simType = simTypeToMatch,
+                               recording = current_recording,
+                               simNum = proposed_sim,
+                               fitRank = nextFitRank)
+      matches = rbind(matches,matches_row)
+      
+    }
+
+  }
+  
+}
+
+################################################################################
+# Now for those best-matched simulations, save out their vocalization and IVI
+# records to prepare for subsequent statistical analysis.
+# I currently still need to figure out what format these data should be in.
+# This may work as a list (containing simTypes) of lists (containing recordings)
+# containing lists (of matching simulation IDs) of vectors (the vocalizations,
+# IVIs, predicted IVIs, residuals, and response records.
+# This is the part I'm currently working on...
+################################################################################
+
+source("get_ivis.R")
 
 ################################################################################
 # For the best-matched simulations,
@@ -71,6 +138,42 @@ adu_response_results = data.frame(simType = character(),
                                   rBeta3Upper = double(),
                                   rP3 = double())
 
+for (simTypeToA in simTypesToAnalyze){
+  
+  chi_ivi_records = c()
+  chi_ivi_r_records = c()
+  simIDs = c()
+  chi_previvi_resids = c()
+  chi_prev3ivi_resids = c()
+  adu_ivi_records = c()
+  adu_ivi_r_records = c()
+  adu_previvi_resids = c()
+  adu_prev3ivi_resids = c()
+  
+  # Load in the simulation data
+  data_file = paste("data/",simTypeToA,"/VocEventSim_Batch.RData",sep="")
+  load(data_file)
+  
+  simFits_subset = subset(allSimFits,simType==simTypeToA)
+  
+  for (recordingToA in recordingsToAnalyze){
+    
+    simFits_subsubset = subset(simFits_subset,recording==recordingToA)
+    
+    for (n in 1:simsPerRecording){ # do we want to allow repeats of the same simulation if it is among the top 20 fits for multiple recordings? probably not. but let's develop code without this check first.
+      
+      # Need to get the IVI record, matching to the duration of the human recording. See VocEventSim_Fit.R
+      
+      simFits_subsubsubset = subset(simFits_subsubset,fitRank==n)
+      
+      simID = simFits_subsubsubset$simNum
+      
+    }
+    
+  }
+  
+}
+
 ##############################################################################
 # The code below is old; I am adapting it to the all-in-one batch simulations
 # fitOrder has been renamed fitRank
@@ -106,7 +209,7 @@ for (simTypeToA in simTypesToAnalyze){
       fitOrder = fitOrder_wTurns
     }
     
-    for (fitRank in 1:20){
+    for (fitRank in 1:simsPerRecording){
 
       simID = simID + 1
       
