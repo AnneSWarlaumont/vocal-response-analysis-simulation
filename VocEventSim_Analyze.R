@@ -94,16 +94,41 @@ for (simTypeToMatch in simTypesToAnalyze){
 # Now for those best-matched simulations, save out their vocalization and IVI
 # records to prepare for subsequent statistical analysis.
 # I currently still need to figure out what format these data should be in.
-# This may work as a list (containing simTypes) of lists (containing recordings)
-# containing lists (of matching simulation IDs) of vectors (the vocalizations,
-# IVIs, predicted IVIs, residuals, and response records.
-# This is the part I'm currently working on...
+# This may work as lists of vectors (the vocalizations, IVIs, predicted IVIs,
+# residuals, and response records), where each list element aligns to a row of
+# the matches data frame.
+# The matching human recording can be found in the matches data frame.
+# That will be needed in order to determine what portion of the simulation to
+# include (see VocEventSim_Fit.R)
 ################################################################################
 
 source("get_ivis.R")
-chi_sim_ivi_records <- setNames(vector("list",length(simTypesToAnalyze)),
-                                simTypesToAnalyze)
-# HERE
+
+rec_lengths <- setNames(vector("list",length(recordingsToAnalyze)),recordingsToAnalyze)
+for (recording in recordingsToAnalyze){
+  recording_dir = paste("data/",recording,sep="")
+  lena_segments = read.csv(paste(recording_dir,"/",recording,"_segments.csv",sep=""))
+  rec_lengths[recording] = floor(lena_segments$endsec[nrow(lena_segments)])
+}
+
+chi_sim_voc_records <- vector("list",nrow(matches))
+adu_sim_voc_records <- vector("list",nrow(matches))
+chi_sim_ivi_records <- vector("list",nrow(matches))
+currentSimType = NA
+for (i in 1:nrow(matches)){
+  recording <- matches$recording[i]
+  rec_length <- rec_lengths[recording]
+  if (matches$simType[i]!=currentSimType){
+    simdata_file <- paste("data/",simType,"/VocEventSim_Batch.RData",sep="")
+    load(simdata_file)
+  }
+  chi_sim_voc_records[[i]] <- sims_chn_voc_records[[matches$simNum[i]]]
+  adu_sim_voc_records[[i]] <- sims_adu_voc_records[[matches$simNum[i]]]
+  # HERE to-do: get the chi_sim_ivi_record and adu_sim_ivi_record for this simulation
+  # Then get the response records,
+  # then perhaps the predicted and residuals (two methods),
+  # though the predictions part might be better placed in a separate code block
+}
 
 ################################################################################
 # For the best-matched simulations,
