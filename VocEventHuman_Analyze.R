@@ -152,28 +152,172 @@ for (recording in recordingsToAnalyze){
                                  +log(chi_cont_ivi_record[1:(chi_cont_n_ivi-3)]))))
   chi_cont_prev3ivi_resid <- resid(chi_cont_prev3ivi_model)
   
-  chi_ivi_records = c(chi_ivi_records,chi_ivi_record[4:chi_n_ivi])
-  chi_ivi_r_records = c(chi_ivi_r_records,chi_ivi_r_record[4:chi_n_ivi])
-  chi_recordingIDs = c(chi_recordingIDs,rep(recording,chi_n_ivi-3))
+  chi_ivi_record <- chi_ivi_record[4:chi_n_ivi]
+  chi_ivi_r_record <- chi_ivi_r_record[4:chi_n_ivi]
+  chi_recordingID <- rep(recording,chi_n_ivi-3)
+  chi_ivi_records = c(chi_ivi_records,chi_ivi_record)
+  chi_ivi_r_records = c(chi_ivi_r_records,chi_ivi_r_record)
+  chi_recordingIDs = c(chi_recordingIDs,chi_recordingID)
   chi_previvi_resids = c(chi_previvi_resids,chi_previvi_resid)
   chi_prev3ivi_resids = c(chi_prev3ivi_resids,chi_prev3ivi_resid)
   
-  adu_ivi_records = c(adu_ivi_records,adu_ivi_record[4:adu_n_ivi])
-  adu_ivi_r_records = c(adu_ivi_r_records,adu_ivi_r_record[4:adu_n_ivi])
-  adu_recordingIDs = c(adu_recordingIDs,rep(recording,adu_n_ivi-3))
+  adu_ivi_record <- adu_ivi_record[4:adu_n_ivi]
+  adu_ivi_r_record <- adu_ivi_r_record[4:adu_n_ivi]
+  adu_recordingID <- rep(recording,adu_n_ivi-3)
+  adu_ivi_records = c(adu_ivi_records,adu_ivi_record)
+  adu_ivi_r_records = c(adu_ivi_r_records,adu_ivi_r_record)
+  adu_recordingIDs = c(adu_recordingIDs,adu_recordingID)
   adu_previvi_resids = c(adu_previvi_resids,adu_previvi_resid)
   adu_prev3ivi_resids = c(adu_prev3ivi_resids,adu_prev3ivi_resid)
   
-  chi_cont_ivi_records = c(chi_cont_ivi_records,chi_cont_ivi_record[4:chi_cont_n_ivi])
-  chi_cont_ivi_r_records = c(chi_cont_ivi_r_records,chi_cont_ivi_r_record[4:chi_cont_n_ivi])
-  chi_cont_recordingIDs = c(chi_cont_recordingIDs,rep(recording,chi_cont_n_ivi-3))
+  chi_cont_ivi_record <- chi_cont_ivi_record[4:chi_cont_n_ivi]
+  chi_cont_ivi_r_record <- chi_cont_ivi_r_record[4:chi_cont_n_ivi]
+  chi_cont_recordingID <- rep(recording,chi_cont_n_ivi-3)
+  chi_cont_ivi_records = c(chi_cont_ivi_records,chi_cont_ivi_record)
+  chi_cont_ivi_r_records = c(chi_cont_ivi_r_records,chi_cont_ivi_r_record)
+  chi_cont_recordingIDs = c(chi_cont_recordingIDs,chi_cont_recordingID)
   chi_cont_previvi_resids = c(chi_cont_previvi_resids,chi_cont_previvi_resid)
   chi_cont_prev3ivi_resids = c(chi_cont_prev3ivi_resids,chi_cont_prev3ivi_resid)
+  
+  # Analyze this recording using IVI-based approaches
+  
+  chi_ivi_models = analyze_ivis(chi_ivi_record,chi_ivi_r_record,chi_previvi_resid,chi_prev3ivi_resid)
+  chi_uncontrolled_response_model = chi_ivi_models[[1]]
+  chi_residual_response_model = chi_ivi_models[[2]]
+  chi_prev3residual_response_model = chi_ivi_models[[3]]
+  adu_ivi_models = analyze_ivis(adu_ivi_record,adu_ivi_r_record,adu_previvi_resid,adu_prev3ivi_resid)
+  adu_uncontrolled_response_model = adu_ivi_models[[1]]
+  adu_residual_response_model = adu_ivi_models[[2]]
+  adu_prev3residual_response_model = adu_ivi_models[[3]]
+  chi_cont_ivi_models = analyze_ivis(chi_cont_ivi_record,chi_cont_ivi_r_record,chi_cont_previvi_resid,chi_cont_prev3ivi_resid)
+  chi_cont_uncontrolled_response_model = chi_cont_ivi_models[[1]]
+  chi_cont_residual_response_model = chi_cont_ivi_models[[2]]
+  chi_cont_prev3residual_response_model = chi_cont_ivi_models[[3]]
+  
+  chi_rSummary0 = summary(chi_uncontrolled_response_model)
+  chi_rBeta0 = chi_rSummary0$coefficients["ivi_response_records","Estimate"]
+  chi_rP0 = chi_rSummary0$coefficients["ivi_response_records","Pr(>|t|)"]
+  if (class(chi_uncontrolled_response_model)=="lm"){
+    chi_rCI0 = confint(chi_uncontrolled_response_model, "ivi_response_records", level = 0.99)
+  } else{
+    chi_rCI0 = confint.merMod(chi_uncontrolled_response_model, "ivi_response_records", level = 0.99) 
+  }
+  adu_rSummary0 = summary(adu_uncontrolled_response_model)
+  adu_rBeta0 = adu_rSummary0$coefficients["ivi_response_records","Estimate"]
+  adu_rP0 = adu_rSummary0$coefficients["ivi_response_records","Pr(>|t|)"]
+  if (class(adu_uncontrolled_response_model)=="lm"){
+    adu_rCI0 = confint(adu_uncontrolled_response_model, "ivi_response_records", level = 0.99)
+  } else{
+    adu_rCI0 = confint.merMod(adu_uncontrolled_response_model, "ivi_response_records", level = 0.99) 
+  }
+  chi_cont_rSummary0 = summary(chi_cont_uncontrolled_response_model)
+  chi_cont_rBeta0 = chi_cont_rSummary0$coefficients["ivi_response_records","Estimate"]
+  chi_cont_rP0 = chi_cont_rSummary0$coefficients["ivi_response_records","Pr(>|t|)"]
+  if (class(chi_cont_uncontrolled_response_model)=="lm"){
+    chi_cont_rCI0 = confint(chi_cont_uncontrolled_response_model, "ivi_response_records", level = 0.99)
+  } else{
+    chi_cont_rCI0 = confint.merMod(chi_cont_uncontrolled_response_model, "ivi_response_records", level = 0.99) 
+  }
+  
+  chi_rSummary1 = summary(chi_residual_response_model)
+  chi_rBeta1 = chi_rSummary1$coefficients["ivi_response_records","Estimate"]
+  chi_rP1 = chi_rSummary1$coefficients["ivi_response_records","Pr(>|t|)"]
+  if (class(chi_residual_response_model)=="lm"){
+    chi_rCI1 = confint(chi_residual_response_model, "ivi_response_records", level = 0.99)
+  } else{
+    chi_rCI1 = confint.merMod(chi_residual_response_model, "ivi_response_records", level = 0.99) 
+  }
+  adu_rSummary1 = summary(adu_residual_response_model)
+  adu_rBeta1 = adu_rSummary1$coefficients["ivi_response_records","Estimate"]
+  adu_rP1 = adu_rSummary1$coefficients["ivi_response_records","Pr(>|t|)"]
+  if (class(adu_residual_response_model)=="lm"){
+    adu_rCI1 = confint(adu_residual_response_model, "ivi_response_records", level = 0.99)
+  } else{
+    adu_rCI1 = confint.merMod(adu_residual_response_model, "ivi_response_records", level = 0.99) 
+  }
+  chi_cont_rSummary1 = summary(chi_cont_residual_response_model)
+  chi_cont_rBeta1 = chi_cont_rSummary1$coefficients["ivi_response_records","Estimate"]
+  chi_cont_rP1 = chi_cont_rSummary1$coefficients["ivi_response_records","Pr(>|t|)"]
+  if (class(chi_cont_residual_response_model)=="lm"){
+    chi_cont_rCI1 = confint(chi_cont_residual_response_model, "ivi_response_records", level = 0.99)
+  } else{
+    chi_cont_rCI1 = confint.merMod(chi_cont_residual_response_model, "ivi_response_records", level = 0.99) 
+  }
+  
+  chi_rSummary3 = summary(chi_prev3residual_response_model)
+  chi_rBeta3 = chi_rSummary3$coefficients["ivi_response_records","Estimate"]
+  chi_rP3 = chi_rSummary3$coefficients["ivi_response_records","Pr(>|t|)"]
+  if (class(chi_prev3residual_response_model)=="lm"){
+    chi_rCI3 = confint(chi_prev3residual_response_model, "ivi_response_records", level = 0.99)
+  } else{
+    chi_rCI3 = confint.merMod(chi_prev3residual_response_model, "ivi_response_records", level = 0.99) 
+  }
+  adu_rSummary3 = summary(adu_prev3residual_response_model)
+  adu_rBeta3 = adu_rSummary3$coefficients["ivi_response_records","Estimate"]
+  adu_rP3 = adu_rSummary3$coefficients["ivi_response_records","Pr(>|t|)"]
+  if (class(adu_prev3residual_response_model)=="lm"){
+    adu_rCI3 = confint(adu_prev3residual_response_model, "ivi_response_records", level = 0.99)
+  } else{
+    adu_rCI3 = confint.merMod(adu_prev3residual_response_model, "ivi_response_records", level = 0.99) 
+  }
+  chi_cont_rSummary3 = summary(chi_cont_prev3residual_response_model)
+  chi_cont_rBeta3 = chi_cont_rSummary3$coefficients["ivi_response_records","Estimate"]
+  chi_cont_rP3 = chi_cont_rSummary3$coefficients["ivi_response_records","Pr(>|t|)"]
+  if (class(chi_cont_prev3residual_response_model)=="lm"){
+    chi_cont_rCI3 = confint(chi_cont_prev3residual_response_model, "ivi_response_records", level = 0.99)
+  } else{
+    chi_cont_rCI3 = confint.merMod(chi_cont_prev3residual_response_model, "ivi_response_records", level = 0.99) 
+  }
+  
+  chi_newrow = data.frame(recording = recording,
+                          rBeta0 = chi_rBeta0,
+                          rBeta0Lower = chi_rCI0[1,1],
+                          rBeta0Upper = chi_rCI0[1,2],
+                          rP0 = chi_rP0,
+                          rBeta1 = chi_rBeta1,
+                          rBeta1Lower = chi_rCI1[1,1],
+                          rBeta1Upper = chi_rCI1[1,2],
+                          rP1 = chi_rP1,
+                          rBeta3 = chi_rBeta3,
+                          rBeta3Lower = chi_rCI3[1,1],
+                          rBeta3Upper = chi_rCI3[1,2],
+                          rP3 = chi_rP3)
+  chi_human_response_results = rbind(chi_human_response_results,chi_newrow)
+  
+  adu_newrow = data.frame(recording = recording,
+                          rBeta0 = adu_rBeta0,
+                          rBeta0Lower = adu_rCI0[1,1],
+                          rBeta0Upper = adu_rCI0[1,2],
+                          rP0 = adu_rP0,
+                          rBeta1 = adu_rBeta1,
+                          rBeta1Lower = adu_rCI1[1,1],
+                          rBeta1Upper = adu_rCI1[1,2],
+                          rP1 = adu_rP1,
+                          rBeta3 = adu_rBeta3,
+                          rBeta3Lower = adu_rCI3[1,1],
+                          rBeta3Upper = adu_rCI3[1,2],
+                          rP3 = adu_rP3)
+  adu_human_response_results = rbind(adu_human_response_results,adu_newrow)
+  
+  chi_cont_newrow = data.frame(recording = recording,
+                               rBeta0 = chi_cont_rBeta0,
+                               rBeta0Lower = chi_cont_rCI0[1,1],
+                               rBeta0Upper = chi_cont_rCI0[1,2],
+                               rP0 = chi_cont_rP0,
+                               rBeta1 = chi_cont_rBeta1,
+                               rBeta1Lower = chi_cont_rCI1[1,1],
+                               rBeta1Upper = chi_cont_rCI1[1,2],
+                               rP1 = chi_cont_rP1,
+                               rBeta3 = chi_cont_rBeta3,
+                               rBeta3Lower = chi_cont_rCI3[1,1],
+                               rBeta3Upper = chi_cont_rCI3[1,2],
+                               rP3 = chi_cont_rP3)
+  chi_cont_human_response_results = rbind(chi_cont_human_response_results,chi_cont_newrow)
+  
 }
 
-# HERE (basing this code on the analogous parts of VocEventsSim_Analyze.R)
-
-# Analyze using IVI-based approaches (our original and its variants controlling for previous IVIs)
+# Analyze full data (across recordings) using IVI-based approaches (our original
+# and its variants controlling for previous IVIs)
 chi_ivi_models = analyze_ivis(chi_ivi_records,chi_ivi_r_records,chi_previvi_resids,chi_prev3ivi_resids,as.factor(chi_recordingIDs))
 chi_uncontrolled_response_model = chi_ivi_models[[1]]
 chi_residual_response_model = chi_ivi_models[[2]]
