@@ -1,3 +1,5 @@
+setwd('~/Documents/GitHub/vocal-response-analysis-simulation/')
+
 source('VocEventSim.R')
 
 sim_length = 10*60*60
