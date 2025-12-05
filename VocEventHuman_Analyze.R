@@ -129,27 +129,27 @@ for (recording in recordingsToAnalyze){
   # of that correlation 
   chi_prev3ivi_model<-lm(scale(log(chi_ivi_record[4:chi_n_ivi]))
                              ~scale(log(chi_ivi_record[3:(chi_n_ivi-1)]))
-                             +(scale(log(chi_ivi_record[3:(chi_n_ivi-1)])
-                                     +log(chi_ivi_record[2:(chi_n_ivi-2)])))
-                             +(scale(log(chi_ivi_record[3:(chi_n_ivi-1)])
-                                     +log(chi_ivi_record[2:(chi_n_ivi-2)])
-                                     +log(chi_ivi_record[1:(chi_n_ivi-3)]))))
+                             +scale(log(chi_ivi_record[3:(chi_n_ivi-1)]
+                                     +chi_ivi_record[2:(chi_n_ivi-2)]))
+                             +scale(log(chi_ivi_record[3:(chi_n_ivi-1)]
+                                     +chi_ivi_record[2:(chi_n_ivi-2)]
+                                     +chi_ivi_record[1:(chi_n_ivi-3)])))
   chi_prev3ivi_resid <- resid(chi_prev3ivi_model)
   adu_prev3ivi_model<-lm(scale(log(adu_ivi_record[4:adu_n_ivi]))
                              ~scale(log(adu_ivi_record[3:(adu_n_ivi-1)]))
-                             +(scale(log(adu_ivi_record[3:(adu_n_ivi-1)])
-                                     +log(adu_ivi_record[2:(adu_n_ivi-2)])))
-                             +(scale(log(adu_ivi_record[3:(adu_n_ivi-1)])
-                                     +log(adu_ivi_record[2:(adu_n_ivi-2)])
-                                     +log(adu_ivi_record[1:(adu_n_ivi-3)]))))
+                             +scale(log(adu_ivi_record[3:(adu_n_ivi-1)]
+                                     +adu_ivi_record[2:(adu_n_ivi-2)]))
+                             +scale(log(adu_ivi_record[3:(adu_n_ivi-1)]
+                                     +adu_ivi_record[2:(adu_n_ivi-2)]
+                                     +adu_ivi_record[1:(adu_n_ivi-3)])))
   adu_prev3ivi_resid <- resid(adu_prev3ivi_model)
   chi_cont_prev3ivi_model<-lm(scale(log(chi_cont_ivi_record[4:chi_cont_n_ivi]))
                          ~scale(log(chi_cont_ivi_record[3:(chi_cont_n_ivi-1)]))
-                         +(scale(log(chi_cont_ivi_record[3:(chi_cont_n_ivi-1)])
-                                 +log(chi_cont_ivi_record[2:(chi_cont_n_ivi-2)])))
-                         +(scale(log(chi_cont_ivi_record[3:(chi_cont_n_ivi-1)])
-                                 +log(chi_cont_ivi_record[2:(chi_cont_n_ivi-2)])
-                                 +log(chi_cont_ivi_record[1:(chi_cont_n_ivi-3)]))))
+                         +scale(log(chi_cont_ivi_record[3:(chi_cont_n_ivi-1)]
+                                 +chi_cont_ivi_record[2:(chi_cont_n_ivi-2)]))
+                         +scale(log(chi_cont_ivi_record[3:(chi_cont_n_ivi-1)]
+                                 +chi_cont_ivi_record[2:(chi_cont_n_ivi-2)]
+                                 +chi_cont_ivi_record[1:(chi_cont_n_ivi-3)])))
   chi_cont_prev3ivi_resid <- resid(chi_cont_prev3ivi_model)
   
   chi_ivi_record <- chi_ivi_record[4:chi_n_ivi]

@@ -169,19 +169,19 @@ for (i in 1:nrow(matches)){
   # of that correlation 
   chi_sim_prev3ivi_model<-lm(scale(log(chi_sim_ivi_records[[i]][4:chi_n_ivi]))
                              ~scale(log(chi_sim_ivi_records[[i]][3:(chi_n_ivi-1)]))
-                             +(scale(log(chi_sim_ivi_records[[i]][3:(chi_n_ivi-1)])
-                                     +log(chi_sim_ivi_records[[i]][2:(chi_n_ivi-2)])))
-                             +(scale(log(chi_sim_ivi_records[[i]][3:(chi_n_ivi-1)])
-                                     +log(chi_sim_ivi_records[[i]][2:(chi_n_ivi-2)])
-                                     +log(chi_sim_ivi_records[[i]][1:(chi_n_ivi-3)]))))
+                             +scale(log(chi_sim_ivi_records[[i]][3:(chi_n_ivi-1)]
+                                     +chi_sim_ivi_records[[i]][2:(chi_n_ivi-2)]))
+                             +scale(log(chi_sim_ivi_records[[i]][3:(chi_n_ivi-1)]
+                                     +chi_sim_ivi_records[[i]][2:(chi_n_ivi-2)]
+                                     +chi_sim_ivi_records[[i]][1:(chi_n_ivi-3)])))
   chi_sim_prev3ivi_resids[[i]] <- resid(chi_sim_prev3ivi_model)
   adu_sim_prev3ivi_model<-lm(scale(log(adu_sim_ivi_records[[i]][4:adu_n_ivi]))
                              ~scale(log(adu_sim_ivi_records[[i]][3:(adu_n_ivi-1)]))
-                             +(scale(log(adu_sim_ivi_records[[i]][3:(adu_n_ivi-1)])
-                                     +log(adu_sim_ivi_records[[i]][2:(adu_n_ivi-2)])))
-                             +(scale(log(adu_sim_ivi_records[[i]][3:(adu_n_ivi-1)])
-                                     +log(adu_sim_ivi_records[[i]][2:(adu_n_ivi-2)])
-                                     +log(adu_sim_ivi_records[[i]][1:(adu_n_ivi-3)]))))
+                             +scale(log(adu_sim_ivi_records[[i]][3:(adu_n_ivi-1)]
+                                     +adu_sim_ivi_records[[i]][2:(adu_n_ivi-2)]))
+                             +scale(log(adu_sim_ivi_records[[i]][3:(adu_n_ivi-1)]
+                                     +adu_sim_ivi_records[[i]][2:(adu_n_ivi-2)]
+                                     +adu_sim_ivi_records[[i]][1:(adu_n_ivi-3)])))
   adu_sim_prev3ivi_resids[[i]] <- resid(adu_sim_prev3ivi_model)
   
 }
